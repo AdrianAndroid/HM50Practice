@@ -27,6 +27,10 @@
     {
       "name": "Page_FromStageModel_label",
       "value": "label"
+    },
+    {
+      "name": "hello_message",
+      "value": "Hello World"
     }
   ]
 }

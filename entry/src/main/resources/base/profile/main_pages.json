@@ -6,6 +6,7 @@
     "pages/Page_UIAbilityComponentsBasicUsage",
     "pages/Page_UIAbilityComponentsInteractive",
     "pages/Page_FromStageModel",
-    "pages/Page_FuncAbilityA"
+    "pages/Page_FuncAbilityA",
+    "pages/LifeCyclePage"
   ]
 }
