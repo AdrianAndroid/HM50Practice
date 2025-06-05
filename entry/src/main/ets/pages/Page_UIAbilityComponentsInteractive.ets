@@ -27,10 +27,9 @@ struct Page_UIAbilityComponentsInteractive {
               bundleName: 'com.example.myapplication',
               moduleName: 'entry', // moduleName非必选
               abilityName: 'FuncAbilityA',
-              parameters: {
-                // 自定义信息
-                info: '来自EntryAbility Page_UIAbilityComponentsInteractive页面'
-              },
+              parameters: { // 自定义参数传递页面信息
+                router: 'funcA'
+              }
             };
             context.startAbilityForResult(wantInfo)
               .then((data) => {

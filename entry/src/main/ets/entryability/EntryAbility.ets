@@ -9,7 +9,12 @@ const DOMAIN_NUMBER: number = 0xFF00;
 
 export default class EntryAbility extends UIAbility {
   windowStage: window.WindowStage | undefined = undefined;
+
+  funcAbilityWant: Want | undefined = undefined
+  uiContext : UIContext | undefined = undefined
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    this.funcAbilityWant = want
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     let context = this.context
     // 获取eventHub
@@ -69,8 +74,12 @@ export default class EntryAbility extends UIAbility {
     }
     hilog.info(DOMAIN_NUMBER, TAG, `%{public}s`, `Ability onWindowStageCreate`);
 
+    let url = 'pages/Index'
+    if (this.funcAbilityWant?.parameters?.router && this.funcAbilityWant.parameters.router === 'funcA') {
+      url = 'pages/Page_UIAbilityComponentsInteractive'
+    }
 
-    windowStage.loadContent('pages/Page_UIAbilityComponentsInteractive', (err) => {
+    windowStage.loadContent(url, (err) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
