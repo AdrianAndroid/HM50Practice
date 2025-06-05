@@ -2,6 +2,7 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+import Constants from '../common/Constants';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -11,11 +12,25 @@ export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     let context = this.context
+    // 获取eventHub
+    let eventhub = this.context.eventHub
+    // 执行订阅操作
+    eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
+    eventhub.on(Constants.EVENT_HUB_2, (data: string) => {
+      hilog.info(DOMAIN_NUMBER, TAG, '1. ' + `${data}`);
+    })
     hilog.info(0x0000, 'testTag', '%{public}s', `Ability onCreate context=${context}`);
+  }
+
+  eventFunc(argOne: Context, argTwo: Context): void {
+    hilog.info(DOMAIN_NUMBER, TAG, '2. ' + `${argOne}, ${argTwo}   typeOf argOne = ${typeof argOne}   typeOf argTwo = ${typeof argTwo}`);
+    return
   }
 
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    this.context.eventHub.off(Constants.EVENT_HUB_1)
+    this.context.eventHub.off(Constants.EVENT_HUB_2)
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -55,7 +70,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(DOMAIN_NUMBER, TAG, `%{public}s`, `Ability onWindowStageCreate`);
 
 
-    windowStage.loadContent('pages/Index', (err) => {
+    windowStage.loadContent('pages/Page_EventHub', (err) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
