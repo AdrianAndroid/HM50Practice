@@ -1,6 +1,6 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { Router, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import Constants from '../common/Constants';
 
@@ -84,8 +84,25 @@ export default class EntryAbility extends UIAbility {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
+      let windowClass : window.Window
+      windowStage.getMainWindow((err, data) => {
+        windowClass = data
+        this.uiContext = windowClass.getUIContext()
+      })
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
+  }
+
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    if (want?.parameters?.router && want.parameters.router === 'funcA') {
+      let funcAUrl = 'pages/Page_HotStartUp'
+      if (this.uiContext) {
+        let router: Router = this.uiContext.getRouter()
+        router.pushUrl({ url: funcAUrl }).catch((err: BusinessError) => {
+          hilog.error(DOMAIN_NUMBER, TAG, `Failed to push url. Code is ${err.code}, message is ${err.message}`);
+        })
+      }
+    }
   }
 
   onWindowStageDestroy(): void {
