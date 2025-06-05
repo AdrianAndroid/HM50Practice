@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/Second",
     "pages/Page_EventHub",
-    "pages/Page_UIAbilityComponentsBasicUsage"
+    "pages/Page_UIAbilityComponentsBasicUsage",
+    "pages/Page_UIAbilityComponentsInteractive",
+    "pages/Page_FromStageModel"
   ]
 }

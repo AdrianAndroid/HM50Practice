@@ -11,6 +11,22 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "FuncAbilityA_desc",
+      "value": "description"
+    },
+    {
+      "name": "FuncAbilityA_label",
+      "value": "label"
+    },
+    {
+      "name": "Page_FromStageModel_desc",
+      "value": "description"
+    },
+    {
+      "name": "Page_FromStageModel_label",
+      "value": "label"
     }
   ]
 }

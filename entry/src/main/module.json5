@@ -32,6 +32,15 @@
             ]
           }
         ]
+      },
+      {
+        "name": "FuncAbilityA",
+        "srcEntry": "./ets/funcabilitya/FuncAbilityA.ets",
+        "description": "$string:FuncAbilityA_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:FuncAbilityA_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background"
       }
     ],
     "extensionAbilities": [
