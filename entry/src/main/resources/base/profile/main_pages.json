@@ -13,6 +13,7 @@
     "pages/ArticleList",
     "pages/ForEachSort",
     "pages/MyComponent",
-    "pages/TextExample"
+    "pages/TextExample",
+    "pages/TextInputAreaExample"
   ]
 }

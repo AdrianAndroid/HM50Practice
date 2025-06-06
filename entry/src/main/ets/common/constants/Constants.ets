@@ -17,6 +17,7 @@ export default class Constants {
   static readonly PAGES_ForEachSort = 'pages/ForEachSort'
   static readonly PAGES_MyComponent = 'pages/MyComponent'
   static readonly PAGES_TextExample = 'pages/TextExample'
+  static readonly PAGES_TextInputAreaExample = 'pages/TextInputAreaExample'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
