@@ -1,16 +1,20 @@
 import Constants from '../common/constants/Constants';
-import Logger from '../common/util/Logger';
 
+@Observed
 class Article {
   id: string;
   title: string;
   brief: string;
+  isLiked: boolean;
+  likesCount: number;
 
 
-  constructor(id: string, title: string, brief: string) {
+  constructor(id: string, title: string, brief: string, isLiked: boolean, likesCount: number) {
     this.id = id;
     this.title = title;
     this.brief = brief;
+    this.isLiked = isLiked;
+    this.likesCount = likesCount;
   }
 }
 
@@ -18,61 +22,31 @@ class Article {
 @Entry
 @Component
 struct ArticleListView {
-  @State isListReachEnd: boolean = false;
   @State articleList: Array<Article> = [
-    new Article('001', '第1篇文章', '文章简介内容'),
-    new Article('002', '第2篇文章', '文章简介内容'),
-    new Article('003', '第3篇文章', '文章简介内容'),
-    new Article('004', '第4篇文章', '文章简介内容'),
-    new Article('005', '第5篇文章', '文章简介内容'),
-    new Article('006', '第6篇文章', '文章简介内容')
-  ]
-
-
-  loadMoreArticles() {
-    this.articleList.push(new Article('007', '加载的新文章', '文章简介内容'));
-  }
+    new Article('001', '第0篇文章', '文章简介内容', false, 100),
+    new Article('002', '第1篇文章', '文章简介内容', false, 100),
+    new Article('003', '第2篇文章', '文章简介内容', false, 100),
+    new Article('004', '第4篇文章', '文章简介内容', false, 100),
+    new Article('005', '第5篇文章', '文章简介内容', false, 100),
+    new Article('006', '第6篇文章', '文章简介内容', false, 100),
+  ];
 
 
   build() {
-    Column({ space: 5 }) {
-      List() {
-        ForEach(this.articleList, (item: Article) => {
-          ListItem() {
-            ArticleCard({ article: item })
-              .margin({ top: 20 })
-          }
-        }, (item: Article) => item.id)
-      }
-      .width(Constants.FULL_WIDTH)
-      .height(Constants.FULL_HEIGHT)
-      .onReachEnd(() => {
-        this.isListReachEnd = true;
-      })
-      .parallelGesture(
-        PanGesture({ direction: PanDirection.Up, distance: 80 })
-          .onActionStart(() => {
-            Logger.info('ArticleListView', 'onActionStart')
-            if (this.isListReachEnd) {
-              this.loadMoreArticles();
-              this.isListReachEnd = false;
-            }
+    List() {
+      ForEach(this.articleList, (item: Article) => {
+        ListItem() {
+          ArticleCard({
+            article: item
           })
-          .onActionUpdate(() => {
-            Logger.info('ArticleListView', 'onActionUpdate')
-          })
-          .onActionEnd(() => {
-            Logger.info('ArticleListView', 'onActionEnd')
-          })
-          .onActionCancel(() => {
-            Logger.info('ArticleListView', 'onActionCancel')
-          })
-      )
-      .padding(20)
-      .scrollBar(BarState.On)
+            .margin({ top: 20 })
+        }
+      }, (item: Article) => item.id)
     }
-    .width('100%')
-    .height('100%')
+    .width(Constants.FULL_WIDTH)
+    .height(Constants.FULL_HEIGHT)
+    .padding(20)
+    .scrollBar(BarState.On)
     .backgroundColor(0xF1F3F5)
   }
 }
@@ -80,7 +54,13 @@ struct ArticleListView {
 
 @Component
 struct ArticleCard {
-  @Prop article: Article;
+  @ObjectLink article: Article;
+
+
+  handleLiked() {
+    this.article.isLiked = !this.article.isLiked;
+    this.article.likesCount = this.article.isLiked ? this.article.likesCount + 1 : this.article.likesCount - 1;
+  }
 
 
   build() {
@@ -100,6 +80,19 @@ struct ArticleCard {
           .fontSize(16)
           .fontColor(Color.Gray)
           .margin({ bottom: 8 })
+
+
+        Row() {
+          // 此处app.media.iconLiked'，'app.media.iconUnLiked'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
+          Image(this.article.isLiked ? $r('app.media.icon_liked') : $r('app.media.icon_unliked'))
+            .width(24)
+            .height(24)
+            .margin({ right: 8 })
+          Text(this.article.likesCount.toString())
+            .fontSize(16)
+        }
+        .onClick(() => this.handleLiked())
+        .justifyContent(FlexAlign.Center)
       }
       .alignItems(HorizontalAlign.Start)
       .width('80%')
