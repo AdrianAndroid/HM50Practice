@@ -8,6 +8,7 @@
     "pages/Page_FromStageModel",
     "pages/Page_FuncAbilityA",
     "pages/LifeCyclePage",
-    "pages/CounterView"
+    "pages/CounterView",
+    "pages/Parent"
   ]
 }
