@@ -16,6 +16,7 @@ export default class Constants {
   static readonly PAGES_ArticleList = 'pages/ArticleList'
   static readonly PAGES_ForEachSort = 'pages/ForEachSort'
   static readonly PAGES_MyComponent = 'pages/MyComponent'
+  static readonly PAGES_TextExample = 'pages/TextExample'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
@@ -23,4 +24,11 @@ export default class Constants {
   static FULL_HEIGHT: string = '100%';
   static DEFAULT_FONT_SIZE: number = 30;
   static DOMAIN: number = 0x0000;
+
+  static readonly FULL_PERCENT: string = '100%';
+  static readonly TEXT_SCROLL_DURATION: number = 5000;
+  static readonly ANGLE_DEGREE: number = 180;
+  static readonly FIFTY_PERCENT: string = '50%';
+  static readonly ANGLE_DEGREE_HORIZONTAL: number = 90;
+  static readonly FONT_WEIGHT_500: number = 500;
 }

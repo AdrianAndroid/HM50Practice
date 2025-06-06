@@ -12,6 +12,7 @@
     "pages/Parent",
     "pages/ArticleList",
     "pages/ForEachSort",
-    "pages/MyComponent"
+    "pages/MyComponent",
+    "pages/TextExample"
   ]
 }

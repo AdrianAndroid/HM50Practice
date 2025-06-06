@@ -3,6 +3,14 @@
     {
       "name": "app_name",
       "value": "MyApplication"
+    },
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "bundle_name",
+      "value": "com.example.myapplication"
     }
   ]
 }
