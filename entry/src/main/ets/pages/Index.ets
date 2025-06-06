@@ -1,62 +1,53 @@
-import { router, UIObserver, uiObserver } from '@kit.ArkUI'
-import { BusinessError } from '@kit.BasicServicesKit'
-import Constants from '../common/constants/Constants';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
-class MyData {
-  str: string;
-  constructor(str: string) {
-    this.str = str;
-  }
-}
 
 @Entry
 @Component
 struct Index {
-  @State data1: MyData|undefined = new MyData("branch 0");
-  @State data2: MyData|undefined = new MyData("branch 1");
+  @State imgDatas: string[] = [];
+  // 获取照片url集
+  getAllImg() {
+    try {
+      let PhotoSelectOptions:photoAccessHelper.PhotoSelectOptions = new photoAccessHelper.PhotoSelectOptions();
+      PhotoSelectOptions.MIMEType = photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE;
+      PhotoSelectOptions.maxSelectNumber = 5;
+      let photoPicker:photoAccessHelper.PhotoViewPicker = new photoAccessHelper.PhotoViewPicker();
+      photoPicker.select(PhotoSelectOptions).then((PhotoSelectResult:photoAccessHelper.PhotoSelectResult) => {
+        this.imgDatas = PhotoSelectResult.photoUris;
+        console.info('PhotoViewPicker.select successfully, PhotoSelectResult uri: ' + JSON.stringify(PhotoSelectResult));
+      }).catch((err:Error) => {
+        let message = (err as BusinessError).message;
+        let code = (err as BusinessError).code;
+        console.error(`PhotoViewPicker.select failed with. Code: ${code}, message: ${message}`);
+      });
+    } catch (err) {
+      let message = (err as BusinessError).message;
+      let code = (err as BusinessError).code;
+      console.error(`PhotoViewPicker failed with. Code: ${code}, message: ${message}`);    }
+  }
 
+
+  // aboutToAppear中调用上述函数，获取图库的所有图片url，存在imgDatas中
+  async aboutToAppear() {
+    //this.getAllImg();
+  }
+  // 使用imgDatas的url加载图片。
   build() {
     Column() {
-      if (this.data1) {
-        // 如果在动画中增加/删除，会给Text增加默认转场
-        // 对于删除时，增加默认透明度转场后，会延长组件的生命周期，Text组件没有真正删除，而是等转场动画做完后才删除
-        // 在IfElse的根组件显示指定空的转场效果，避免默认转场动画
-        Text(this.data1.str)
-          .transition(TransitionEffect.IDENTITY)
-          .id("1")
-      } else if (this.data2) {
-        // 如果在动画中增加/删除，会给Text增加默认转场
-        Text(this.data2.str)
-          .transition(TransitionEffect.IDENTITY)
-          .id("2")
-      }
-
-      Button("play with animation")
-        .onClick(() => {
-          animateTo({}, ()=>{
-            // 在animateTo中修改if条件，在动画当中，会给if下的第一层组件默认转场
-            if (this.data1) {
-              this.data1 = undefined;
-              this.data2 = new MyData("branch 1");
-            } else {
-              this.data1 = new MyData("branch 0");
-              this.data2 = undefined;
-            }
-          })
-        })
-
-      Button("play directlp")
-        .onClick(() => {
-          // 直接改if条件，不在动画当中，可以正常切换，也不会加默认转场
-          if (this.data1) {
-            this.data1 = undefined;
-            this.data2 = new MyData("branch 1");
-          } else {
-            this.data1 = new MyData("branch 0");
-            this.data2 = undefined;
+      Button(){
+        Text('select image')
+      }.onClick(() => {
+        this.getAllImg()
+      })
+      Grid() {
+        ForEach(this.imgDatas, (item:string) => {
+          GridItem() {
+            Image(item)
+              .width(200)
           }
-        })
-    }.width("100%")
-    .padding(10)
+        }, (item:string):string => JSON.stringify(item))
+      }
+    }.width('100%').height('100%')
   }
 }
