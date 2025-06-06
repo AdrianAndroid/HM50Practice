@@ -70,6 +70,33 @@ struct MyComponent {
         .scrollBar(BarState.Off)
         .edgeEffect(EdgeEffect.Spring)
 
+        Row({ space: 5 }) {
+          Image($r('app.media.ic_public_favor_filled_1'))
+            .width(110)
+            .height(115)
+            .border({ width: 1 })
+            .objectRepeat(ImageRepeat.XY)
+            .objectFit(ImageFit.ScaleDown)
+              // 在水平轴和竖直轴上同时重复绘制图片
+            .overlay('ImageRepeat.XY', { align: Alignment.Bottom, offset: { x: 0, y: 20 } })
+          Image($r('app.media.ic_public_favor_filled_1'))
+            .width(110)
+            .height(115)
+            .border({ width: 1 })
+            .objectRepeat(ImageRepeat.Y)
+            .objectFit(ImageFit.ScaleDown)
+              // 只在竖直轴上重复绘制图片
+            .overlay('ImageRepeat.Y', { align: Alignment.Bottom, offset: { x: 0, y: 20 } })
+          Image($r('app.media.ic_public_favor_filled_1'))
+            .width(110)
+            .height(115)
+            .border({ width: 1 })
+            .objectRepeat(ImageRepeat.X)
+            .objectFit(ImageFit.ScaleDown)
+              // 只在水平轴上重复绘制图片
+            .overlay('ImageRepeat.X', { align: Alignment.Bottom, offset: { x: 0, y: 20 } })
+        }
+
         Row() {
           Image($r('app.media.grass'))
             .width('40%')
