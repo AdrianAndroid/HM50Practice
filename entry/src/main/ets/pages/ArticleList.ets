@@ -33,21 +33,41 @@ struct ArticleListView {
 
 
   build() {
-    List() {
-      ForEach(this.articleList, (item: Article) => {
-        ListItem() {
-          ArticleCard({
-            article: item
-          })
-            .margin({ top: 20 })
-        }
-      }, (item: Article) => item.id)
+    Column() {
+      Button('Replace first article')
+        .onClick(() => {
+          this.articleList[0] = new Article('001', '第0篇文章', '文章简介内容', false, 100);
+        })
+        .width(300)
+        .margin(10)
+
+
+      Button('Like/Unlike first article')
+        .onClick(() => {
+          this.articleList[0].isLiked = !this.articleList[0].isLiked;
+          this.articleList[0].likesCount =
+            this.articleList[0].isLiked ? this.articleList[0].likesCount + 1 : this.articleList[0].likesCount - 1;
+        })
+        .width(300)
+        .margin(10)
+
+
+      List() {
+        ForEach(this.articleList, (item: Article) => {
+          ListItem() {
+            ArticleCard({
+              article: item
+            })
+              .margin({ top: 20 })
+          }
+        }, (item: Article) => item.id)
+      }
+      .width(Constants.FULL_WIDTH)
+      .height(Constants.FULL_HEIGHT)
+      .padding(20)
+      .scrollBar(BarState.Off)
+      .backgroundColor(0xF1F3F5)
     }
-    .width(Constants.FULL_WIDTH)
-    .height(Constants.FULL_HEIGHT)
-    .padding(20)
-    .scrollBar(BarState.On)
-    .backgroundColor(0xF1F3F5)
   }
 }
 
@@ -66,7 +86,7 @@ struct ArticleCard {
   build() {
     Row() {
       // 此处'app.media.icon'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
-      Image($r('app.media.app_icon'))
+      Image($r('app.media.icon'))
         .width(80)
         .height(80)
         .margin({ right: 20 })
@@ -84,7 +104,7 @@ struct ArticleCard {
 
         Row() {
           // 此处app.media.iconLiked'，'app.media.iconUnLiked'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
-          Image(this.article.isLiked ? $r('app.media.icon_liked') : $r('app.media.icon_unliked'))
+          Image(this.article.isLiked ? $r('app.media.iconLiked') : $r('app.media.iconUnLiked'))
             .width(24)
             .height(24)
             .margin({ right: 8 })
