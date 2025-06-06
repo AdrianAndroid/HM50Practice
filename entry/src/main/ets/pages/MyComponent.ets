@@ -8,6 +8,21 @@ struct MyComponent {
   build() {
     Scroll(this.scroller) {
       Column() {
+        // 为图片添加滤镜效果
+        Row() {
+          Image($r('app.media.example'))
+            .width('40%')
+            .margin(10)
+          Image($r('app.media.example'))
+            .width('40%')
+            .colorFilter(
+              [1, 1, 0, 0, 0,
+                0, 1, 0, 0, 0,
+                0, 0, 1, 0, 0,
+                0, 0, 0, 1, 0])
+            .margin(10)
+        }.width('100%')
+        .justifyContent(FlexAlign.Center)
         Scroll() {
           Row() {
             Image($r('app.media.img_2'))
@@ -69,6 +84,8 @@ struct MyComponent {
         .width(Constants.FULL_WIDTH)
         .scrollBar(BarState.Off)
         .edgeEffect(EdgeEffect.Spring)
+
+
 
         Row({ space: 50 }) {
           Image($r('app.media.example'))
