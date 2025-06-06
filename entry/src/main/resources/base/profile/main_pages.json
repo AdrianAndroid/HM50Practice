@@ -9,6 +9,7 @@
     "pages/Page_FuncAbilityA",
     "pages/LifeCyclePage",
     "pages/CounterView",
-    "pages/Parent"
+    "pages/Parent",
+    "pages/ArticleList"
   ]
 }
