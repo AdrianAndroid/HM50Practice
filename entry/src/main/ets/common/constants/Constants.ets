@@ -14,6 +14,7 @@ export default class Constants {
   static readonly PAGES_CounterView = 'pages/CounterView'
   static readonly PAGES_Parent = 'pages/Parent'
   static readonly PAGES_ArticleList = 'pages/ArticleList'
+  static readonly PAGES_ForEachSort = 'pages/ForEachSort'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

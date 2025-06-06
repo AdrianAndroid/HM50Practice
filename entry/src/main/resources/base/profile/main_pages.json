@@ -10,6 +10,7 @@
     "pages/LifeCyclePage",
     "pages/CounterView",
     "pages/Parent",
-    "pages/ArticleList"
+    "pages/ArticleList",
+    "pages/ForEachSort"
   ]
 }
