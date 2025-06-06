@@ -70,6 +70,28 @@ struct MyComponent {
         .scrollBar(BarState.Off)
         .edgeEffect(EdgeEffect.Spring)
 
+        Row({ space: 50 }) {
+          Image($r('app.media.example'))
+            .sourceSize({
+              width: 40,
+              height: 40
+            })
+            .objectFit(ImageFit.ScaleDown)
+            .aspectRatio(1)
+            .width('25%')
+            .border({ width: 1 })
+            .overlay('width:40 height:40', { align: Alignment.Bottom, offset: { x: 0, y: 40 } })
+          Image($r('app.media.example'))
+            .sourceSize({
+              width: 90,
+              height: 90
+            })
+            .objectFit(ImageFit.ScaleDown)
+            .width('25%')
+            .aspectRatio(1)
+            .border({ width: 1 })
+            .overlay('width:90 height:90', { align: Alignment.Bottom, offset: { x: 0, y: 40 } })
+        }.height(150).width('100%').padding(20)
 
         Row({ space: 50 }) {
           Image($r('app.media.example'))
