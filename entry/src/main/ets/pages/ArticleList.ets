@@ -1,48 +1,108 @@
-@Entry
-@Component
-struct ArticleList {
-  @State simpleList: Array<number> = [1, 2, 3, 4, 5];
+import Constants from '../common/constants/Constants';
+import Logger from '../common/util/Logger';
+
+class Article {
+  id: string;
+  title: string;
+  brief: string;
 
 
-  build() {
-    Column() {
-      ForEach(this.simpleList, (item: number) => {
-        ArticleSkeletonView()
-          .margin({ top: 20 })
-      }, (item: number) => item.toString())
-    }
-    .padding(20)
-    .width('100%')
-    .height('100%')
+  constructor(id: string, title: string, brief: string) {
+    this.id = id;
+    this.title = title;
+    this.brief = brief;
   }
 }
 
 
-@Builder
-function textArea(width: number | Resource | string = '100%', height: number | Resource | string = '100%') {
-  Row()
-    .width(width)
-    .height(height)
-    .backgroundColor('#FFF2F3F4')
+@Entry
+@Component
+struct ArticleListView {
+  @State isListReachEnd: boolean = false;
+  @State articleList: Array<Article> = [
+    new Article('001', '第1篇文章', '文章简介内容'),
+    new Article('002', '第2篇文章', '文章简介内容'),
+    new Article('003', '第3篇文章', '文章简介内容'),
+    new Article('004', '第4篇文章', '文章简介内容'),
+    new Article('005', '第5篇文章', '文章简介内容'),
+    new Article('006', '第6篇文章', '文章简介内容')
+  ]
+
+
+  loadMoreArticles() {
+    this.articleList.push(new Article('007', '加载的新文章', '文章简介内容'));
+  }
+
+
+  build() {
+    Column({ space: 5 }) {
+      List() {
+        ForEach(this.articleList, (item: Article) => {
+          ListItem() {
+            ArticleCard({ article: item })
+              .margin({ top: 20 })
+          }
+        }, (item: Article) => item.id)
+      }
+      .width(Constants.FULL_WIDTH)
+      .height(Constants.FULL_HEIGHT)
+      .onReachEnd(() => {
+        this.isListReachEnd = true;
+      })
+      .parallelGesture(
+        PanGesture({ direction: PanDirection.Up, distance: 80 })
+          .onActionStart(() => {
+            Logger.info('ArticleListView', 'onActionStart')
+            if (this.isListReachEnd) {
+              this.loadMoreArticles();
+              this.isListReachEnd = false;
+            }
+          })
+          .onActionUpdate(() => {
+            Logger.info('ArticleListView', 'onActionUpdate')
+          })
+          .onActionEnd(() => {
+            Logger.info('ArticleListView', 'onActionEnd')
+          })
+          .onActionCancel(() => {
+            Logger.info('ArticleListView', 'onActionCancel')
+          })
+      )
+      .padding(20)
+      .scrollBar(BarState.On)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(0xF1F3F5)
+  }
 }
 
 
 @Component
-struct ArticleSkeletonView {
+struct ArticleCard {
+  @Prop article: Article;
+
+
   build() {
     Row() {
-      Column() {
-        textArea(80, 80)
-      }
-      .margin({ right: 20 })
+      // 此处'app.media.icon'仅作示例，请开发者自行替换，否则imageSource创建失败会导致后续无法正常执行。
+      Image($r('app.media.app_icon'))
+        .width(80)
+        .height(80)
+        .margin({ right: 20 })
 
 
       Column() {
-        textArea('60%', 20)
-        textArea('50%', 20)
+        Text(this.article.title)
+          .fontSize(20)
+          .margin({ bottom: 8 })
+        Text(this.article.brief)
+          .fontSize(16)
+          .fontColor(Color.Gray)
+          .margin({ bottom: 8 })
       }
       .alignItems(HorizontalAlign.Start)
-      .justifyContent(FlexAlign.SpaceAround)
+      .width('80%')
       .height('100%')
     }
     .padding(20)
