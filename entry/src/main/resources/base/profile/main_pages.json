@@ -11,6 +11,7 @@
     "pages/CounterView",
     "pages/Parent",
     "pages/ArticleList",
-    "pages/ForEachSort"
+    "pages/ForEachSort",
+    "pages/MyComponent"
   ]
 }

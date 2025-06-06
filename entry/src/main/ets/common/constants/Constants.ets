@@ -15,6 +15,7 @@ export default class Constants {
   static readonly PAGES_Parent = 'pages/Parent'
   static readonly PAGES_ArticleList = 'pages/ArticleList'
   static readonly PAGES_ForEachSort = 'pages/ForEachSort'
+  static readonly PAGES_MyComponent = 'pages/MyComponent'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
