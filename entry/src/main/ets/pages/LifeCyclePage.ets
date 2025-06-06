@@ -20,6 +20,11 @@ import Logger from '../common/util/Logger';
 @Component
 struct LifeCyclePage {
   @State textColor: Color = Color.Black;
+  @State cnt: number = 0
+
+  submit: () => void = () => {
+    this.cnt++;
+  }
 
   aboutToAppear() {
     this.textColor = Color.Blue;
@@ -33,6 +38,10 @@ struct LifeCyclePage {
 
   onPageHide() {
     Logger.info('[LifeCyclePage]  LifeCyclePage onPageHide');
+  }
+
+  onDidBuild(): void {
+    Logger.info('[LifeCyclePage]  LifeCyclePage onDidBuild');
   }
 
   onBackPress() {
@@ -52,7 +61,38 @@ struct LifeCyclePage {
         .fontColor(this.textColor)
         .margin(Constants.DEFAULT_MARGIN)
         .fontWeight(FontWeight.Bold)
+      Text(`${this.cnt}`)
+      Son({submitArrow: this.submit})
+      this.doSomeRender()
+      Text(this.calcTextValue())
     }
     .width(Constants.FULL_WIDTH)
   }
+
+  calcTextValue(): string {
+    return 'Hello World!!!'
+  }
+
+  @Builder doSomeRender() {
+    Text('Hello World!')
+  }
 }
+
+@Component
+struct Son {
+  submitArrow?: () => void
+
+  build() {
+    Row() {
+      Button('add')
+        .width(80)
+        .onClick(() => {
+          if (this.submitArrow) {
+            this.submitArrow()
+          }
+        })
+    }
+    .height(56)
+  }
+}
+

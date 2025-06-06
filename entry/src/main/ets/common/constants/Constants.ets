@@ -4,6 +4,14 @@ export default class Constants {
   static readonly DOMAIN_NUMBER: number = 0xFF00;
   static readonly TAG: string = '[EntryAbility]';
 
+  static readonly PAGES_INDEX = "pages/Index"
+  static readonly PAGES_SECOND = "pages/Second"
+  static readonly PAGES_PAGE_EVENTHUB = "pages/Page_EventHub"
+  static readonly PAGES_Page_UIAbilityComponentsBasicUsage = "pages/Page_UIAbilityComponentsBasicUsage"
+  static readonly PAGES_Page_UIAbilityComponentsInteractive = "pages/Page_UIAbilityComponentsInteractive"
+  static readonly PAGES_Page_FromStageModel = "pages/Page_FromStageModel"
+  static readonly PAGES_LifeCyclePage = 'pages/LifeCyclePage'
+
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
   static FULL_WIDTH: string = '100%';
