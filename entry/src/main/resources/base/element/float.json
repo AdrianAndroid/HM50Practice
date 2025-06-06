@@ -5,14 +5,6 @@
       "value": "50fp"
     },
     {
-      "name": "title_font_size",
-      "value": "18fp"
-    },
-    {
-      "name": "title_margin_bottom",
-      "value": "18vp"
-    },
-    {
       "name": "content_font_size",
       "value": "30fp"
     },
@@ -43,6 +35,38 @@
     {
       "name": "area_padding_left",
       "value": "16vp"
+    },
+    {
+      "name": "checkbox_width",
+      "value": "28vp"
+    },
+    {
+      "name": "checkbox_margin",
+      "value": "20vp"
+    },
+    {
+      "name": "item_font_size",
+      "value": "20fp"
+    },
+    {
+      "name": "title_font_size",
+      "value": "28fp"
+    },
+    {
+      "name": "title_font_height",
+      "value": "33vp"
+    },
+    {
+      "name": "title_margin_top",
+      "value": "24vp"
+    },
+    {
+      "name": "title_margin_bottom",
+      "value": "12vp"
+    },
+    {
+      "name": "list_item_height",
+      "value": "64vp"
     }
   ]
 }
