@@ -5,6 +5,30 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "divider_color",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "top_background",
+      "value": "#F7F7F7"
+    },
+    {
+      "name": "service_color",
+      "value": "#182431"
+    },
+    {
+      "name": "select_title_color",
+      "value": "#007DFF"
+    },
+    {
+      "name": "title_color",
+      "value": "#182431"
+    },
+    {
+      "name": "background_color",
+      "value": "#F1F3F5"
+    },
+    {
       "name": "title_font_color",
       "value": "#99000000"
     },
@@ -29,20 +53,12 @@
       "value": "#F1F3F5"
     },
     {
-      "name": "background_color",
-      "value": "#F1F3F5"
-    },
-    {
       "name": "list_item_background",
       "value": "#F0F3F5"
     },
     {
       "name": "price_color",
       "value": "#E92F4F"
-    },
-    {
-      "name": "title_color",
-      "value": "#182431"
     },
     {
       "name": "name_color",

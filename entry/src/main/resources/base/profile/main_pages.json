@@ -25,6 +25,7 @@
     "pages/SimpleContacts",
     "pages/ContactsList",
     "pages/ToDoList",
-    "pages/TwoDimensionList"
+    "pages/TwoDimensionList",
+    "pages/NestedListPage"
   ]
 }

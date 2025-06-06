@@ -14,39 +14,17 @@
  */
 
 export class CommonConstants {
-
-  /**
-   * Space between components.
-   */
   static readonly SPACE: string = '20vp';
-
-  /**
-   * Content width.
-   */
   static readonly CONTENT_WIDTH: string = '18%';
-
-  /**
-   * Content row width.
-   */
   static readonly CONTENT_ROW_WIDTH: string = '75%';
-
-  /**
-   * Scroll width.
-   */
   static readonly SCROLL_WIDTH: string = '115%';
-
-  /**
-   * Layout weight.
-   */
   static readonly LAYOUT_WEIGHT: number = 1;
-
-  /**
-   * Loop count.
-   */
   static readonly LOOP_COUNT: number = 3;
-
-  /**
-   * Max data length.
-   */
   static readonly MAX_DATA_LENGTH: number = 18;
+  static readonly FULL_PERCENT: string = '100%';
+  static readonly ONE_FOURTH: string = '25%';
+  static readonly LIST_HEIGHT: string = 'calc(100% - 50vp)';
+  static readonly FONT_WEIGHT_500: number = 500;
+  static readonly FONT_WEIGHT_700: number = 700;
+  static readonly ITEM_COUNT: number = 4;
 }
