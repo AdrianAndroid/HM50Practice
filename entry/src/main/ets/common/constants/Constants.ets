@@ -23,6 +23,7 @@ export default class Constants {
   static readonly PAGES_ButtonCase2 = 'pages/ButtonCase2'
   static readonly PAGES_HoverButtonExample = 'pages/HoverButtonExample'
   static readonly PAGES_ToDoListPage = 'pages/ToDoListPage'
+  static readonly PAGES_LoginPage = 'pages/LoginPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

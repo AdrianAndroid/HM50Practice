@@ -19,6 +19,7 @@
     "pages/ButtonCase1",
     "pages/ButtonCase2",
     "pages/HoverButtonExample",
-    "pages/ToDoListPage"
+    "pages/ToDoListPage",
+    "pages/LoginPage"
   ]
 }
