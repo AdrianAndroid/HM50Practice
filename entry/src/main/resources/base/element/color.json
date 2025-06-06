@@ -31,6 +31,22 @@
     {
       "name": "background_color",
       "value": "#F1F3F5"
+    },
+    {
+      "name": "list_item_background",
+      "value": "#F0F3F5"
+    },
+    {
+      "name": "price_color",
+      "value": "#E92F4F"
+    },
+    {
+      "name": "title_color",
+      "value": "#182431"
+    },
+    {
+      "name": "name_color",
+      "value": "#FF7F8388"
     }
   ]
 }

@@ -107,6 +107,46 @@
     {
       "name": "done",
       "value": "已完成"
+    },
+    {
+      "name": "title",
+      "value": "二维列表"
+    },
+    {
+      "name": "type_phone",
+      "value": "手机"
+    },
+    {
+      "name": "type_computer",
+      "value": "电脑"
+    },
+    {
+      "name": "type_watch",
+      "value": "手表"
+    },
+    {
+      "name": "type_earphone",
+      "value": "耳机"
+    },
+    {
+      "name": "name_title",
+      "value": "商品名称"
+    },
+    {
+      "name": "price",
+      "value": "价格"
+    },
+    {
+      "name": "type",
+      "value": "类型"
+    },
+    {
+      "name": "standards",
+      "value": "规格"
+    },
+    {
+      "name": "image",
+      "value": "商品图"
     }
   ]
 }

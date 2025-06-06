@@ -24,6 +24,7 @@
     "pages/CityList",
     "pages/SimpleContacts",
     "pages/ContactsList",
-    "pages/ToDoList"
+    "pages/ToDoList",
+    "pages/TwoDimensionList"
   ]
 }
