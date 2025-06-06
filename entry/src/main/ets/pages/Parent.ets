@@ -1,5 +1,4 @@
 import Logger from '../common/util/Logger';
-import { JSON } from '@kit.ArkTS';
 
 @Entry
 @Component
@@ -14,13 +13,13 @@ struct Parent {
       }
       .onClick(() => {
         this.simpleList.splice(1, 0, 'new item');
-        Logger.info('Parent', `${JSON.stringify(this.simpleList)}`)
+        console.log(`[onClick]: simpleList is ${JSON.stringify(this.simpleList)}`);
       })
 
 
       ForEach(this.simpleList, (item: string) => {
         ChildItem({ item: item })
-      }, (item: string, index: number) => index.toString())
+      })
     }
     .justifyContent(FlexAlign.Center)
     .width('100%')
@@ -35,8 +34,13 @@ struct ChildItem {
   @Prop item: string;
 
 
+  aboutToAppear() {
+    console.log(`[aboutToAppear]: item is ${this.item}`);
+  }
+
+
   build() {
     Text(this.item)
-      .fontSize(30)
+      .fontSize(50)
   }
 }
