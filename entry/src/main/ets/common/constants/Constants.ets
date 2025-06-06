@@ -11,6 +11,7 @@ export default class Constants {
   static readonly PAGES_Page_UIAbilityComponentsInteractive = "pages/Page_UIAbilityComponentsInteractive"
   static readonly PAGES_Page_FromStageModel = "pages/Page_FromStageModel"
   static readonly PAGES_LifeCyclePage = 'pages/LifeCyclePage'
+  static readonly PAGES_CounterView = 'pages/CounterView'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
