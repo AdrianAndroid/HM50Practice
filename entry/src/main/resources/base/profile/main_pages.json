@@ -20,6 +20,10 @@
     "pages/ButtonCase2",
     "pages/HoverButtonExample",
     "pages/ToDoListPage",
-    "pages/LoginPage"
+    "pages/LoginPage",
+    "pages/CityList",
+    "pages/SimpleContacts",
+    "pages/ContactsList",
+    "pages/ToDoList"
   ]
 }

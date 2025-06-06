@@ -24,6 +24,10 @@ export default class Constants {
   static readonly PAGES_HoverButtonExample = 'pages/HoverButtonExample'
   static readonly PAGES_ToDoListPage = 'pages/ToDoListPage'
   static readonly PAGES_LoginPage = 'pages/LoginPage'
+  static readonly PAGES_CityList = 'pages/CityList'
+  static readonly PAGES_SimpleContacts = 'pages/SimpleContacts'
+  static readonly PAGES_ContactsList = 'pages/ContactsList'
+  static readonly PAGES_ToDoList = 'pages/ToDoList'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
@@ -54,4 +58,37 @@ export default class Constants {
     $r('app.string.todo_list_four'),
     $r('app.string.todo_list_five')
   ];
+
+  static readonly PERCENT_12: string = '12%';
+  static readonly PERCENT_FULL: string = '100%';
+}
+
+export const STYLE_CONFIG: Record<string, number> = {
+  'IMAGE_SIZE': 32,
+  'IMAGE_MARGIN': 4,
+  'ICON_GUTTER': 4,
+  'OPERATION_BUTTON_PADDING': 4,
+  'MENU_IMAGE_SIZE': 24,
+  'MENU_HEIGHT': 56,
+  'TEXT_MARGIN_LEFT': 40,
+  'IMAGE_MARGIN_RIGHT': 30,
+  'LIST_ITEM_GUTTER': 12,
+  'BORDER_WIDTH': 3,
+  'TODO_ITEM_HEIGHT': 80,
+  'TODO_ITEM_PADDING_VERTICAL': 4,
+  'IMAGE_ICON_OK_SIZE': 15,
+  'ANIMATION_DURATION': 600,
+  'CUSTOM_CHECKBOX_SIZE': 20
+}
+
+export class Constant {
+  /**
+   * Percent 12.
+   */
+  static readonly PERCENT_12: string = '12%';
+
+  /**
+   * Percent 100
+   */
+  static readonly PERCENT_FULL: string = '100%';
 }

@@ -135,6 +135,30 @@
     {
       "name": "login_success",
       "value": "The login is successful."
+    },
+    {
+      "name": "edit",
+      "value": "Edit"
+    },
+    {
+      "name": "deleted",
+      "value": "Successfully deleted"
+    },
+    {
+      "name": "incomplete",
+      "value": "Incomplete"
+    },
+    {
+      "name": "todo",
+      "value": "To-Do List"
+    },
+    {
+      "name": "undo",
+      "value": "Ongoing"
+    },
+    {
+      "name": "done",
+      "value": "Completed"
     }
   ]
 }

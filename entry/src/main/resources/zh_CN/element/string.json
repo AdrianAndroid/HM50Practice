@@ -83,6 +83,30 @@
     {
       "name": "login_success",
       "value": "登录成功"
+    },
+    {
+      "name": "edit",
+      "value": "编辑"
+    },
+    {
+      "name": "deleted",
+      "value": "删除成功"
+    },
+    {
+      "name": "incomplete",
+      "value": "功能待完善"
+    },
+    {
+      "name": "todo",
+      "value": "待办"
+    },
+    {
+      "name": "undo",
+      "value": "未完成"
+    },
+    {
+      "name": "done",
+      "value": "已完成"
     }
   ]
 }
