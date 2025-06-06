@@ -2,98 +2,58 @@ import { router, UIObserver, uiObserver } from '@kit.ArkUI'
 import { BusinessError } from '@kit.BasicServicesKit'
 import Constants from '../common/constants/Constants';
 
-@Entry
-@Component
-struct Index {
-  @State message: string = 'Hello World';
-
-  listener: (info: uiObserver.RouterPageInfo) => void = (info: uiObserver.RouterPageInfo) => {
-    let routerInfo: uiObserver.RouterPageInfo | undefined = this.queryRouterPageInfo()
-    if (info.pageId == routerInfo?.pageId) {
-      if (info.state == uiObserver.RouterPageState.ON_PAGE_SHOW) {
-        console.log(`Index onPageShow`);
-      } else if (info.state == uiObserver.RouterPageState.ON_PAGE_HIDE) {
-        console.log(`Index onPageHide`);
-      }
-    }
-  }
-
-  aboutToAppear(): void {
-    let uiObserver: UIObserver = this.getUIContext().getUIObserver();
-    uiObserver.on('routerPageUpdate', this.listener);
-  }
-
-  aboutToDisappear(): void {
-    let uiObserver: UIObserver = this.getUIContext().getUIObserver();
-    uiObserver.off('routerPageUpdate', this.listener);
-  }
-
-
-  build() {
-    Row() {
-      Column() {
-        Text(`this page is ${this.queryRouterPageInfo()?.pageId}`)
-          .fontSize(25)
-        Button('push self')
-          .onClick(() => {
-            router.pushUrl({ url: Constants.PAGES_INDEX })
-          })
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-        Button(){
-          Text('Next')
-            .fontSize(30)
-            .fontWeight(FontWeight.Bold)
-        }
-        .type(ButtonType.Capsule)
-        .margin({top:20})
-        .backgroundColor('#0D9FFB')
-        .width('40%')
-        .height('5%')
-        .onClick(() => {
-          console.info(`Succeeded in clicking the 'Next' button.`)
-          router.pushUrl({url: 'pages/Second'})
-            .then(() => {
-              console.info('Successed in jumping to the second page.')
-            })
-            .catch((err: BusinessError) => {
-              console.error(`Failed to jump to the seoncd page. Code is ${err.code}, message is ${err.message}`)
-            })
-        })
-        SubComponent()
-      }
-      .width(Constants.FULL_WIDTH)
-      .height(Constants.FULL_HEIGHT)
-    }
-    .width('100%')
-    .height('100%')
+class MyData {
+  str: string;
+  constructor(str: string) {
+    this.str = str;
   }
 }
 
+@Entry
 @Component
-struct SubComponent {
-  listener: (info: uiObserver.RouterPageInfo) => void = (info: uiObserver.RouterPageInfo) => {
-    let routerInfo: uiObserver.RouterPageInfo | undefined = this.queryRouterPageInfo();
-    if (info.pageId == routerInfo?.pageId) {
-      if (info.state == uiObserver.RouterPageState.ON_PAGE_SHOW) {
-        console.log(`SubComponent onPageShow`);
-      } else if (info.state == uiObserver.RouterPageState.ON_PAGE_HIDE) {
-        console.log(`SubComponent onPageHide`);
-      }
-    }
-  }
-  aboutToAppear(): void {
-    let uiObserver: UIObserver = this.getUIContext().getUIObserver();
-    uiObserver.on('routerPageUpdate', this.listener);
-  }
-  aboutToDisappear(): void {
-    let uiObserver: UIObserver = this.getUIContext().getUIObserver();
-    uiObserver.off('routerPageUpdate', this.listener);
-  }
+struct Index {
+  @State data1: MyData|undefined = new MyData("branch 0");
+  @State data2: MyData|undefined = new MyData("branch 1");
+
   build() {
     Column() {
-      Text(`SubComponent`)
-    }
+      if (this.data1) {
+        // 如果在动画中增加/删除，会给Text增加默认转场
+        // 对于删除时，增加默认透明度转场后，会延长组件的生命周期，Text组件没有真正删除，而是等转场动画做完后才删除
+        Text(this.data1.str)
+          .id("1")
+      } else if (this.data2) {
+        // 如果在动画中增加/删除，会给Text增加默认转场
+        Text(this.data2.str)
+          .id("2")
+      }
+
+      Button("play with animation")
+        .onClick(() => {
+          animateTo({}, ()=>{
+            // 在animateTo中修改if条件，在动画当中，会给if下的第一层组件默认转场
+            if (this.data1) {
+              this.data1 = undefined;
+              this.data2 = new MyData("branch 1");
+            } else {
+              this.data1 = new MyData("branch 0");
+              this.data2 = undefined;
+            }
+          })
+        })
+
+      Button("play directlp")
+        .onClick(() => {
+          // 直接改if条件，不在动画当中，可以正常切换，也不会加默认转场
+          if (this.data1) {
+            this.data1 = undefined;
+            this.data2 = new MyData("branch 1");
+          } else {
+            this.data1 = new MyData("branch 0");
+            this.data2 = undefined;
+          }
+        })
+    }.width("100%")
+    .padding(10)
   }
 }
