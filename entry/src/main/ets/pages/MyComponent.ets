@@ -4,10 +4,40 @@ import Constants from '../common/constants/Constants'
 @Component
 struct MyComponent {
   scroller: Scroller = new Scroller()
+  @State widthValue: number = 0
+  @State heightValue: number = 0
+  @State componentWidth: number = 0
+  @State componentHeight: number = 0
 
   build() {
     Scroll(this.scroller) {
       Column() {
+        // 事件调用
+        Row() {
+          Image($r('app.media.ic_img_2'))
+            .width(200)
+            .height(150)
+            .margin(15)
+            .onComplete(msg => {
+              if(msg){
+                this.widthValue = msg.width
+                this.heightValue = msg.height
+                this.componentWidth = msg.componentWidth
+                this.componentHeight = msg.componentHeight
+              }
+            })
+              // 图片获取失败，打印结果
+            .onError(() => {
+              console.info('load image fail')
+            })
+            .overlay('\nwidth: ' + String(this.widthValue) + ', height: ' + String(this.heightValue) +
+              '\ncomponentWidth: ' + String(this.componentWidth) + '\ncomponentHeight: ' + String(this.componentHeight),
+              {
+                align: Alignment.Bottom,
+                offset: { x: 0, y: 60 }
+              })
+        }.margin({bottom:100})
+
         // 为图片添加滤镜效果
         Row() {
           Image($r('app.media.example'))
