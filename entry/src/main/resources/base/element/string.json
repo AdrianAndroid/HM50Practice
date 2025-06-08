@@ -21,6 +21,10 @@
       "value": "Grid嵌套List混合布局场景实现"
     },
     {
+      "name": "grid_calculator",
+      "value": "Grid计算器"
+    },
+    {
       "name": "grid_nest_swiper",
       "value": "Grid嵌套Swiper混合布局场景实现"
     },

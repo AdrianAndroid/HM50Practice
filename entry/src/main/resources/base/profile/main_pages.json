@@ -30,6 +30,8 @@
     "pages/SwiperCustomAnimationExample",
     "pages/GridNestListIndex",
     "pages/GridNestSwiperIndex",
-    "pages/GrideNestDemos"
+    "pages/GrideNestDemos",
+    "pages/GridCalculator",
+    "pages/GridCalc2"
   ]
 }

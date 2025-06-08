@@ -163,12 +163,11 @@
     {
       "name": "grid_rows_gap_size",
       "value": "8vp"
-    }
-  ,
+    },
     {
       "name": "water_flow_item_bottom_size",
       "value": "10vp"
-    }  ,
+    },
     {
       "name": "search_height_size",
       "value": "56vp"
