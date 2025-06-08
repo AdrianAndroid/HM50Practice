@@ -26,6 +26,7 @@
     "pages/ContactsList",
     "pages/ToDoList",
     "pages/TwoDimensionList",
-    "pages/NestedListPage"
+    "pages/NestedListPage",
+    "pages/SwiperCustomAnimationExample"
   ]
 }
