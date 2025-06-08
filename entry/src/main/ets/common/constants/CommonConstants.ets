@@ -23,8 +23,27 @@ export class CommonConstants {
   static readonly MAX_DATA_LENGTH: number = 18;
   static readonly FULL_PERCENT: string = '100%';
   static readonly ONE_FOURTH: string = '25%';
-  static readonly LIST_HEIGHT: string = 'calc(100% - 50vp)';
   static readonly FONT_WEIGHT_500: number = 500;
   static readonly FONT_WEIGHT_700: number = 700;
   static readonly ITEM_COUNT: number = 4;
+
+  static readonly TABLE_GRID_NEST_LIST_URI: string = 'pages/GridNestListIndex';
+  static readonly TABLE_GRID_NEST_SWIPER_URI: string = 'pages/GridNestSwiperIndex';
+  static readonly WATER_FLOW_LAYOUT_WEIGHT: number = 1;
+  static readonly DIVIDER_STROKE_WIDTH: number = 2;
+  static readonly LIST_SPACE_SIZE: number = 16;
+  static readonly SWIPER_HEIGHT_SIZE1: number = 175;
+  static readonly SWIPER_HEIGHT_SIZE2: number = 100;
+  static readonly WATER_FLOW_GROUP_BOTTOM_MARGIN: number = 12;
+  static readonly WATER_FLOW_ITEM_HEIGHT: number = 159;
+  static readonly SWIPER_DURATION: number = 700;
+  static readonly NINETY_PERCENT: string = '90%';
+  static readonly LIST_HEIGHT: string = 'calc(100% - 40vp)';
+  static readonly GRID_COLUMNS_TEMPLATE: string = '1fr 1fr 1fr 1fr';
+}
+
+export enum ScrollPosition {
+  start = 0,
+  center = 1,
+  end = 2
 }

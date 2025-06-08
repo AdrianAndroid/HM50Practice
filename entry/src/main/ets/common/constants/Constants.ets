@@ -31,6 +31,9 @@ export default class Constants {
   static readonly PAGES_TwoDimensionList = 'pages/TwoDimensionList'
   static readonly PAGES_NestedListPage = 'pages/NestedListPage'
   static readonly PAGES_SwiperCustomAnimationExample = 'pages/SwiperCustomAnimationExample'
+  static readonly PAGES_GrideNestDemos = 'pages/GrideNestDemos'
+  static readonly PAGES_GridNestListIndex = 'pages/GridNestListIndex'
+  static readonly PAGES_GridNestSwiperIndex = 'pages/GridNestSwiperIndex'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

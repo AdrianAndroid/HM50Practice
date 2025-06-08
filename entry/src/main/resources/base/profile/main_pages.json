@@ -27,6 +27,9 @@
     "pages/ToDoList",
     "pages/TwoDimensionList",
     "pages/NestedListPage",
-    "pages/SwiperCustomAnimationExample"
+    "pages/SwiperCustomAnimationExample",
+    "pages/GridNestListIndex",
+    "pages/GridNestSwiperIndex",
+    "pages/GrideNestDemos"
   ]
 }
