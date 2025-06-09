@@ -14,7 +14,7 @@
  */
 
 import GridItemComponent from './GridItemComponent';
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { CommonConstants } from '../common/CommonConstants';
 
 @Component
 export default struct MenuItemComponent {

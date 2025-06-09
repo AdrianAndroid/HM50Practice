@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { STYLE_CONFIG, Constant } from '../common/constants/Constants';
+import { STYLE_CONFIG, Constant } from '../common/Constants';
 import { ToDo } from '../model/ToDo';
 
 @Component

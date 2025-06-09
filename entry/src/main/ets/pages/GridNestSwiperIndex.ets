@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { CommonConstants } from '../common/constants/CommonConstants';
-import { ListDataConstants } from '../common/constants/ListDataConstants';
+import { CommonConstants } from '../common/CommonConstants';
+import { ListDataConstants } from '../common/ListDataConstants';
 import { WaterFlowDataSource } from '../model/WaterFlowDataSource';
 import MenuItemComponent from '../view/MenuItemComponent';
 

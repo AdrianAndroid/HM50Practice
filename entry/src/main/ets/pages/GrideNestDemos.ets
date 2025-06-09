@@ -14,8 +14,8 @@
  */
 
 import { router } from '@kit.ArkUI';
-import {CommonConstants} from '../common/constants/CommonConstants';
-import Constants from '../common/constants/Constants';
+import {CommonConstants} from '../common/CommonConstants';
+import Constants from '../common/Constants';
 
 class DirectoryItem {
   title: ResourceStr = '';

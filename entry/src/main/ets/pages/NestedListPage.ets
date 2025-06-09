@@ -14,7 +14,7 @@
  */
 
 import { router, window } from '@kit.ArkUI';
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { CommonConstants } from '../common/CommonConstants';
 import { CardItem } from '../viewmodel/CardItem';
 import { CardItemComponent } from '../view/CardItemComponent';
 import { ClassifyModel } from '../viewmodel/ClassifyModel';

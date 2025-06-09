@@ -16,7 +16,7 @@
 import { promptAction } from '@kit.ArkUI';
 import { ToDo } from '../model/ToDo';
 import { ToDoListItem } from '../view/TodoListItem';
-import { STYLE_CONFIG, Constant } from '../common/constants/Constants';
+import { STYLE_CONFIG, Constant } from '../common/Constants';
 
 @Extend(Image)
 function ImageStyle() {

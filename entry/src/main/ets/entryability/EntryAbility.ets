@@ -2,7 +2,7 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Router, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
-import Constants from '../common/constants/Constants';
+import Constants from '../common/Constants';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -74,7 +74,7 @@ export default class EntryAbility extends UIAbility {
     }
     hilog.info(DOMAIN_NUMBER, TAG, `%{public}s`, `Ability onWindowStageCreate`);
 
-    let url = Constants.PAGES_HandleTabsPage
+    let url = Constants.PAGES_MultiTabNavigationPage
     if (this.funcAbilityWant?.parameters?.router && this.funcAbilityWant.parameters.router === 'funcA') {
       url = 'pages/Page_UIAbilityComponentsInteractive'
     }

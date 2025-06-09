@@ -1,5 +1,5 @@
-import Constants from '../common/constants/Constants';
-import Logger from '../common/util/Logger';
+import Constants from '../common/Constants';
+import Logger from '../common/Logger';
 
 @Entry
 @Component

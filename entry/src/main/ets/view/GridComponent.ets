@@ -14,7 +14,7 @@
  */
 
 import { GridData } from '../model/GridListDataSources';
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { CommonConstants } from '../common/CommonConstants';
 import GridItemComponent from './GridItemComponent';
 
 @Component

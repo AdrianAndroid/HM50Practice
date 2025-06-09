@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { CommonConstants } from '../common/CommonConstants';
 import { GoodsName, MessageItem, MessageList } from './MessageList';
 
 const createMessageList = (): MessageItem[] => {

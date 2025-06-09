@@ -1,4 +1,4 @@
-import Constants from '../common/constants/Constants'
+import Constants from '../common/Constants'
 
 // xxx.ets
 @Entry

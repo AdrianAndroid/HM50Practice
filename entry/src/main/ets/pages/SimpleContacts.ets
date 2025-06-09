@@ -1,7 +1,7 @@
 import { JSON, util } from '@kit.ArkTS'
-import Constants from '../common/constants/Constants';
+import Constants from '../common/Constants';
 import { DividerTmp } from '../common/DividerTmp';
-import Logger from '../common/util/Logger';
+import Logger from '../common/Logger';
 
 
 class Contact {

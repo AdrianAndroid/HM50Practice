@@ -1,4 +1,4 @@
-import Logger from '../common/util/Logger';
+import Logger from '../common/Logger';
 
 @Entry
 @Component

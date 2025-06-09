@@ -1,6 +1,6 @@
 import { common, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import Constants from '../common/constants/Constants';
+import Constants from '../common/Constants';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
 import { JSON } from '@kit.ArkTS';

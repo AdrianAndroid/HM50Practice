@@ -1,5 +1,5 @@
 import { common } from '@kit.AbilityKit';
-import Constants from '../common/constants/Constants';
+import Constants from '../common/Constants';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry

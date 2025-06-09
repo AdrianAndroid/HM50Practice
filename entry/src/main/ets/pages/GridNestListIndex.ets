@@ -14,8 +14,8 @@
  */
 
 import { router } from '@kit.ArkUI';
-import { CommonConstants, ScrollPosition } from '../common/constants/CommonConstants';
-import { ListDataConstants } from '../common/constants/ListDataConstants';
+import { CommonConstants, ScrollPosition } from '../common/CommonConstants';
+import { ListDataConstants } from '../common/ListDataConstants';
 import GridComponent from '../view/GridComponent';
 import { featureGridData, GridData, otherGridDataList } from '../model/GridListDataSources';
 

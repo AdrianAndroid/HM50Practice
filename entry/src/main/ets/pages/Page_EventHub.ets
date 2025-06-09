@@ -1,6 +1,6 @@
 import { common, Want } from '@kit.AbilityKit';
 import { promptAction } from '@kit.ArkUI';
-import Constants from '../common/constants/Constants';
+import Constants from '../common/Constants';
 
 @Entry
 @Component

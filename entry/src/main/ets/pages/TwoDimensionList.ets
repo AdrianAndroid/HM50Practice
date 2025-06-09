@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { CommonConstants as Common } from '../common/constants/CommonConstants';
-import Logger from '../common/util/Logger';
+import { CommonConstants as Common } from '../common/CommonConstants';
+import Logger from '../common/Logger';
 import { GoodsNameListDataSource, MessageListDataSource } from '../model/ListDataSource';
 import { MessageItem } from '../model/MessageList';
 import { TitleItem, TitleList } from '../model/TitleList';
