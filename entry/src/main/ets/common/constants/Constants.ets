@@ -36,6 +36,7 @@ export default class Constants {
   static readonly PAGES_GridNestSwiperIndex = 'pages/GridNestSwiperIndex'
   static readonly PAGES_GridCalculator = 'pages/GridCalculator'
   static readonly PAGES_GridCalc2 = 'pages/GridCalc2'
+  static readonly PAGES_HandleTabsPage = 'pages/HandleTabsPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

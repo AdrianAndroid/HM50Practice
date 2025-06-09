@@ -32,6 +32,7 @@
     "pages/GridNestSwiperIndex",
     "pages/GrideNestDemos",
     "pages/GridCalculator",
-    "pages/GridCalc2"
+    "pages/GridCalc2",
+    "pages/HandleTabsPage"
   ]
 }
