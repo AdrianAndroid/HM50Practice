@@ -40,6 +40,7 @@ export default class Constants {
   static readonly PAGES_MultiTabNavigationPage = 'pages/MultiTabNavigationPage'
   static readonly PAGES_NavigationExample = 'pages/NavigationExample'
   static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
+  static readonly PAGES_SystemRouterMapPage = 'pages/SystemRouterMapPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

@@ -48,6 +48,7 @@
     "pages/DoubleNestingTabTwo",
     "pages/LeftTab",
     "pages/NavigationExample",
-    "pages/NavigationDialogExample"
+    "pages/NavigationDialogExample",
+    "pages/SystemRouterMapPage"
   ]
 }

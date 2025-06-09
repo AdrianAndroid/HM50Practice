@@ -50,6 +50,38 @@
           ]
         }
       ]
+    },
+    {
+      "name": "harA",
+      "srcPath": "./harA",
+    },
+    {
+      "name": "harB",
+      "srcPath": "./harB",
+    },
+    {
+      "name": "hspA",
+      "srcPath": "./hspA",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hspB",
+      "srcPath": "./hspB",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

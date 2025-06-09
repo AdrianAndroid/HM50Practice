@@ -6,6 +6,10 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "libentry.so": "file:./src/main/cpp/types/libentry"
+    "libentry.so": "file:./src/main/cpp/types/libentry",
+    "hara": "file:../harA",
+    "harb": "file:../harB",
+    "hspa": "file:../hspA",
+    "hspb": "file:../hspB"
   }
 }
