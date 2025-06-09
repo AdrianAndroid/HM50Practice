@@ -23,7 +23,7 @@ export default class Constants {
   static readonly PAGES_ButtonCase2 = 'pages/ButtonCase2'
   static readonly PAGES_HoverButtonExample = 'pages/HoverButtonExample'
   static readonly PAGES_ToDoListPage = 'pages/ToDoListPage'
-  static readonly PAGES_LoginPage = 'pages/LoginPage'
+  static readonly PAGES_LoginPage = 'pages/login/LoginPage'
   static readonly PAGES_CityList = 'pages/CityList'
   static readonly PAGES_SimpleContacts = 'pages/SimpleContacts'
   static readonly PAGES_ContactsList = 'pages/ContactsList'

@@ -20,7 +20,7 @@
     "pages/ButtonCase2",
     "pages/HoverButtonExample",
     "pages/ToDoListPage",
-    "pages/LoginPage",
+    "pages/login/LoginPage",
     "pages/CityList",
     "pages/SimpleContacts",
     "pages/ContactsList",
@@ -49,6 +49,7 @@
     "pages/LeftTab",
     "pages/NavigationExample",
     "pages/NavigationDialogExample",
-    "pages/SystemRouterMapPage"
+    "pages/SystemRouterMapPage",
+    "pages/login/Page"
   ]
 }

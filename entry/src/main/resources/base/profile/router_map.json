@@ -15,6 +15,14 @@
       "data": {
         "description": "this is pageTwo"
       }
+    },
+    {
+      "name": "MainPage",
+      "pageSourceFile": "src/main/ets/pages/login/MainPage.ets",
+      "buildFunction": "MainPageBuilder",
+      "data": {
+        "description" : "this is mainPage"
+      }
     }
   ]
 }
