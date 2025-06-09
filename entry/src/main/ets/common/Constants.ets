@@ -38,6 +38,8 @@ export default class Constants {
   static readonly PAGES_GridCalc2 = 'pages/GridCalc2'
   static readonly PAGES_HandleTabsPage = 'pages/HandleTabsPage'
   static readonly PAGES_MultiTabNavigationPage = 'pages/MultiTabNavigationPage'
+  static readonly PAGES_NavigationExample = 'pages/NavigationExample'
+  static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

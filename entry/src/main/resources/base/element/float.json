@@ -1,8 +1,9 @@
 {
-  "float": [    {
-    "name": "mainPage_baseTab_size",
-    "value": "24vp"
-  },
+  "float": [
+    {
+      "name": "mainPage_baseTab_size",
+      "value": "24vp"
+    },
     {
       "name": "mainPage_baseTab_top",
       "value": "4vp"

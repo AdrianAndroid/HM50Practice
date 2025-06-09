@@ -46,6 +46,8 @@
     "pages/DrawerTab",
     "pages/TabContentOverflow",
     "pages/DoubleNestingTabTwo",
-    "pages/LeftTab"
+    "pages/LeftTab",
+    "pages/NavigationExample",
+    "pages/NavigationDialogExample"
   ]
 }
