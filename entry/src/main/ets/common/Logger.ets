@@ -35,7 +35,18 @@ class Logger {
     hilog.debug(this.domain, this.prefix, this.format, args);
   }
 
-  info(...args: string[]): void {
+  info(...args: string[]): void { // 处理每个参数，对应字符
+    const processedArgs = args.map(arg => {
+      if (typeof arg === 'string') {
+        return this.wrapStringAtNumChars(arg);
+      }
+      return arg;
+    });
+    const combinedMessage = processedArgs.join('\n');
+    hilog.info(this.domain, this.prefix, this.format, [combinedMessage]);
+  }
+
+  log(...args: string[]): void {
     hilog.info(this.domain, this.prefix, this.format, args);
   }
 
@@ -45,6 +56,23 @@ class Logger {
 
   error(...args: string[]): void {
     hilog.error(this.domain, this.prefix, this.format, args);
+  }
+
+  // 严格按每50个字符换行的处理函数
+  private wrapStringAtNumChars(str: string): string {
+    let BL = 100
+    if (!str) {
+      return str;
+    }
+
+    let result = '';
+    for (let i = 0; i < str.length; i += BL) {
+      result += str.substring(i, i + BL); // 不是最后一段才添加换行符
+      if (i + BL < str.length) {
+        result += '\n';
+      }
+    }
+    return result;
   }
 }
 

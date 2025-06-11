@@ -23,7 +23,7 @@ export default class Constants {
   static readonly PAGES_ButtonCase2 = 'pages/ButtonCase2'
   static readonly PAGES_HoverButtonExample = 'pages/HoverButtonExample'
   static readonly PAGES_ToDoListPage = 'pages/ToDoListPage'
-  static readonly PAGES_LoginPage = 'pages/login/LoginPage'
+  static readonly PAGES_LoginPage = 'pages/LoginPage'
   static readonly PAGES_CityList = 'pages/CityList'
   static readonly PAGES_SimpleContacts = 'pages/SimpleContacts'
   static readonly PAGES_ContactsList = 'pages/ContactsList'
@@ -41,6 +41,8 @@ export default class Constants {
   static readonly PAGES_NavigationExample = 'pages/NavigationExample'
   static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
   static readonly PAGES_SystemRouterMapPage = 'pages/SystemRouterMapPage'
+  static readonly PAGES_MVVMPage = 'pages/MVVMPage'
+  static readonly PAGES_PreferencesPage = 'pages/PreferencesPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

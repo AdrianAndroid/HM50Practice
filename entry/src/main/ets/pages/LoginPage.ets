@@ -14,6 +14,7 @@
  */
 
 import { promptAction } from '@kit.ArkUI';
+import { GlobalContext } from '../util/GlobalContext';
 import { MainPage } from './MainPage';
 
 @Extend(TextInput)
@@ -148,6 +149,7 @@ struct LoginPage {
           })
           .onClick(() => {
             this.login(true);
+            GlobalContext
           })
         Text($r('app.string.register_account'))
           .fontColor('#007DFF')

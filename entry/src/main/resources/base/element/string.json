@@ -1,8 +1,54 @@
 {
-  "string": [ {
-    "name": "module_desc",
-    "value": "description"
-  },
+  "string": [
+
+    {
+      "name": "entry_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "Preference"
+    },
+    {
+      "name": "dialer",
+      "value": "Dialer"
+    },
+    {
+      "name": "shopping",
+      "value": "Shopping"
+    },
+    {
+      "name": "notes",
+      "value": "Notes"
+    },
+    {
+      "name": "settings",
+      "value": "Settings"
+    },
+    {
+      "name": "camera",
+      "value": "Camera"
+    },
+    {
+      "name": "album",
+      "value": "Album"
+    },
+    {
+      "name": "music",
+      "value": "Music"
+    },
+    {
+      "name": "video",
+      "value": "Video"
+    },
+    {
+      "name": "module_desc",
+      "value": "description"
+    },
     {
       "name": "EntryAbility_desc",
       "value": "description"
@@ -542,10 +588,6 @@
     {
       "name": "live_broadcast",
       "value": "直播"
-    },
-    {
-      "name": "video",
-      "value": "视频"
     },
     {
       "name": "ceremony",
@@ -1206,6 +1248,26 @@
     {
       "name": "assistant",
       "value": "出行助手"
+    },
+    {
+      "name": "camera_permission_reason",
+      "value": "camera_permission_reason"
+    },
+    {
+      "name": "location_permission_reason",
+      "value": "location_permission_reason"
+    },
+    {
+      "name": "network_info_permission_reason",
+      "value": "network_info_permission_reason"
+    },
+    {
+      "name": "EntryAbility1_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility1_label",
+      "value": "label"
     }
   ]
 }

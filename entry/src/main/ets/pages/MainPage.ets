@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Home from "../../view/Home";
-import Setting from "../../view/Setting";
+import Home from "../view/Home";
+import Setting from "../view/Setting";
 
 @Builder
 export function MainPageBuilder() {

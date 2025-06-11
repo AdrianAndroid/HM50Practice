@@ -18,7 +18,7 @@
     },
     {
       "name": "MainPage",
-      "pageSourceFile": "src/main/ets/pages/login/MainPage.ets",
+      "pageSourceFile": "src/main/ets/pages/MainPage.ets",
       "buildFunction": "MainPageBuilder",
       "data": {
         "description" : "this is mainPage"

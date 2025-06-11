@@ -20,7 +20,7 @@
     "pages/ButtonCase2",
     "pages/HoverButtonExample",
     "pages/ToDoListPage",
-    "pages/login/LoginPage",
+    "pages/LoginPage",
     "pages/CityList",
     "pages/SimpleContacts",
     "pages/ContactsList",
@@ -50,6 +50,8 @@
     "pages/NavigationExample",
     "pages/NavigationDialogExample",
     "pages/SystemRouterMapPage",
-    "pages/login/Page"
+    "pages/Page",
+    "pages/MVVMPage",
+    "pages/PreferencesPage"
   ]
 }
