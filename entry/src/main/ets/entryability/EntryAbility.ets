@@ -3,131 +3,65 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Router, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import Constants from '../common/Constants';
+import ConnectionUtils from '../common/network/ConnectionUtils';
+import RDBStoreUtil from '../common/database/RDBStoreUtil';
+import preferenceUtilsObject from '../common/database/PreferencesUtil';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
 
 export default class EntryAbility extends UIAbility {
-  windowStage: window.WindowStage | undefined = undefined;
-
-  funcAbilityWant: Want | undefined = undefined
-  uiContext : UIContext | undefined = undefined
-
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    this.funcAbilityWant = want
-    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
-    let context = this.context
-    // 获取eventHub
-    let eventhub = this.context.eventHub
-    // 执行订阅操作
-    eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
-    eventhub.on(Constants.EVENT_HUB_2, (data: string) => {
-      hilog.info(DOMAIN_NUMBER, TAG, '1. ' + `${data}`);
-    })
-    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onCreate context=${context}`);
+    preferenceUtilsObject.getFontPreferences(this.context);
+    ConnectionUtils.openRegister();
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
   }
 
-  eventFunc(argOne: Context, argTwo: Context): void {
-    hilog.info(DOMAIN_NUMBER, TAG, '2. ' + `${argOne}, ${argTwo}   typeOf argOne = ${typeof argOne}   typeOf argTwo = ${typeof argTwo}`);
-    return
-  }
-
-  onDestroy(): void {
+  onDestroy(): void | Promise<void> {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
-    this.context.eventHub.off(Constants.EVENT_HUB_1)
-    this.context.eventHub.off(Constants.EVENT_HUB_2)
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-    this.windowStage = windowStage;
-
-    try {
-      windowStage.on('windowStageEvent', (data) => {
-        let stageEventType: window.WindowStageEventType = data;
-        switch (stageEventType) {
-          case window.WindowStageEventType.SHOWN: // 切到前台
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage foreground.`);
-            break;
-          case window.WindowStageEventType.ACTIVE: // 获焦状态
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage active.`);
-            break;
-          case window.WindowStageEventType.INACTIVE: // 失焦状态
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage inactive.`);
-            break;
-          case window.WindowStageEventType.HIDDEN: // 切到后台
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage background.`);
-            break;
-          case window.WindowStageEventType.RESUMED: // 前台可交互状态
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage resumed.`);
-            break;
-          case window.WindowStageEventType.PAUSED: // 前台不可交互状态
-            hilog.info(DOMAIN_NUMBER, TAG, `windowStage paused.`);
-            break;
-          default:
-            break;
-        }
-      });
-    } catch (exception) {
-      hilog.error(DOMAIN_NUMBER, TAG, `Failed to enable the listener for window stage event changes. Cause: ${JSON.stringify(exception)}`);
-    }
-    hilog.info(DOMAIN_NUMBER, TAG, `%{public}s`, `Ability onWindowStageCreate`);
-
-    let url = Constants.PAGES_PreferencesPage
-    if (this.funcAbilityWant?.parameters?.router && this.funcAbilityWant.parameters.router === 'funcA') {
-      url = 'pages/Page_UIAbilityComponentsInteractive'
-    }
-
-    windowStage.loadContent(url, (err) => {
+    windowStage.getMainWindow().then((data: window.Window) => {
+      // Window immersive.
+      data.setWindowLayoutFullScreen(true);
+    })
+    RDBStoreUtil.createObjectiveRDB(this.context);
+    windowStage.loadContent(Constants.PAGES_AnimationPage, (err, data) => {
       if (err.code) {
+        hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      let windowClass : window.Window
-      windowStage.getMainWindow((err, data) => {
-        windowClass = data
-        this.uiContext = windowClass.getUIContext()
-      })
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      ConnectionUtils.registerNetworkAvailableStatus();
+      hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
     });
-  }
-
-  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    if (want?.parameters?.router && want.parameters.router === 'funcA') {
-      let funcAUrl = 'pages/Page_HotStartUp'
-      if (this.uiContext) {
-        let router: Router = this.uiContext.getRouter()
-        router.pushUrl({ url: funcAUrl }).catch((err: BusinessError) => {
-          hilog.error(DOMAIN_NUMBER, TAG, `Failed to push url. Code is ${err.code}, message is ${err.message}`);
-        })
-      }
-    }
   }
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-    // 释放通过windowStage对象获取的资源
-    // 在onWindowStageWillDestroy()中注销WindowStage事件订阅（获焦/失焦、切到前台/切到后台、前台可交互/前台不可交互）
-    try {
-      if (this.windowStage) {
-        this.windowStage.off('windowStageEvent');
-      }
-    } catch (err) {
-      let code = (err as BusinessError).code;
-      let message = (err as BusinessError).message;
-      hilog.error(DOMAIN_NUMBER, TAG, `Failed to disable the listener for windowStageEvent. Code is ${code}, message is ${message}`);
-    }
+    ConnectionUtils.closeRegister();
   }
 
   onForeground(): void {
     // Ability has brought to foreground
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
   }
 
   onBackground(): void {
     // Ability has back to background
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
 }

@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Home from "../view/Home";
-import Setting from "../view/Setting";
+
+import preferenceUtilsObject from '../common/database/PreferencesUtil';
+import Home from '../view/Home';
+import Setting from '../view/Setting';
 
 @Builder
 export function MainPageBuilder() {
@@ -25,8 +27,14 @@ export function MainPageBuilder() {
  */
 @Component
 export struct MainPage {
+  @StorageLink('fontSizeOffset') fontSizeOffset: number = 0;
   @State currentIndex: number = 0;
+  @State pathStack: NavPathStack = new NavPathStack();
   private tabsController: TabsController = new TabsController();
+
+  aboutToAppear() {
+    this.fontSizeOffset = preferenceUtilsObject.getChangeFontSize();
+  }
 
   @Builder
   TabBuilder(title: Resource, index: number, selectedImg: Resource) {
@@ -39,7 +47,7 @@ export struct MainPage {
         .fontColor(this.currentIndex === index ? ['#0a59f7'] : ['#66000000'])
       Text(title)
         .margin({ top: '4vp' })
-        .fontSize(10)
+        .fontSize(10 + this.fontSizeOffset)
         .fontWeight(500)
         .fontColor(this.currentIndex === index ? '#0a59f7' : '#66000000')
     }
@@ -60,7 +68,7 @@ export struct MainPage {
         controller: this.tabsController
       }) {
         TabContent() {
-          Home()
+          Home({ pathStack: this.pathStack })
         }
         .padding({
           left: '12vp',
@@ -91,5 +99,8 @@ export struct MainPage {
     .height('100%')
     .hideTitleBar(true)
     .backgroundColor('#F1F3F5')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack;
+    })
   }
 }

@@ -15,14 +15,23 @@
 
 import ItemData from '../viewmodel/ItemData';
 import mainViewModel from '../viewmodel/MainViewModel';
+import { SliderCustomDialog } from './SliderCustomDialog';
 
 /**
  * Setting tab content
  */
 @Component
 export default struct Setting {
+  @StorageLink('fontSizeOffset') fontSizeOffset: number = 0;
+  SliderCustomDialogController: CustomDialogController = new CustomDialogController({
+    builder: SliderCustomDialog({}),
+    alignment: DialogAlignment.Bottom,
+    customStyle: true,
+    offset: { dx: 0, dy: -25 }
+  });
+
   @Builder
-  settingCell(item: ItemData) {
+  settingCell(item: ItemData, customDialogController: CustomDialogController) {
     Row() {
       Row({}) {
         Image(item.img)
@@ -32,7 +41,7 @@ export default struct Setting {
             right: '12vp'
           })
         Text(item.title)
-          .fontSize('16fp')
+          .fontSize(16 + this.fontSizeOffset)
       }
 
       if (item.others === undefined) {
@@ -43,6 +52,11 @@ export default struct Setting {
         Toggle({ type: ToggleType.Switch, isOn: false })
       }
     }
+    .onClick(() => {
+      if (item.id === 1) {
+        customDialogController.open();
+      }
+    })
     .justifyContent(FlexAlign.SpaceBetween)
     .width('100%')
     .padding({
@@ -61,7 +75,7 @@ export default struct Setting {
             bottom: '12vp'
           })
           .fontWeight(700)
-          .fontSize('26fp')
+          .fontSize(26 + this.fontSizeOffset)
 
         Row() {
           Image($r('app.media.account'))
@@ -69,9 +83,9 @@ export default struct Setting {
             .height('48vp')
           Column() {
             Text($r('app.string.setting_account_name'))
-              .fontSize('20fp')
+              .fontSize(20 + this.fontSizeOffset)
             Text($r('app.string.setting_account_email'))
-              .fontSize('12fp')
+              .fontSize(12 + this.fontSizeOffset)
               .margin({ top: '4vp' })
           }
           .alignItems(HorizontalAlign.Start)
@@ -81,14 +95,14 @@ export default struct Setting {
         .width('100%')
 
         List({ space: 12 }) {
-          ForEach(mainViewModel.getSettingListData(), (item: ItemData[], index: number) => {
+          ForEach(mainViewModel.getSettingListData(), (item: ItemData[]) => {
             ListItemGroup() {
-              ForEach(item, (cell: ItemData, cellIndex) => {
+              ForEach(item, (cell: ItemData) => {
                 ListItem() {
-                  this.settingCell(cell)
+                  this.settingCell(cell, this.SliderCustomDialogController);
                 }
                 .height('48vp')
-              })
+              }, (cell: ItemData) => JSON.stringify(cell))
             }
             .divider({
               strokeWidth: '1vp',
@@ -104,8 +118,8 @@ export default struct Setting {
         .scrollBar(BarState.Off)
         .width('100%')
         .padding({
-          top: '4vp',
-          bottom: '4vp'
+          top: 4,
+          bottom: 4
         })
 
         Blank()
@@ -113,7 +127,7 @@ export default struct Setting {
         Button($r('app.string.setting_button'), { type: ButtonType.Capsule })
           .width('90%')
           .height('40vp')
-          .fontSize('16fp')
+          .fontSize(16 + this.fontSizeOffset)
           .fontColor('#FA2A2D')
           .fontWeight(FontWeight.Medium)
           .backgroundColor('#E5E8EA')

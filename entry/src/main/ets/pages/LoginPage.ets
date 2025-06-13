@@ -14,8 +14,7 @@
  */
 
 import { promptAction } from '@kit.ArkUI';
-import { GlobalContext } from '../util/GlobalContext';
-import { MainPage } from './MainPage';
+import ConnectionUtils from '../common/network/ConnectionUtils';
 
 @Extend(TextInput)
 function inputStyle() {
@@ -67,14 +66,21 @@ struct LoginPage {
     if (this.account === '' || this.password === '') {
       promptAction.showToast({
         message: $r('app.string.input_empty_tips')
-      })
+      });
     } else {
       this.isShowProgress = true;
       if (this.timeOutId === -1) {
-        this.timeOutId = setTimeout(() => {
+        this.timeOutId = setTimeout(async () => {
           this.isShowProgress = false;
           this.timeOutId = -1;
-          this.pathStack.pushPathByName('MainPage', null);
+
+          if (result) {
+            this.pathStack.pushPathByName('MainPage', null);
+          } else {
+            promptAction.showToast({
+              message: $r('app.string.Network_Lost')
+            });
+          }
         }, 2000);
       }
     }
@@ -91,10 +97,7 @@ struct LoginPage {
         Image($r('app.media.logo'))
           .width('78vp')
           .height('78vp')
-          .margin({
-            top: '150vp',
-            bottom: '8vp'
-          })
+          .margin({ top: '150vp', bottom: '8vp' })
         Text($r('app.string.login_page'))
           .fontSize('24fp')
           .fontWeight(FontWeight.Medium)
@@ -142,14 +145,15 @@ struct LoginPage {
           .height('40vp')
           .fontSize('16fp')
           .fontWeight(FontWeight.Medium)
-          .backgroundColor('#007DFF')
+          .backgroundColor($r('app.color.login_button_color'))
           .margin({
             top: '48vp',
             bottom: '12vp'
           })
-          .onClick(() => {
-            this.login(true);
-            GlobalContext
+          .onClick(async () => {
+            await ConnectionUtils.isNetworkConnected().then((value) => {
+              this.login(value);
+            })
           })
         Text($r('app.string.register_account'))
           .fontColor('#007DFF')

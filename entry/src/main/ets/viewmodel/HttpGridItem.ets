@@ -13,28 +13,23 @@
  * limitations under the License.
  */
 
-export default class PageResource {
-  /**
-   * ID of list item.
-   */
-  id: number;
+export default class HttpGridItem {
   /**
    * Text of list item.
    */
-  title: Resource;
+  title: string;
   /**
    * Image of list item.
    */
-  img: Resource;
+  img: string;
   /**
    * Other resource of list item.
    */
-  others?: Resource;
+  content: string;
 
-  constructor(id: number, title: Resource, img: Resource, others?: Resource) {
-    this.id = id;
+  constructor(title: string, img: string, content: string) {
     this.title = title;
     this.img = img;
-    this.others = others;
+    this.content = content;
   }
 }

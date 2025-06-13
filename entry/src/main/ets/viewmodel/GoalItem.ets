@@ -13,28 +13,18 @@
  * limitations under the License.
  */
 
-export default class PageResource {
-  /**
-   * ID of list item.
-   */
+export class GoalItem {
   id: number;
-  /**
-   * Text of list item.
-   */
-  title: Resource;
-  /**
-   * Image of list item.
-   */
-  img: Resource;
-  /**
-   * Other resource of list item.
-   */
-  others?: Resource;
+  sportName: string;
+  type: string;
+  duration: number;
+  status: string;
 
-  constructor(id: number, title: Resource, img: Resource, others?: Resource) {
+  constructor(id: number, sportName: string, type: string, duration: number, status: string) {
     this.id = id;
-    this.title = title;
-    this.img = img;
-    this.others = others;
+    this.sportName = sportName;
+    this.type = type;
+    this.duration = duration;
+    this.status = status;
   }
 }

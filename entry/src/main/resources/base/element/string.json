@@ -1,6 +1,45 @@
 {
   "string": [
-
+    {
+      "name": "EntryAbility_desc",
+      "value": "ArkUI动画"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ArkUI动画"
+    },
+    {
+      "name": "please_click_button",
+      "value": "请点击按钮"
+    },
+    {
+      "name": "count",
+      "value": "数量"
+    },
+    {
+      "name": "Network_Available",
+      "value": "Network Available"
+    },
+    {
+      "name": "Network_Lost",
+      "value": "Network Lost"
+    },
+    {
+      "name": "Network_Unavailable",
+      "value": "Network Unavailable"
+    },
+    {
+      "name": "Login_Failed",
+      "value": "Failed to log in because the network is not connected."
+    },
+    {
+      "name": "Internet",
+      "value": "Internet Permission Request"
+    },
+    {
+      "name": "network_info",
+      "value": "NetWork Info Permission Request"
+    },
     {
       "name": "entry_desc",
       "value": "description"
@@ -48,14 +87,6 @@
     {
       "name": "module_desc",
       "value": "description"
-    },
-    {
-      "name": "EntryAbility_desc",
-      "value": "description"
-    },
-    {
-      "name": "EntryAbility_label",
-      "value": "PageAndData"
     },
     {
       "name": "login_page",
