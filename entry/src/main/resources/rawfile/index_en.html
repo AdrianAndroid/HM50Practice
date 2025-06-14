@@ -1,0 +1,41 @@
+<!-- MainPage.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/main_en.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>testApp</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="selectConcat">
+        <div class="select_tips">
+            <div id="phone_tip">Phone Number</div>
+            <div id="concat_tip">Contact</div>
+        </div>
+        <div class="flex-input">
+            <input type="tel" id="phone" placeholder="Phone number" oninput="changeVal(event)" value=""/>
+            <img id="icon-select" onclick="chooseContact()" src="./img/ic_contacts.svg"/>
+        </div>
+    </div>
+    <div class="amount-content">
+        <div class="amount-tip">Credit Top-up</div>
+        <div class="grid-container">
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+        </div>
+    </div>
+    <div class="bottom-tip">Please select amount</div>
+</div>
+<script src="./js/mainPage_en.js"></script>
+</body>
+</html>

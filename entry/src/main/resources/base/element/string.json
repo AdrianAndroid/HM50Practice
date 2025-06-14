@@ -1,6 +1,30 @@
 {
   "string": [
     {
+      "name": "select_contact",
+      "value": "Interaction between ArkTS and H5"
+    },
+    {
+      "name": "mobile_phone_recharge",
+      "value": "Recharge"
+    },
+    {
+      "name": "navigation_title",
+      "value": "charge credit"
+    },
+    {
+      "name": "recharge_button",
+      "value": "Recharge"
+    },
+    {
+      "name": "recharge_success",
+      "value": "recharge success"
+    },
+    {
+      "name": "phone_check",
+      "value": "The tel isn't empty"
+    },
+    {
       "name": "module_desc",
       "value": "module description"
     },
