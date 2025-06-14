@@ -44,6 +44,7 @@ export default class Constants {
   static readonly PAGES_MVVMPage = 'pages/MVVMPage'
   static readonly PAGES_PreferencesPage = 'pages/PreferencesPage'
   static readonly PAGES_AnimationPage = 'pages/AnimationPage'
+  static readonly PAGES_TransitionAnimationPage = 'pages/TransitionAnimationPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

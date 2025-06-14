@@ -54,6 +54,7 @@
     "pages/MVVMPage",
     "pages/PreferencesPage",
     "pages/Page_StartModel",
-    "pages/AnimationPage"
+    "pages/AnimationPage",
+    "pages/TransitionAnimationPage"
   ]
 }

@@ -13,6 +13,45 @@
  * limitations under the License.
  */
 
+export interface Route {
+  title: ResourceStr;
+  to: string;
+};
+
+export const ROUTES: Route[] = [
+  {
+    title: $r('app.string.title_navigation_transition'),
+    to: 'NavigationTransition'
+  },
+  {
+    title: $r('app.string.title_custom_transition'),
+    to: 'CustomNavigationTransition'
+  },
+  {
+    title: $r('app.string.title_component_transition'),
+    to: 'ComponentTransition'
+  },
+  {
+    title: $r('app.string.title_modal_transition'),
+    to: 'ModalTransition'
+  },
+  {
+    title: $r('app.string.title_share_item'),
+    to: 'GeometryTransition'
+  },
+  {
+    title: $r('app.string.title_long_take_transition'),
+    to: 'LongTakeTransition'
+  }
+];
+
+
+/**
+ * Share transition id.
+ */
+export const GEOMETRY_TRANSITION_ID: string = 'shareId';
+
+
 /**
  * Common constants for all features.
  */
