@@ -56,6 +56,10 @@
     "pages/Page_StartModel",
     "pages/AnimationPage",
     "pages/TransitionAnimationPage",
-    "pages/MultipleDialogPage"
+    "pages/MultipleDialogPage",
+    "pages/ElectronicAlbumPage",
+    "pages/DetailPage",
+    "pages/ListPage",
+    "pages/DetailListPage"
   ]
 }
