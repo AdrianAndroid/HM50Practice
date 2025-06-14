@@ -55,6 +55,7 @@
     "pages/PreferencesPage",
     "pages/Page_StartModel",
     "pages/AnimationPage",
-    "pages/TransitionAnimationPage"
+    "pages/TransitionAnimationPage",
+    "pages/MultipleDialogPage"
   ]
 }

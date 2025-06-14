@@ -34,7 +34,7 @@ export default class EntryAbility extends UIAbility {
       data.setWindowLayoutFullScreen(true);
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
-    windowStage.loadContent(Constants.PAGES_TransitionAnimationPage, (err, data) => {
+    windowStage.loadContent(Constants.PAGES_MultipleDialogPage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
