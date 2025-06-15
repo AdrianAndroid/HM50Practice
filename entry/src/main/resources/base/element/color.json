@@ -1,6 +1,18 @@
 {
   "color": [
     {
+      "name": "index_background_color",
+      "value": "#F1F3F5"
+    },
+    {
+      "name": "button_color",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "cancel_button_color",
+      "value": "#0D000000"
+    },
+    {
       "name": "detail_background",
       "value": "#000000"
     },
@@ -139,10 +151,6 @@
     {
       "name": "side_content_color",
       "value": "#FFFFFF"
-    },
-    {
-      "name": "index_background_color",
-      "value": "#f0f3f7"
     },
     {
       "name": "index_divider_color",

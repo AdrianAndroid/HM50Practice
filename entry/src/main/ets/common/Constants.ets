@@ -48,6 +48,7 @@ export default class Constants {
   static readonly PAGES_MultipleDialogPage = 'pages/MultipleDialogPage'
   static readonly PAGES_ElectronicAlbumPage = 'pages/ElectronicAlbumPage'
   static readonly PAGES_SelectContactPage = 'pages/SelectContactPage'
+  static readonly PAGES_DownloadNotificationPage = 'pages/DownloadNotificationPage'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

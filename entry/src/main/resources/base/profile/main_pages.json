@@ -61,6 +61,7 @@
     "pages/DetailPage",
     "pages/ListPage",
     "pages/DetailListPage",
-    "pages/SelectContactPage"
+    "pages/SelectContactPage",
+    "pages/DownloadNotificationPage"
   ]
 }
