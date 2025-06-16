@@ -1,50 +1,34 @@
 @Entry
 @Component
 struct StateV1Page {
-  build() {
-    Column() {
-      Blank()
-        .height(130)
-      // 此处指定的参数都将在初始渲染时覆盖本地定义的默认值，并不是所有的参数都需要从父组件初始化
-      MyComponent({ count: 1, increaseBy: 2 }).width(300)
-      MyComponent({ title: new Model('Hello World 2'), count: 7 })
-    }
-  }
-}
-
-@Component
-struct MyComponent {
-  @State title: Model = new Model('Hello World');
-  @State count: number = 0;
-  private increaseBy: number = 1;
+  @State message: Map<number, string> = new Map([[0, "a"], [1, "b"], [3, "c"]]);
 
   build() {
-    Column() {
-      Text(`${this.title.value}`)
-        .margin(10)
-      Button(`Click to change title`)
-        .onClick(() => {
-          // @State变量的更新将触发上面的Text组件内容更新
-          this.title.value = this.title.value === 'Hello ArkUI' ? 'Hello World' : 'Hello ArkUI';
+    Row() {
+      Column() {
+        ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
+          Text(`${item[0]}`).fontSize(30)
+          Text(`${item[1]}`).fontSize(30)
+          Divider()
         })
-        .width(300)
-        .margin(10)
-
-      Button(`Click to increase count = ${this.count}`)
-        .onClick(() => {
-          // @State变量的更新将触发该Button组件的内容更新
-          this.count += this.increaseBy;
+        Button('init map').onClick(() => {
+          this.message = new Map([[0, "a"], [1, "b"], [3, "c"]]);
         })
-        .width(300)
-        .margin(10)
+        Button('set new one').onClick(() => {
+          this.message.set(4, "d");
+        })
+        Button('clear').onClick(() => {
+          this.message.clear();
+        })
+        Button('replace the first one').onClick(() => {
+          this.message.set(0, "aa");
+        })
+        Button('delete the first one').onClick(() => {
+          this.message.delete(0);
+        })
+      }
+      .width('100%')
     }
-  }
-}
-
-class Model {
-  public value: string;
-
-  constructor(value: string) {
-    this.value = value;
+    .height('100%')
   }
 }
