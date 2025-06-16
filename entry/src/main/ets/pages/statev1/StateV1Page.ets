@@ -3,41 +3,45 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State balloon: Balloon = new Balloon(10);
+  @State count: number = 10;
 
-  reduceVolume(balloon:Balloon) {
-    balloon.volume -= 1;
+  aboutToAppear(): void {
+    model.add(() => {
+      this.count++;
+    })
   }
 
   build() {
-    Column({space:8}) {
-      Text(`The volume of the balloon is ${this.balloon.volume} cubic centimeters.`)
-        .fontSize(30)
-      Button(`increaseVolume`)
-        .onClick(()=>{
-          // 通过赋值添加 Proxy 代理
-          let balloon1 = this.balloon;
-          Balloon.increaseVolume(balloon1);
-        })
-      Button(`reduceVolume`)
-        .onClick(()=>{
-          // 通过赋值添加 Proxy 代理
-          let balloon2 = this.balloon;
-          this.reduceVolume(balloon2);
+    Column() {
+      Text(`count值: ${this.count}`)
+      Button('change')
+        .onClick(() => {
+          model.call();
         })
     }
-    .width('100%')
-    .height('100%')
+  }
+
+  aboutToDisappear(): void {
+    model.delete();
   }
 }
 
-class Balloon {
-  volume: number;
-  constructor(volume: number) {
-    this.volume = volume;
+class Model {
+  private callback: Function | undefined = () => {}
+
+  add(callback: () => void): void {
+    this.callback = callback;
   }
 
-  static increaseVolume(balloon:Balloon) {
-    balloon.volume += 2;
+  delete(): void {
+    this.callback = undefined;
+  }
+
+  call(): void {
+    if (this.callback) {
+      this.callback();
+    }
   }
 }
+
+let model: Model = new Model();
