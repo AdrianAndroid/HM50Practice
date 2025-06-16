@@ -3,41 +3,41 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  list: DataObj[] = [new DataObj('a'), new DataObj('b'), new DataObj('c')];
-  @State dataObjFromList: DataObj = this.list[0];
+  @State balloon: Balloon = new Balloon(10);
 
-  build() {
-    Column() {
-      ConsumerChild({ dataObj: this.dataObjFromList })
-      Button('change to self').onClick(() => {
-        // 获取原始对象来和新值做对比
-        if (UIUtils.getTarget(this.dataObjFromList) !== this.list[0]) {
-          this.dataObjFromList = this.list[0];
-        }
-      })
-    }
-  }
-}
-
-@Component
-struct ConsumerChild {
-  @Link @Watch('onDataObjChange') dataObj: DataObj;
-
-  onDataObjChange() {
-    console.log("dataObj changed");
+  reduceVolume(balloon:Balloon) {
+    balloon.volume -= 1;
   }
 
   build() {
-    Column() {
-      Text(this.dataObj.name).fontSize(30)
+    Column({space:8}) {
+      Text(`The volume of the balloon is ${this.balloon.volume} cubic centimeters.`)
+        .fontSize(30)
+      Button(`increaseVolume`)
+        .onClick(()=>{
+          // 通过赋值添加 Proxy 代理
+          let balloon1 = this.balloon;
+          Balloon.increaseVolume(balloon1);
+        })
+      Button(`reduceVolume`)
+        .onClick(()=>{
+          // 通过赋值添加 Proxy 代理
+          let balloon2 = this.balloon;
+          this.reduceVolume(balloon2);
+        })
     }
+    .width('100%')
+    .height('100%')
   }
 }
 
-class DataObj {
-  name: string = 'default name';
+class Balloon {
+  volume: number;
+  constructor(volume: number) {
+    this.volume = volume;
+  }
 
-  constructor(name: string) {
-    this.name = name;
+  static increaseVolume(balloon:Balloon) {
+    balloon.volume += 2;
   }
 }
