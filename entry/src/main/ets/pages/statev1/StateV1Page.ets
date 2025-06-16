@@ -1,43 +1,27 @@
 @Entry
 @Component
 struct StateV1Page {
-  @State viewModel: TestModel = new TestModel();
+  @State message: string = '上海';
+  @State info: Info = new Info();
+
+  aboutToAppear(): void {
+    this.info.address = this.message;
+  }
 
   build() {
-    Row() {
-      Column() {
-        Text(this.viewModel.isSuccess ? 'success' : 'failed')
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-          .onClick(() => {
-            this.viewModel.query();
-          })
-      }.width('100%')
-    }.height('100%')
-  }
-}
-
-export class TestModel {
-  isSuccess: boolean = false;
-  model: Model = new Model(() => {
-  })
-
-  query() {
-    this.model.callback = () => {
-      this.isSuccess = true;
+    Column() {
+      Blank()
+        .height(300)
+      Text(`${this.message}`);
+      Text(`${this.info.address}`);
+      Button('change')
+        .onClick(() => {
+          this.info.address = '北京';
+        })
     }
-    this.model.query();
   }
 }
 
-export class Model {
-  callback: () => void
-
-  constructor(cb: () => void) {
-    this.callback = cb;
-  }
-
-  query() {
-    this.callback();
-  }
+class Info {
+  address: string = '杭州';
 }
