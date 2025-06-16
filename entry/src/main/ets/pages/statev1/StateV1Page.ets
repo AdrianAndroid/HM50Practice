@@ -16,6 +16,7 @@ struct StateV1Page {
       Text(`${this.user.info.address}`);
       Button('change')
         .onClick(() => {
+          this.user.info = new Info('广州');
           this.user.info.address = '北京';
         })
     }
