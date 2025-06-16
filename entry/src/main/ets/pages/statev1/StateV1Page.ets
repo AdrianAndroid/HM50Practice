@@ -3,45 +3,52 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State count: number = 10;
-
-  aboutToAppear(): void {
-    model.add(() => {
-      this.count++;
-    })
-  }
+  @State parentSelectedDate: Date = new Date('2021-08-08');
 
   build() {
     Column() {
-      Text(`count值: ${this.count}`)
-      Button('change')
+      Button('parent update the new date')
+        .margin(10)
         .onClick(() => {
-          model.call();
+          this.parentSelectedDate = new Date('2023-07-07');
         })
-    }
-  }
+      Button('parent increase the day by 1')
+        .margin(10)
+        .onClick(() => {
+          this.parentSelectedDate.setDate(this.parentSelectedDate.getDate() + 1);
+        })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.parentSelectedDate
+      })
 
-  aboutToDisappear(): void {
-    model.delete();
+      DateComponent({ selectedDate: this.parentSelectedDate })
+    }
+
   }
 }
 
-class Model {
-  private callback: Function | undefined = () => {}
 
-  add(callback: () => void): void {
-    this.callback = callback;
-  }
+@Component
+struct DateComponent {
+  @Prop selectedDate: Date = new Date('');
 
-  delete(): void {
-    this.callback = undefined;
-  }
-
-  call(): void {
-    if (this.callback) {
-      this.callback();
+  build() {
+    Column() {
+      Button('child update the new date')
+        .margin(10)
+        .onClick(() => {
+          this.selectedDate = new Date('2023-09-09');
+        })
+      Button(`child increase the year by 1`).onClick(() => {
+        this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
+      })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.selectedDate
+      })
     }
   }
 }
-
-let model: Model = new Model();
