@@ -1,32 +1,43 @@
 @Entry
 @Component
 struct StateV1Page {
-  @State vm: PlayDetailViewModel = new PlayDetailViewModel();
+  @State viewModel: TestModel = new TestModel();
 
   build() {
-    Stack() {
-      Text(this.vm.coverUrl).width(100).height(100).backgroundColor(this.vm.coverUrl)
-      Row() {
-        Button('点击改变颜色')
+    Row() {
+      Column() {
+        Text(this.viewModel.isSuccess ? 'success' : 'failed')
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            let self = this.vm;
-            this.vm.changeCoverUrl(self);
+            this.viewModel.query();
           })
-      }
-      .offset({top: 300})
-
-    }
-    .width('100%')
-    .height('100%')
-    .alignContent(Alignment.Top)
+      }.width('100%')
+    }.height('100%')
   }
 }
 
-export default class PlayDetailViewModel {
-  coverUrl: string = '#00ff00';
+export class TestModel {
+  isSuccess: boolean = false;
+  model: Model = new Model(() => {
+  })
 
-  changeCoverUrl= (model:PlayDetailViewModel)=> {
-    model.coverUrl = '#00F5FF';
+  query() {
+    this.model.callback = () => {
+      this.isSuccess = true;
+    }
+    this.model.query();
+  }
+}
+
+export class Model {
+  callback: () => void
+
+  constructor(cb: () => void) {
+    this.callback = cb;
   }
 
+  query() {
+    this.callback();
+  }
 }
