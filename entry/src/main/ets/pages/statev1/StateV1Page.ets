@@ -75,6 +75,7 @@ struct StateV1Page {
 
 let nextId: number = 1;
 
+@Observed
 class Book {
   public id: number;
   public title: string;
