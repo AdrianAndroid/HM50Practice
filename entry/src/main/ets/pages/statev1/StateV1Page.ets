@@ -3,43 +3,61 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State message: Set<number> = new Set([0, 1, 2, 3, 4]);
-
-  build() {
-    Row() {
-      Column() {
-        Child({ message: this.message })
-      }
-      .width('100%')
-    }
-    .height('100%')
-  }
-}
-
-
-@Component
-struct Child {
-  @Prop message: Set<number> = new Set([0, 1, 2, 3, 4]);
+  @State animal: Animals | undefined = new Animals("lion");
 
   build() {
     Column() {
-      ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Divider()
-      })
-      Button('init set').onClick(() => {
-        this.message = new Set([0, 1, 2, 3, 4]);
-      })
-      Button('set new one').onClick(() => {
-        this.message.add(5);
-      })
-      Button('clear').onClick(() => {
-        this.message.clear();
-      })
-      Button('delete the first one').onClick(() => {
-        this.message.delete(0);
-      })
+      Text(`Parents' animals are  ${this.animal instanceof Animals ? this.animal.name : 'undefined'}`).fontSize(30)
+
+      Child({animal: this.animal})
+
+      Button('Parents change animals into dogs')
+        .onClick(() => {
+          // 判断animal的类型，做属性的更新
+          if (this.animal instanceof Animals) {
+            this.animal.name = "Dog";
+          } else {
+            console.info('num is undefined, cannot change property');
+          }
+        })
+
+      Button('Parents change animal to undefined')
+        .onClick(() => {
+          // 赋值为undefined
+          this.animal = undefined;
+        })
     }
-    .width('100%')
+  }
+}
+
+class Animals {
+  public name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+@Component
+struct Child {
+  @Prop animal: Animals | undefined;
+
+  build() {
+    Column() {
+      Text(`Child's animal is  ${this.animal instanceof Animals ? this.animal.name : 'undefined'}`).fontSize(30)
+
+      Button('Child change animals into tigers')
+        .onClick(() => {
+          // 赋值为Animals的实例
+          this.animal = new Animals("Tiger");
+        })
+
+      Button('Child change animal to undefined')
+        .onClick(() => {
+          // 赋值为undefined
+          this.animal = undefined;
+        })
+
+    }.width('100%')
   }
 }
