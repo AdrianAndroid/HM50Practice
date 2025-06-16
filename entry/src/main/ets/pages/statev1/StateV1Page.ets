@@ -3,44 +3,39 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State arr: number[] = [1, 2, 3];
+  @State book: Book = new Book('100 secrets of C++', 765);
 
   build() {
-    Row() {
-      Column() {
-        Child({ value: this.arr[0] })
-        Child({ value: this.arr[1] })
-        Child({ value: this.arr[2] })
-
-        Divider().height(5)
-
-        ForEach(this.arr,
-          (item: number) => {
-            Child({ value: item })
-          },
-          (item: number) => item.toString()
-        )
-        Text('replace entire arr')
-          .fontSize(50)
-          .onClick(() => {
-            // 两个数组都包含项“3”。
-            this.arr = this.arr[0] == 1 ? [3, 4, 5] : [1, 2, 3];
-          })
-      }
+    Column() {
+      Blank()
+        .height(300)
+      ReaderComp({ book: this.book })
+      ReaderComp({ book: this.book })
     }
   }
 }
 
-
 @Component
-struct Child {
-  @Prop value: number = 0;
+struct ReaderComp {
+  @Prop book: Book = new Book("", 0);
 
   build() {
-    Text(`${this.value}`)
-      .fontSize(50)
-      .onClick(() => {
-        this.value++;
-      })
+    Row() {
+      Text(this.book.title)
+      Text(`...has${this.book.pages} pages!`)
+      Text(`...${this.book.readIt ? "I have read" : 'I have not read it'}`)
+        .onClick(() => this.book.readIt = true)
+    }
+  }
+}
+
+class Book {
+  public title: string;
+  public pages: number;
+  public readIt: boolean = false;
+
+  constructor(title: string, pages: number) {
+    this.title = title;
+    this.pages = pages;
   }
 }
