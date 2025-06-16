@@ -1,35 +1,50 @@
 @Entry
 @Component
 struct StateV1Page {
-  @State selectedDate: Date = new Date('2021-08-08');
+  build() {
+    Column() {
+      Blank()
+        .height(130)
+      // 此处指定的参数都将在初始渲染时覆盖本地定义的默认值，并不是所有的参数都需要从父组件初始化
+      MyComponent({ count: 1, increaseBy: 2 }).width(300)
+      MyComponent({ title: new Model('Hello World 2'), count: 7 })
+    }
+  }
+}
+
+@Component
+struct MyComponent {
+  @State title: Model = new Model('Hello World');
+  @State count: number = 0;
+  private increaseBy: number = 1;
 
   build() {
     Column() {
-      Button('set selectedDate to 2023-07-08')
+      Text(`${this.title.value}`)
         .margin(10)
+      Button(`Click to change title`)
         .onClick(() => {
-          this.selectedDate = new Date('2023-07-08');
+          // @State变量的更新将触发上面的Text组件内容更新
+          this.title.value = this.title.value === 'Hello ArkUI' ? 'Hello World' : 'Hello ArkUI';
         })
-      Button('increase the year by 1')
+        .width(300)
         .margin(10)
+
+      Button(`Click to increase count = ${this.count}`)
         .onClick(() => {
-          this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
+          // @State变量的更新将触发该Button组件的内容更新
+          this.count += this.increaseBy;
         })
-      Button('increase the month by 1')
+        .width(300)
         .margin(10)
-        .onClick(() => {
-          this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
-        })
-      Button('increase the day by 1')
-        .margin(10)
-        .onClick(() => {
-          this.selectedDate.setDate(this.selectedDate.getDate() + 1);
-        })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.selectedDate
-      })
-    }.width('100%')
+    }
+  }
+}
+
+class Model {
+  public value: string;
+
+  constructor(value: string) {
+    this.value = value;
   }
 }
