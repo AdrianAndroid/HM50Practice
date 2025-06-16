@@ -1,36 +1,40 @@
 @Entry
 @Component
 struct StateV1Page {
-  @State info: Info = new Info('上海');
-  @State user: User = new User();
-
-  aboutToAppear(): void {
-    this.user.info = this.info;
-  }
+  list: DataObj[] = [new DataObj('a'), new DataObj('b'), new DataObj('c')];
+  @State dataObjFromList: DataObj = this.list[0];
 
   build() {
     Column() {
       Blank()
         .height(300)
-      Text(`${this.info.address}`);
-      Text(`${this.user.info.address}`);
-      Button('change')
-        .onClick(() => {
-          this.user.info = new Info('广州');
-          this.user.info.address = '北京';
-        })
+      ConsumerChild({ dataObj: this.dataObjFromList })
+      Button('change to self').onClick(() => {
+        this.dataObjFromList = this.list[0];
+      })
     }
   }
 }
 
-class Info {
-  address: string = '杭州';
+@Component
+struct ConsumerChild {
+  @Link @Watch('onDataObjChange') dataObj: DataObj;
 
-  constructor(address: string) {
-    this.address = address;
+  onDataObjChange() {
+    console.log("dataObj changed");
+  }
+
+  build() {
+    Column() {
+      Text(this.dataObj.name).fontSize(30)
+    }
   }
 }
 
-class User {
-  info: Info = new Info('天津');
+class DataObj {
+  name: string = 'default name';
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }
