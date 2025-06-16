@@ -1,3 +1,5 @@
+import { UIUtils } from "@kit.ArkUI";
+
 @Entry
 @Component
 struct StateV1Page {
@@ -6,11 +8,12 @@ struct StateV1Page {
 
   build() {
     Column() {
-      Blank()
-        .height(300)
       ConsumerChild({ dataObj: this.dataObjFromList })
       Button('change to self').onClick(() => {
-        this.dataObjFromList = this.list[0];
+        // 获取原始对象来和新值做对比
+        if (UIUtils.getTarget(this.dataObjFromList) !== this.list[0]) {
+          this.dataObjFromList = this.list[0];
+        }
       })
     }
   }
@@ -31,7 +34,6 @@ struct ConsumerChild {
   }
 }
 
-@Observed
 class DataObj {
   name: string = 'default name';
 
