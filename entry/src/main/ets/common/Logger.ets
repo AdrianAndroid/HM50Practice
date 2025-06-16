@@ -18,7 +18,12 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 class Logger {
   private domain: number;
   private prefix: string;
+  private format_1: string = '%{public}s';
   private format: string = '%{public}s, %{public}s';
+
+  private formatStr(...args: string[]) {
+    return args.length === 1 ? this.format_1 : this.format
+  }
 
   /**
    * constructor.
@@ -32,7 +37,7 @@ class Logger {
   }
 
   debug(...args: string[]): void {
-    hilog.debug(this.domain, this.prefix, this.format, args);
+    hilog.debug(this.domain, this.prefix, this.formatStr(...args), args);
   }
 
   info(...args: string[]): void { // 处理每个参数，对应字符
@@ -42,20 +47,20 @@ class Logger {
       }
       return arg;
     });
-    const combinedMessage = processedArgs.join('\n');
-    hilog.info(this.domain, this.prefix, this.format, [combinedMessage]);
+    const combinedMessage = processedArgs;
+    hilog.info(this.domain, this.prefix, this.formatStr(...args), [combinedMessage]);
   }
 
   log(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.format, args);
+    hilog.info(this.domain, this.prefix, this.formatStr(...args), args);
   }
 
   warn(...args: string[]): void {
-    hilog.warn(this.domain, this.prefix, this.format, args);
+    hilog.warn(this.domain, this.prefix, this.formatStr(...args), args);
   }
 
   error(...args: string[]): void {
-    hilog.error(this.domain, this.prefix, this.format, args);
+    hilog.error(this.domain, this.prefix, this.formatStr(...args), args);
   }
 
   // 严格按每50个字符换行的处理函数
