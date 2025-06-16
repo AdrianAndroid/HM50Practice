@@ -31,6 +31,7 @@ struct ConsumerChild {
   }
 }
 
+@Observed
 class DataObj {
   name: string = 'default name';
 
