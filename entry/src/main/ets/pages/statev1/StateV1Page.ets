@@ -3,60 +3,102 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State mainCounter: number = 10;
+  @State person: Father = new Father('Hello', new Son('world'));
 
   build() {
     Column() {
-      Row() {
-        Column() {
-          // customCounter必须从父组件初始化，因为MyComponent的customCounter成员变量缺少本地初始化；此处，customCounter2可以不做初始化。
-          MyComponent({ customCounter: this.mainCounter })
-          // customCounter2也可以从父组件初始化，父组件初始化的值会覆盖子组件customCounter2的本地初始化的值
-          MyComponent({ customCounter: this.mainCounter, customCounter2: this.mainCounter })
-        }
+      Blank()
+        .height(100)
+      Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
+        Button('change Father name')
+          .width(312)
+          .height(40)
+          .margin(12)
+          .fontColor('#FFFFFF，90%')
+          .onClick(() => {
+            this.person.name = "Hi";
+          })
+        Button('change Son title')
+          .width(312)
+          .height(40)
+          .margin(12)
+          .fontColor('#FFFFFF，90%')
+          .onClick(() => {
+            this.person.son.title = "ArkUI";
+          })
+        Text(this.person.name)
+          .fontSize(16)
+          .margin(12)
+          .width(312)
+          .height(40)
+          .backgroundColor('#ededed')
+          .borderRadius(20)
+          .textAlign(TextAlign.Center)
+          .fontColor('#e6000000')
+          .onClick(() => {
+            this.person.name = 'Bye';
+          })
+        Text(this.person.son.title)
+          .fontSize(16)
+          .margin(12)
+          .width(312)
+          .height(40)
+          .backgroundColor('#ededed')
+          .borderRadius(20)
+          .textAlign(TextAlign.Center)
+          .onClick(() => {
+            this.person.son.title = "openHarmony";
+          })
+        Child({ child: this.person.son })
       }
 
-      Row() {
-        Column() {
-          Button('Click to change number')
-            .width(288)
-            .height(40)
-            .margin({ left: 30, top: 12 })
-            .fontColor('#FFFFFF，90%')
-            .onClick(() => {
-              this.mainCounter++;
-            })
-        }
-      }
+    }
+
+  }
+}
+
+
+@Component
+struct Child {
+  @Prop child: Son = new Son('');
+
+  build() {
+    Column() {
+      Text(this.child.title)
+        .fontSize(16)
+        .margin(12)
+        .width(312)
+        .height(40)
+        .backgroundColor('#ededed')
+        .borderRadius(20)
+        .textAlign(TextAlign.Center)
+        .onClick(() => {
+          this.child.title = 'Bye Bye';
+        })
     }
   }
 }
 
-@Component
-struct MyComponent {
-  @Prop customCounter: number;
-  @Prop customCounter2: number = 5;
+// 以下是嵌套类对象的数据结构。
+@Observed
+class Son {
+  public title: string;
 
-  build() {
-    Column() {
-      Row() {
-        Text(`From Main: ${this.customCounter}`).fontColor('#ff6b6565').margin({ left: -110, top: 12 })
-      }
 
-      Row() {
-        Button('Click to change locally !')
-          .width(288)
-          .height(40)
-          .margin({ left: 30, top: 12 })
-          .fontColor('#FFFFFF，90%')
-          .onClick(() => {
-            this.customCounter2++;
-          })
-      }
+  constructor(title: string) {
+    this.title = title;
+  }
+}
 
-      Row() {
-        Text(`Custom Local: ${this.customCounter2}`).fontColor('#ff6b6565').margin({ left: -110, top: 12 })
-      }
-    }
+
+@Observed
+class Father {
+  public name: string;
+  public son: Son;
+
+
+  constructor(name: string, son: Son) {
+    this.name = name;
+    this.son = son;
   }
 }
