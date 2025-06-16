@@ -1,22 +1,22 @@
 @Entry
 @Component
 struct StateV1Page {
-  @State message: string = '上海';
-  @State info: Info = new Info();
+  @State info: Info = new Info('上海');
+  @State user: User = new User();
 
   aboutToAppear(): void {
-    this.info.address = this.message;
+    this.user.info = this.info;
   }
 
   build() {
     Column() {
       Blank()
         .height(300)
-      Text(`${this.message}`);
       Text(`${this.info.address}`);
+      Text(`${this.user.info.address}`);
       Button('change')
         .onClick(() => {
-          this.info.address = '北京';
+          this.user.info.address = '北京';
         })
     }
   }
@@ -24,4 +24,12 @@ struct StateV1Page {
 
 class Info {
   address: string = '杭州';
+
+  constructor(address: string) {
+    this.address = address;
+  }
+}
+
+class User {
+  info: Info = new Info('天津');
 }
