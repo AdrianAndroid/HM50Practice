@@ -3,102 +3,46 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State person: Father = new Father('Hello', new Son('world'));
+  @State message: Map<number, string> = new Map([[0, "a"], [1, "b"], [3, "c"]]);
 
   build() {
-    Column() {
-      Blank()
-        .height(100)
-      Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
-        Button('change Father name')
-          .width(312)
-          .height(40)
-          .margin(12)
-          .fontColor('#FFFFFF，90%')
-          .onClick(() => {
-            this.person.name = "Hi";
-          })
-        Button('change Son title')
-          .width(312)
-          .height(40)
-          .margin(12)
-          .fontColor('#FFFFFF，90%')
-          .onClick(() => {
-            this.person.son.title = "ArkUI";
-          })
-        Text(this.person.name)
-          .fontSize(16)
-          .margin(12)
-          .width(312)
-          .height(40)
-          .backgroundColor('#ededed')
-          .borderRadius(20)
-          .textAlign(TextAlign.Center)
-          .fontColor('#e6000000')
-          .onClick(() => {
-            this.person.name = 'Bye';
-          })
-        Text(this.person.son.title)
-          .fontSize(16)
-          .margin(12)
-          .width(312)
-          .height(40)
-          .backgroundColor('#ededed')
-          .borderRadius(20)
-          .textAlign(TextAlign.Center)
-          .onClick(() => {
-            this.person.son.title = "openHarmony";
-          })
-        Child({ child: this.person.son })
+    Row() {
+      Column() {
+        Child({ value: this.message })
       }
-
+      .width('100%')
     }
-
+    .height('100%')
   }
 }
 
 
 @Component
 struct Child {
-  @Prop child: Son = new Son('');
+  @Prop value: Map<number, string> = new Map([[0, "a"], [1, "b"], [3, "c"]]);
 
   build() {
     Column() {
-      Text(this.child.title)
-        .fontSize(16)
-        .margin(12)
-        .width(312)
-        .height(40)
-        .backgroundColor('#ededed')
-        .borderRadius(20)
-        .textAlign(TextAlign.Center)
-        .onClick(() => {
-          this.child.title = 'Bye Bye';
-        })
+      ForEach(Array.from(this.value.entries()), (item: [number, string]) => {
+        Text(`${item[0]}`).fontSize(30)
+        Text(`${item[1]}`).fontSize(30)
+        Divider()
+      })
+      Button('child init map').onClick(() => {
+        this.value = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+      })
+      Button('child set new one').onClick(() => {
+        this.value.set(4, "d");
+      })
+      Button('child clear').onClick(() => {
+        this.value.clear();
+      })
+      Button('child replace the first one').onClick(() => {
+        this.value.set(0, "aa");
+      })
+      Button('child delete the first one').onClick(() => {
+        this.value.delete(0);
+      })
     }
-  }
-}
-
-// 以下是嵌套类对象的数据结构。
-@Observed
-class Son {
-  public title: string;
-
-
-  constructor(title: string) {
-    this.title = title;
-  }
-}
-
-
-@Observed
-class Father {
-  public name: string;
-  public son: Son;
-
-
-  constructor(name: string, son: Son) {
-    this.name = name;
-    this.son = son;
   }
 }
