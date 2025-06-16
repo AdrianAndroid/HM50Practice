@@ -3,52 +3,44 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State parentSelectedDate: Date = new Date('2021-08-08');
+  @State arr: number[] = [1, 2, 3];
 
   build() {
-    Column() {
-      Button('parent update the new date')
-        .margin(10)
-        .onClick(() => {
-          this.parentSelectedDate = new Date('2023-07-07');
-        })
-      Button('parent increase the day by 1')
-        .margin(10)
-        .onClick(() => {
-          this.parentSelectedDate.setDate(this.parentSelectedDate.getDate() + 1);
-        })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.parentSelectedDate
-      })
+    Row() {
+      Column() {
+        Child({ value: this.arr[0] })
+        Child({ value: this.arr[1] })
+        Child({ value: this.arr[2] })
 
-      DateComponent({ selectedDate: this.parentSelectedDate })
+        Divider().height(5)
+
+        ForEach(this.arr,
+          (item: number) => {
+            Child({ value: item })
+          },
+          (item: number) => item.toString()
+        )
+        Text('replace entire arr')
+          .fontSize(50)
+          .onClick(() => {
+            // 两个数组都包含项“3”。
+            this.arr = this.arr[0] == 1 ? [3, 4, 5] : [1, 2, 3];
+          })
+      }
     }
-
   }
 }
 
 
 @Component
-struct DateComponent {
-  @Prop selectedDate: Date = new Date('');
+struct Child {
+  @Prop value: number = 0;
 
   build() {
-    Column() {
-      Button('child update the new date')
-        .margin(10)
-        .onClick(() => {
-          this.selectedDate = new Date('2023-09-09');
-        })
-      Button(`child increase the year by 1`).onClick(() => {
-        this.selectedDate.setFullYear(this.selectedDate.getFullYear() + 1);
+    Text(`${this.value}`)
+      .fontSize(50)
+      .onClick(() => {
+        this.value++;
       })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.selectedDate
-      })
-    }
   }
 }
