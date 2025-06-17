@@ -3,12 +3,48 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State message: Info = new Info(new MyMap("myMap", [[0, "a"], [1, "b"], [3, "c"]]));
+  @State message: Info = new Info(new MySet("Set", [0, 1, 2, 3, 4]));
 
   build() {
     Row() {
       Column() {
-        MapSampleNestedChild({ myMap: this.message.info })
+        SetSampleNestedChild({ mySet: this.message.info })
+      }
+      .width('100%')
+    }
+    .height('100%')
+  }
+}
+
+@Component
+struct SetSampleNestedChild {
+  @ObjectLink mySet: MySet<number>;
+
+  build() {
+    Row() {
+      Column() {
+        ForEach(Array.from(this.mySet.entries()), (item: [number, number]) => {
+          Text(`${item}`).fontSize(30)
+          Divider()
+        })
+        Button('set new one')
+          .width(200)
+          .margin(10)
+          .onClick(() => {
+            this.mySet.add(5);
+          })
+        Button('clear')
+          .width(200)
+          .margin(10)
+          .onClick(() => {
+            this.mySet.clear();
+          })
+        Button('delete the first one')
+          .width(200)
+          .margin(10)
+          .onClick(() => {
+            this.mySet.delete(0);
+          })
       }
       .width('100%')
     }
@@ -18,68 +54,24 @@ struct StateV1Page {
 
 @Observed
 class Info {
-  public info: MyMap<number, string>;
+  public info: MySet<number>;
 
-  constructor(info: MyMap<number, string>) {
+  constructor(info: MySet<number>) {
     this.info = info;
   }
 }
 
 
 @Observed
-export class MyMap<K, V> extends Map<K, V> {
+export class MySet<T> extends Set<T> {
   public name: string;
 
-  constructor(name?: string, args?: [K, V][]) {
+  constructor(name?: string, args?: T[]) {
     super(args);
-    this.name = name ? name : "My Map";
+    this.name = name ? name : "My Set";
   }
 
   getName() {
     return this.name;
-  }
-}
-
-@Component
-struct MapSampleNestedChild {
-  @ObjectLink myMap: MyMap<number, string>;
-
-  build() {
-    Row() {
-      Column() {
-        ForEach(Array.from(this.myMap.entries()), (item: [number, string]) => {
-          Text(`${item[0]}`).fontSize(30)
-          Text(`${item[1]}`).fontSize(30)
-          Divider().strokeWidth(5)
-        })
-
-        Button('set new one')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.myMap.set(4, "d");
-          })
-        Button('clear')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.myMap.clear();
-          })
-        Button('replace the first one')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.myMap.set(0, "aa");
-          })
-        Button('delete the first one')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.myMap.delete(0);
-          })
-      }
-      .width('100%')
-    }
-    .height('100%')
   }
 }
