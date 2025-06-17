@@ -1,26 +1,68 @@
 import Constants from '../../common/Constants';
 
-@Entry({ storage: LocalStorage.getShared() })
+let localStorage1: LocalStorage = new LocalStorage();
+localStorage1.setOrCreate('PropA', 'PropA');
+
+let localStorage2: LocalStorage = new LocalStorage();
+localStorage2.setOrCreate('PropB', 'PropB');
+
+@Entry({ storage: localStorage1 })
 @Component
 struct StateV1Page {
-  // 可以使用@LocalStorageLink/Prop与LocalStorage实例中的变量建立联系
-  @LocalStorageLink('PropA') propA: number = 1;
-  pageStack: NavPathStack = new NavPathStack()
+  @LocalStorageLink('PropA') PropA: string = 'Hello World';
+  @State count: number = 0
 
   build() {
-    Navigation(this.pageStack) {
-      Row() {
-        Column() {
-          Text(`${this.propA}`)
-            .fontSize(50)
-            .fontWeight(FontWeight.Bold)
-          Button("To Page")
-            .onClick(() => {
-              this.pageStack.pushPathByName('StateV1Page2', null)
-            })
-        }
-        .width(Constants.FULL_PERCENT)
-      }.height(Constants.FULL_PERCENT)
+    Row() {
+      Column() {
+        Text(this.PropA)
+          .fontSize(50)
+          .fontWeight(FontWeight.Bold)
+        Button('Click Parent')
+          .onClick(() => {
+            this.PropA = 'Parent'
+          })
+        Child({count: this.count}, localStorage2)
+        Child2({}, localStorage2)
+      }
+      .width(Constants.FULL_PERCENT)
+    }
+    .height(Constants.FULL_PERCENT)
+  }
+}
+
+@Component
+struct Child {
+  @Link count: number
+  @LocalStorageLink('PropB') PropB: string = 'Hello World';
+  build() {
+    Column() {
+      Text(this.PropB)
+        .fontSize(50)
+        .fontWeight(FontWeight.Bold)
+
+      Button('Child Click')
+        .onClick(() => {
+          this.PropB = 'Child'
+        })
+    }
+  }
+}
+
+@Component
+struct Child2 {
+  @State count: number = 2
+  @LocalStorageLink('PropB') PropB: string = 'Hello World';
+  build() {
+    Column() {
+      Text(this.PropB)
+        .fontSize(50)
+        .fontWeight(FontWeight.Bold)
+
+      Button('Child Click')
+        .onClick(() => {
+          this.PropB = 'Child'
+        })
     }
   }
 }
