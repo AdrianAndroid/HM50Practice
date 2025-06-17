@@ -3,63 +3,85 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State bag: Bag = new Bag(new Book('JS'));
+  // Parent中有@State装饰的Info[]
+  @State arrA: Info[] = [new Info(0), new Info(0)];
 
   build() {
     Column() {
-      Blank()
-        .height(100)
-      Text(`Index: ${this.bag.book.name}`) // 无法观察到name的变化
-        .width(320)
-        .margin(10)
-        .textAlign(TextAlign.Center)
+      ForEach(this.arrA,
+        (item: Info) => {
+          Child({ label: `#${item.id}`, info: item })
+        },
+        (item: Info): string => item.id.toString()
+      )
+      // 使用@State装饰的数组的数组项初始化@ObjectLink，其中数组项是被@Observed装饰的Info的实例
+      Child({ label: `ViewChild this.arrA[first]`, info: this.arrA[0] })
+      Child({ label: `ViewChild this.arrA[last]`, info: this.arrA[this.arrA.length-1] })
 
-      Button('change bag.book.name')
+      Button(`ViewParent: reset array`)
         .width(320)
         .margin(10)
         .onClick(() => {
-          this.bag.book.name = 'TS';
+          this.arrA = [new Info(0), new Info(0)];
         })
-
-      BookCard({ book: this.bag.book })
+      Button(`ViewParent: push`)
+        .width(320)
+        .margin(10)
+        .onClick(() => {
+          this.arrA.push(new Info(0));
+        })
+      Button(`ViewParent: shift`)
+        .width(320)
+        .margin(10)
+        .onClick(() => {
+          if (this.arrA.length > 0) {
+            this.arrA.shift();
+          } else {
+            console.log("length <= 0");
+          }
+        })
+      Button(`ViewParent: item property in middle`)
+        .width(320)
+        .margin(10)
+        .onClick(() => {
+          this.arrA[Math.floor(this.arrA.length / 2)].info = 10;
+        })
+      Button(`ViewParent: item property in middle`)
+        .width(320)
+        .margin(10)
+        .onClick(() => {
+          this.arrA[Math.floor(this.arrA.length / 2)] = new Info(11);
+        })
     }
   }
 }
 
-@Observed
-class Book {
-  name: string;
-
-  constructor(name: string) {
-    this.name = name;
-  }
-}
+let NextID: number = 1;
 
 @Observed
-class Bag {
-  book: Book;
+class Info {
+  public id: number;
+  public info: number;
 
-  constructor(book: Book) {
-    this.book = book;
+  constructor(info: number) {
+    this.id = NextID++;
+    this.info = info;
   }
 }
 
 @Component
-struct BookCard {
-  @ObjectLink book: Book;
+struct Child {
+  // 子组件Child的@ObjectLink的类型是Info
+  @ObjectLink info: Info;
+  label: string = 'ViewChild';
 
   build() {
-    Column() {
-      Text(`BookCard: ${this.book.name}`) // 可以观察到name的变化
-        .width(320)
-        .margin(10)
-        .textAlign(TextAlign.Center)
-
-      Button('change book.name')
+    Row() {
+      Button(`ViewChild [${this.label}] this.info.info = ${this.info ? this.info.info : "undefined"}`)
         .width(320)
         .margin(10)
         .onClick(() => {
-          this.book.name = 'C++';
+          this.info.info += 1;
         })
     }
   }
