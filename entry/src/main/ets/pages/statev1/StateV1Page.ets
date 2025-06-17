@@ -9,6 +9,8 @@ class ViewData {
   }
 }
 
+AppStorage.setOrCreate('tapIndex', -1)
+
 @Entry()
 @Component
 struct StateV1Page {
