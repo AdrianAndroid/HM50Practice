@@ -3,43 +3,40 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State message: Set<number> = new Set([0, 1, 2, 3, 4]);
+  @State sourceNumber: number = 0;
 
   build() {
-    Row() {
-      Column() {
-        Child({ message: this.message })
-      }
-      .width('100%')
+    Column() {
+      Text(`父组件的sourceNumber：` + this.sourceNumber)
+      Child({ sourceNumber: this.sourceNumber })
+      Button('父组件更改sourceNumber')
+        .onClick(() => {
+          this.sourceNumber++;
+        })
     }
+    .width('100%')
     .height('100%')
   }
 }
 
 @Component
 struct Child {
-  @Link message: Set<number>;
+  @State memberMessage: string = 'Hello World';
+  @Link @Watch('onSourceChange') sourceNumber: number;
+
+  onSourceChange() {
+    this.memberMessage = this.sourceNumber.toString();
+  }
 
   build() {
     Column() {
-      ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Divider()
-      })
-      Button('init set').onClick(() => {
-        this.message = new Set([0, 1, 2, 3, 4]);
-      })
-      Button('set new one').onClick(() => {
-        this.message.add(5);
-      })
-      Button('clear').onClick(() => {
-        this.message.clear();
-      })
-      Button('delete the first one').onClick(() => {
-        this.message.delete(0);
-      })
+      Text(this.memberMessage)
+      Text(`子组件的sourceNumber：` + this.sourceNumber.toString())
+      Button('子组件更改memberMessage')
+        .onClick(() => {
+          this.memberMessage = 'Hello memberMessage';
+        })
     }
-    .width('100%')
   }
 }
 
