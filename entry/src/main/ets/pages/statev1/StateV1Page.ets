@@ -3,52 +3,56 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @Provide('name') name: string = 'abc';
-
-  @Builder
-  builder2($$: Tmp) {
-    Text(`${$$.name}测试`)
-  }
+  @State newData: NewDate = new NewDate(new DateClass('2023-1-1'));
 
   build() {
     Column() {
-      Button('你好').onClick(() => {
-        if (this.name == 'ddd') {
-          this.name = 'abc';
-        } else {
-          this.name = 'ddd';
-        }
-      })
-      CustomWidget() {
-        CustomWidgetChild({ builder: this.builder2 })
-      }
+      Child({ label: 'date', data: this.newData.data })
+
+      Button(`parent update the new date`)
+        .onClick(() => {
+          this.newData.data = new DateClass('2023-07-07');
+        })
+      Button(`ViewB: this.newData = new NewDate(new DateClass('2023-08-20'))`)
+        .onClick(() => {
+          this.newData = new NewDate(new DateClass('2023-08-20'));
+        })
     }
   }
 }
 
-class Tmp {
-  name: string = ''
+@Observed
+class DateClass extends Date {
+  constructor(args: number | string) {
+    super(args);
+  }
 }
 
-@Component
-struct CustomWidget {
-  @BuilderParam
-  builder: () => void;
+@Observed
+class NewDate {
+  public data: DateClass;
 
-  build() {
-    this.builder()
+  constructor(data: DateClass) {
+    this.data = data;
   }
 }
 
 @Component
-struct CustomWidgetChild {
-  @Consume('name') name: string;
-  @BuilderParam
-  builder: ($$: Tmp) => void;
+struct Child {
+  label: string = 'date';
+  @ObjectLink data: DateClass;
 
   build() {
     Column() {
-      this.builder({ name: this.name })
+      Button(`child increase the day by 1`)
+        .onClick(() => {
+          this.data.setDate(this.data.getDate() + 1);
+        })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.data
+      })
     }
   }
 }
