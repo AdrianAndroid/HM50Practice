@@ -3,51 +3,46 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @Provide selectedDate: Date = new Date('2021-08-08')
+  // @Provide装饰的变量index由入口组件ToDo提供其后代组件
+  @Provide count: number = 0;
 
   build() {
     Column() {
-      Button('parent increase the day by 1')
-        .margin(10)
-        .onClick(() => {
-          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
-        })
-      Button('parent update the new date')
-        .margin(10)
-        .onClick(() => {
-          this.selectedDate = new Date('2023-07-07')
-        })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.selectedDate
-      })
-      Child()
+      Button(`count(${this.count}), count + 1`)
+        .onClick(() => this.count += 1)
+      ToDoDemo()
     }
   }
 }
 
 @Component
-struct Child {
-  @Consume selectedDate: Date;
+struct ToDoItem {
+  // @Consume装饰的变量通过相同的属性名绑定其祖先组件ToDo内的@Provide装饰的变量
+  @Consume count: number;
 
   build() {
     Column() {
-      Button(`child increase the day by 1`)
-        .onClick(() => {
-          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
-        })
-      Button('child update the new date')
-        .margin(10)
-        .onClick(() => {
-          this.selectedDate = new Date('2023-09-09')
-        })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.selectedDate
-      })
+      Text(`count(${this.count})`)
+      Button(`count(${this.count}), count + 1`)
+        .onClick(() => this.count += 1)
+    }
+    .width('50%')
+  }
+}
+
+@Component
+struct ToDoList {
+  build() {
+    Row({ space: 5 }) {
+      ToDoItem()
+      ToDoItem()
     }
   }
 }
 
+@Component
+struct ToDoDemo {
+  build() {
+    ToDoList()
+  }
+}
