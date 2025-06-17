@@ -1,58 +1,26 @@
-let count: Record<string, number> = { 'countStorage': 1 };
-let storage: LocalStorage = new LocalStorage(count);
+import Constants from '../../common/Constants';
 
-@Component
-struct Child {
-  // 子组件实例的名字
-  label: string = 'no name';
-  // 和LocalStorage中“countStorage”的双向绑定数据
-  @LocalStorageLink('countStorage') playCountLink: number = 0;
-
-  build() {
-    Row() {
-      Text(this.label)
-        .width(50).height(60).fontSize(12)
-      Text(`playCountLink ${this.playCountLink}: inc by 1`)
-        .onClick(() => {
-          this.playCountLink += 1;
-        })
-        .width(200).height(60).fontSize(12)
-    }.width(300).height(60)
-  }
-}
-
-@Entry(storage)
+@Entry({ storage: LocalStorage.getShared() })
 @Component
 struct StateV1Page {
-  @LocalStorageLink('countStorage') playCount: number = 0;
+  // 可以使用@LocalStorageLink/Prop与LocalStorage实例中的变量建立联系
+  @LocalStorageLink('PropA') propA: number = 1;
+  pageStack: NavPathStack = new NavPathStack()
 
   build() {
-    Column() {
+    Navigation(this.pageStack) {
       Row() {
-        Text('Parent')
-          .width(50).height(60).fontSize(12)
-        Text(`playCount ${this.playCount} dec by 1`)
-          .onClick(() => {
-            this.playCount -= 1;
-          })
-          .width(250).height(60).fontSize(12)
-      }.width(300).height(60)
-
-      Row() {
-        Text('LocalStorage')
-          .width(50).height(60).fontSize(12)
-        Text(`countStorage ${this.playCount} incr by 1`)
-          .onClick(() => {
-            storage.set<number | undefined>('countStorage', Number(storage.get<number>('countStorage')) + 1);
-          })
-          .width(250).height(60).fontSize(12)
-      }.width(300).height(60)
-
-      Child({ label: 'ChildA' })
-      Child({ label: 'ChildB' })
-
-      Text(`playCount in LocalStorage for debug ${storage.get<number>('countStorage')}`)
-        .width(300).height(60).fontSize(12)
+        Column() {
+          Text(`${this.propA}`)
+            .fontSize(50)
+            .fontWeight(FontWeight.Bold)
+          Button("To Page")
+            .onClick(() => {
+              this.pageStack.pushPathByName('StateV1Page2', null)
+            })
+        }
+        .width(Constants.FULL_PERCENT)
+      }.height(Constants.FULL_PERCENT)
     }
   }
 }
