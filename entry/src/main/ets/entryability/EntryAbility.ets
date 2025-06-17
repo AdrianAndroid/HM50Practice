@@ -47,6 +47,7 @@ export default class EntryAbility extends UIAbility {
       ConnectionUtils.registerNetworkAvailableStatus();
       hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
+      PersistentStorage.persistProp('aProp', 47)
     });
   }
 
