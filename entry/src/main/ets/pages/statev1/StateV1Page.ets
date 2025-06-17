@@ -1,28 +1,58 @@
-// 构造LocalStorage实例
-let para: Record<string, number> = { 'PropA': 47 };
-let storage: LocalStorage = new LocalStorage(para);
-// 调用link（api9以上）接口构造'PropA'的双向同步数据，linkToPropA 是全局变量
-let linkToPropA: SubscribedAbstractProperty<object> = storage.link('PropA');
+let count: Record<string, number> = { 'countStorage': 1 };
+let storage: LocalStorage = new LocalStorage(count);
 
+@Component
+struct Child {
+  // 子组件实例的名字
+  label: string = 'no name';
+  // 和LocalStorage中“countStorage”的双向绑定数据
+  @LocalStorageLink('countStorage') playCountLink: number = 0;
+
+  build() {
+    Row() {
+      Text(this.label)
+        .width(50).height(60).fontSize(12)
+      Text(`playCountLink ${this.playCountLink}: inc by 1`)
+        .onClick(() => {
+          this.playCountLink += 1;
+        })
+        .width(200).height(60).fontSize(12)
+    }.width(300).height(60)
+  }
+}
 
 @Entry(storage)
 @Component
 struct StateV1Page {
-
-  // @LocalStorageLink('PropA')在Parent自定义组件中创建'PropA'的双向同步数据，初始值为47，因为在构造LocalStorage已经给“PropA”设置47
-  @LocalStorageLink('PropA') storageLink: number = 1;
+  @LocalStorageLink('countStorage') playCount: number = 0;
 
   build() {
     Column() {
-      Text(`incr @LocalStorageLink variable`)
-        // 点击“incr @LocalStorageLink variable”，this.storageLink加1，改变同步回storage，全局变量linkToPropA也会同步改变
+      Row() {
+        Text('Parent')
+          .width(50).height(60).fontSize(12)
+        Text(`playCount ${this.playCount} dec by 1`)
+          .onClick(() => {
+            this.playCount -= 1;
+          })
+          .width(250).height(60).fontSize(12)
+      }.width(300).height(60)
 
-        .onClick(() => {
-          this.storageLink += 1;
-        })
+      Row() {
+        Text('LocalStorage')
+          .width(50).height(60).fontSize(12)
+        Text(`countStorage ${this.playCount} incr by 1`)
+          .onClick(() => {
+            storage.set<number | undefined>('countStorage', Number(storage.get<number>('countStorage')) + 1);
+          })
+          .width(250).height(60).fontSize(12)
+      }.width(300).height(60)
 
-      // 并不建议在组件内使用全局变量linkToPropA.get()，因为可能会有生命周期不同引起的错误。
-      Text(`@LocalStorageLink: ${this.storageLink} - linkToPropA: ${linkToPropA.get()}`)
+      Child({ label: 'ChildA' })
+      Child({ label: 'ChildB' })
+
+      Text(`playCount in LocalStorage for debug ${storage.get<number>('countStorage')}`)
+        .width(300).height(60).fontSize(12)
     }
   }
 }
