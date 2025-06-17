@@ -8,6 +8,7 @@ struct StateV1Page {
 
   build() {
     Column() {
+      Blank().height(50)
       ForEach(this.arrA,
         (item: Info) => {
           Child({ label: `#${item.id}`, info: item })
