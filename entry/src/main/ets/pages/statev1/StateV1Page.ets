@@ -3,87 +3,59 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  // Parent中有@State装饰的Info[]
-  @State arrA: Info[] = [new Info(0), new Info(0)];
+  @State arr: Array<ObservedArray<string>> = [new ObservedArray<string>('apple'), new ObservedArray<string>('banana'), new ObservedArray<string>('orange')];
 
   build() {
     Column() {
-      Blank().height(50)
-      ForEach(this.arrA,
-        (item: Info) => {
-          Child({ label: `#${item.id}`, info: item })
-        },
-        (item: Info): string => item.id.toString()
-      )
-      // 使用@State装饰的数组的数组项初始化@ObjectLink，其中数组项是被@Observed装饰的Info的实例
-      Child({ label: `ViewChild this.arrA[first]`, info: this.arrA[0] })
-      Child({ label: `ViewChild this.arrA[last]`, info: this.arrA[this.arrA.length-1] })
+      Blank()
+        .height(50)
+      ForEach(this.arr, (itemArr: ObservedArray<string>) => {
+        Item({ itemArr: itemArr })
+      })
 
-      Button(`ViewParent: reset array`)
-        .width(320)
+      Divider()
+
+      Button('push two-dimensional array item')
         .margin(10)
         .onClick(() => {
-          this.arrA = [new Info(0), new Info(0)];
+          this.arr[0].push('strawberry');
         })
-      Button(`ViewParent: push`)
-        .width(320)
+
+      Button('push array item')
         .margin(10)
         .onClick(() => {
-          this.arrA.push(new Info(0));
+          this.arr.push(new ObservedArray<string>('pear'));
         })
-      Button(`ViewParent: shift`)
-        .width(320)
+
+      Button('change two-dimensional array first item')
         .margin(10)
         .onClick(() => {
-          if (this.arrA.length > 0) {
-            this.arrA.shift();
-          } else {
-            console.log("length <= 0");
-          }
+          this.arr[0][0] = 'APPLE';
         })
-      Button(`ViewParent: item property in middle`)
-        .width(320)
+
+      Button('change array first item')
         .margin(10)
         .onClick(() => {
-          this.arrA[Math.floor(this.arrA.length / 2)].info = 10;
-        })
-      Button(`ViewParent: item property in middle`)
-        .width(320)
-        .margin(10)
-        .onClick(() => {
-          this.arrA[Math.floor(this.arrA.length / 2)] = new Info(11);
+          this.arr[0] = new ObservedArray<string>('watermelon');
         })
     }
   }
 }
 
-let NextID: number = 1;
-
 @Observed
-class Info {
-  public id: number;
-  public info: number;
-
-  constructor(info: number) {
-    this.id = NextID++;
-    this.info = info;
-  }
+class ObservedArray<T> extends Array<T> {
 }
 
 @Component
-struct Child {
-  // 子组件Child的@ObjectLink的类型是Info
-  @ObjectLink info: Info;
-  label: string = 'ViewChild';
+struct Item {
+  @ObjectLink itemArr: ObservedArray<string>;
 
   build() {
     Row() {
-      Button(`ViewChild [${this.label}] this.info.info = ${this.info ? this.info.info : "undefined"}`)
-        .width(320)
-        .margin(10)
-        .onClick(() => {
-          this.info.info += 1;
-        })
+      ForEach(this.itemArr, (item: string, index: number) => {
+        Text(`${index}: ${item}`)
+          .width(100)
+      }, (item: string) => item)
     }
   }
 }
