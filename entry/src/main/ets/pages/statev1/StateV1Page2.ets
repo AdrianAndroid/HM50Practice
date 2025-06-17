@@ -1,36 +1,28 @@
-import Constants from "../../common/Constants";
+import { router } from '@kit.ArkUI';
 
-@Component
+@Entry
+@Component({ freezeWhenInactive: true })
 struct StateV1Page2 {
-  @LocalStorageLink('PropA') propA: number = 2;
-  pathStack: NavPathStack | undefined
+  @StorageLink('PropA') @Watch("second") storageLink2: number = 1;
+
+  second() {
+    console.info("second page: " + `${this.storageLink2}`)
+  }
 
   build() {
-    NavDestination() {
-      Row() {
-        Text(`${this.propA}`)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
+    Column() {
 
-        Button('Change propA')
-          .onClick(() => {
-            this.propA = 100
-          })
+      Text(`second Page ${this.storageLink2}`).fontSize(50)
+      Button('Change Divider.strokeWidth')
+        .onClick(() => {
+          router.back()
+        })
 
-        Button('Back Index')
-          .onClick(() => {
-            this.pathStack?.pop()
-          })
-      }
-      .width(Constants.FULL_PERCENT)
+      Button('second page storageLink2 + 2').fontSize(30)
+        .onClick(() => {
+          this.storageLink2 += 2
+        })
+
     }
-    .onReady((context: NavDestinationContext) => {
-      this.pathStack = context.pathStack
-    })
   }
-}
-
-@Builder
-export function PageBuilder() {
-  StateV1Page2()
 }

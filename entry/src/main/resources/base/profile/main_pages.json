@@ -64,6 +64,7 @@
     "pages/SelectContactPage",
     "pages/DownloadNotificationPage",
     "pages/LifecyclePages",
-    "pages/statev1/StateV1Page"
+    "pages/statev1/StateV1Page",
+    "pages/statev1/StateV1Page2"
   ]
 }

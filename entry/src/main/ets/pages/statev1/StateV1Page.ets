@@ -1,18 +1,26 @@
+import { router } from '@kit.ArkUI';
+import Constants from '../../common/Constants';
+
 @Entry()
-@Component
+@Component({ freezeWhenInactive: true })
 struct StateV1Page {
-  @State text: string = ''
-  controller: TextInputController = new TextInputController()
+  @StorageLink('PropA') @Watch("first") storageLink: number = 47;
+
+  first() {
+    console.info("first page " + `${this.storageLink}`)
+  }
 
   build() {
-    Column({ space: 20 }) {
-      Blank().height(500)
-      Text(this.text)
-      TextInput({ text: $$this.text, placeholder: 'input your word...', controller: this.controller })
-        .placeholderColor(Color.Grey)
-        .placeholderFont({ size: 14, weight: 400 })
-        .caretColor(Color.Blue)
-        .width(300)
-    }.width('100%').height('100%').justifyContent(FlexAlign.Center)
+    Column() {
+      Text(`From first Page ${this.storageLink}`).fontSize(50)
+      Button('first page storageLink + 1').fontSize(30)
+        .onClick(() => {
+          this.storageLink += 1
+        })
+      Button('go to next page').fontSize(30)
+        .onClick(() => {
+          router.pushUrl({ url: Constants.PAGES_statev1_StateV1Page2 })
+        })
+    }
   }
 }

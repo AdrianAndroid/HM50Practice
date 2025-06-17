@@ -23,14 +23,6 @@
       "data": {
         "description" : "this is mainPage"
       }
-    },
-    {
-      "name": "StateV1Page2",
-      "pageSourceFile": "src/main/ets/pages/statev1/StateV1Page2.ets",
-      "buildFunction": "PageBuilder",
-      "data": {
-        "description" : "LocalStorage example"
-      }
     }
   ]
 }
