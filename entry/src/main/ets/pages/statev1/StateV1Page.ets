@@ -3,13 +3,14 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  // @Provide装饰的联合类型count由入口组件Ancestors提供其后代组件
-  @Provide count: string | undefined = 'Child';
+  @Provide("reviewVotes") reviewVotes: number = 40;
 
   build() {
     Column() {
-      Button(`count(${this.count}), Child`)
-        .onClick(() => this.count = undefined)
+      Blank()
+        .height(100)
+      Button(`reviewVotes(${this.reviewVotes}), give +1`)
+        .onClick(() => this.reviewVotes += 1)
       Parent()
     }
   }
@@ -17,25 +18,36 @@ struct StateV1Page {
 
 
 @Component
-struct Child {
-  // @Consume装饰的变量通过相同的属性名绑定其祖先组件Ancestors内的@Provide装饰的变量
-  @Consume count: string | undefined;
+struct GrandSon {
+  // @Consume装饰的变量通过相同的属性名绑定其祖先内的@Provide装饰的变量
+  @Consume("reviewVotes") reviewVotes: number;
 
   build() {
     Column() {
-      Text(`count(${this.count})`)
-      Button(`count(${this.count}), Child`)
-        .onClick(() => this.count = 'Ancestors')
+      Text(`reviewVotes(${this.reviewVotes})`) // Text显示10
+      Button(`reviewVotes(${this.reviewVotes}), give +1`)
+        .onClick(() => this.reviewVotes += 1)
     }
     .width('50%')
   }
 }
 
 @Component
-struct Parent {
+struct Child {
+  @Provide({ allowOverride: "reviewVotes" }) reviewVotes: number = 10;
+
   build() {
     Row({ space: 5 }) {
-      Child()
+      GrandSon()
     }
+  }
+}
+
+@Component
+struct Parent {
+  @Provide({ allowOverride: "reviewVotes" }) reviewVotes: number = 20;
+
+  build() {
+    Child()
   }
 }
