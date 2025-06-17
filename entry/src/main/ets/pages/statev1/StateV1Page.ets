@@ -3,56 +3,81 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State newData: NewDate = new NewDate(new DateClass('2023-1-1'));
+  @State dog: Dog = new Dog('Molly', 2, 'Husky');
+
+  @Styles
+  pressedStyles() {
+    .backgroundColor('#ffd5d5d5')
+  }
+
+  @Styles
+  normalStyles() {
+    .backgroundColor('#ffffff')
+  }
 
   build() {
     Column() {
-      Child({ label: 'date', data: this.newData.data })
-
-      Button(`parent update the new date`)
-        .onClick(() => {
-          this.newData.data = new DateClass('2023-07-07');
+      Blank()
+        .height(100)
+      Text(`${this.dog.name}`)
+        .width(320)
+        .margin(10)
+        .fontSize(30)
+        .textAlign(TextAlign.Center)
+        .stateStyles({
+          pressed: this.pressedStyles,
+          normal: this.normalStyles
         })
-      Button(`ViewB: this.newData = new NewDate(new DateClass('2023-08-20'))`)
         .onClick(() => {
-          this.newData = new NewDate(new DateClass('2023-08-20'));
+          this.dog.name = 'DouDou';
+        })
+
+      Text(`${this.dog.age}`)
+        .width(320)
+        .margin(10)
+        .fontSize(30)
+        .textAlign(TextAlign.Center)
+        .stateStyles({
+          pressed: this.pressedStyles,
+          normal: this.normalStyles
+        })
+        .onClick(() => {
+          this.dog.age = 3;
+        })
+
+      Text(`${this.dog.kinds}`)
+        .width(320)
+        .margin(10)
+        .fontSize(30)
+        .textAlign(TextAlign.Center)
+        .stateStyles({
+          pressed: this.pressedStyles,
+          normal: this.normalStyles
+        })
+        .onClick(() => {
+          this.dog.kinds = 'Samoyed';
         })
     }
   }
 }
 
 @Observed
-class DateClass extends Date {
-  constructor(args: number | string) {
-    super(args);
+class Animal {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
   }
 }
 
 @Observed
-class NewDate {
-  public data: DateClass;
+class Dog extends Animal {
+  kinds: string;
 
-  constructor(data: DateClass) {
-    this.data = data;
-  }
-}
-
-@Component
-struct Child {
-  label: string = 'date';
-  @ObjectLink data: DateClass;
-
-  build() {
-    Column() {
-      Button(`child increase the day by 1`)
-        .onClick(() => {
-          this.data.setDate(this.data.getDate() + 1);
-        })
-      DatePicker({
-        start: new Date('1970-1-1'),
-        end: new Date('2100-1-1'),
-        selected: this.data
-      })
-    }
+  constructor(name: string, age: number, kinds: string) {
+    super(name, age);
+    this.kinds = kinds;
   }
 }
