@@ -3,13 +3,13 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @Provide message: Map<number, string> = new Map([[0, "a"], [1, "b"], [3, "c"]])
+  @Provide message: Set<number> = new Set([0, 1, 2, 3, 4])
 
   build() {
     Row() {
       Column() {
-        Button('Provide init map').onClick(() => {
-          this.message = new Map([[0, "a"], [1, "b"], [3, "c"], [4, "d"]])
+        Button('Provide init set').onClick(() => {
+          this.message = new Set([0, 1, 2, 3, 4, 5])
         })
         Child()
       }
@@ -19,32 +19,30 @@ struct StateV1Page {
   }
 }
 
+
 @Component
 struct Child {
-  @Consume message: Map<number, string>
+  @Consume message: Set<number>
 
   build() {
     Column() {
       ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
         Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
         Divider()
       })
-      Button('Consume init map').onClick(() => {
-        this.message = new Map([[0, "a"], [1, "b"], [3, "c"]])
+      Button('Consume init set').onClick(() => {
+        this.message = new Set([0, 1, 2, 3, 4])
       })
       Button('Consume set new one').onClick(() => {
-        this.message.set(4, "d")
+        this.message.add(5)
       })
       Button('Consume clear').onClick(() => {
         this.message.clear()
       })
-      Button('Consume replace the first item').onClick(() => {
-        this.message.set(0, "aa")
-      })
-      Button('Consume delete the first item').onClick(() => {
+      Button('Consume delete the first one').onClick(() => {
         this.message.delete(0)
       })
     }
+    .width('100%')
   }
 }
