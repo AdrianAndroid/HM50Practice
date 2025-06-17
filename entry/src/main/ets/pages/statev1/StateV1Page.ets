@@ -3,46 +3,39 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @Provide message: Set<number> = new Set([0, 1, 2, 3, 4])
+  // @Provide装饰的联合类型count由入口组件Ancestors提供其后代组件
+  @Provide count: string | undefined = 'Child';
 
   build() {
-    Row() {
-      Column() {
-        Button('Provide init set').onClick(() => {
-          this.message = new Set([0, 1, 2, 3, 4, 5])
-        })
-        Child()
-      }
-      .width('100%')
+    Column() {
+      Button(`count(${this.count}), Child`)
+        .onClick(() => this.count = undefined)
+      Parent()
     }
-    .height('100%')
   }
 }
 
 
 @Component
 struct Child {
-  @Consume message: Set<number>
+  // @Consume装饰的变量通过相同的属性名绑定其祖先组件Ancestors内的@Provide装饰的变量
+  @Consume count: string | undefined;
 
   build() {
     Column() {
-      ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
-        Text(`${item[0]}`).fontSize(30)
-        Divider()
-      })
-      Button('Consume init set').onClick(() => {
-        this.message = new Set([0, 1, 2, 3, 4])
-      })
-      Button('Consume set new one').onClick(() => {
-        this.message.add(5)
-      })
-      Button('Consume clear').onClick(() => {
-        this.message.clear()
-      })
-      Button('Consume delete the first one').onClick(() => {
-        this.message.delete(0)
-      })
+      Text(`count(${this.count})`)
+      Button(`count(${this.count}), Child`)
+        .onClick(() => this.count = 'Ancestors')
     }
-    .width('100%')
+    .width('50%')
+  }
+}
+
+@Component
+struct Parent {
+  build() {
+    Row({ space: 5 }) {
+      Child()
+    }
   }
 }
