@@ -1,143 +1,46 @@
-import Constants from '../../common/Constants';
-let localStorageA: LocalStorage = new LocalStorage();
-localStorageA.setOrCreate('PropA', 'PropA');
+class Data {
+  code: number;
 
-let localStorageB: LocalStorage = new LocalStorage();
-localStorageB.setOrCreate('PropB', 'PropB');
+  constructor(code: number) {
+    this.code = code;
+  }
+}
 
-let localStorageC: LocalStorage = new LocalStorage();
-localStorageC.setOrCreate('PropC', 'PropC');
+AppStorage.setOrCreate('PropA', 47);
+AppStorage.setOrCreate('PropB', new Data(50));
+let storage = new LocalStorage();
+storage.setOrCreate('LinkA', 48);
+storage.setOrCreate('LinkB', new Data(100));
 
-@Entry()
+@Entry(storage)
 @Component
 struct StateV1Page {
-  @Provide('pageInfo') pageInfo: NavPathStack = new NavPathStack();
-
-  @Builder
-  PageMap(name: string) {
-    if (name === 'pageOne') {
-      // 传递不同的LocalStorage实例
-      pageOneStack({}, localStorageA)
-    } else if (name === 'pageTwo') {
-      pageTwoStack({}, localStorageB)
-    } else if (name === 'pageThree') {
-      pageThreeStack({}, localStorageC)
-    }
-  }
+  @StorageLink('PropA') storageLink: number = 1;
+  @LocalStorageLink('LinkA') localStorageLink: number = 1;
+  @StorageLink('PropB') storageLinkObject: Data = new Data(1);
+  @LocalStorageLink('LinkB') localStorageLinkObject: Data = new Data(1);
 
   build() {
-    Column({ space: 5 }) {
-      Navigation(this.pageInfo) {
-        Column() {
-          Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-            .width('80%')
-            .height(40)
-            .margin(20)
-            .onClick(() => {
-              this.pageInfo.pushPath({ name: 'pageOne' }); //将name指定的NavDestination页面信息入栈
-            })
-        }
-      }.title('NavIndex')
-      .navDestination(this.PageMap)
-      .mode(NavigationMode.Stack)
-      .borderWidth(1)
-    }
-  }
-}
+    Column({ space: 20 }) {
+      Text(`From AppStorage ${this.storageLink}`)
+        .onClick(() => {
+          this.storageLink += 1;
+        })
 
-@Component
-struct pageOneStack {
-  @Consume('pageInfo') pageInfo: NavPathStack;
-  @LocalStorageLink('PropA') PropA: string = 'Hello World';
+      Text(`From LocalStorage ${this.localStorageLink}`)
+        .onClick(() => {
+          this.localStorageLink += 1;
+        })
 
-  build() {
-    NavDestination() {
-      Column() {
-        NavigationContentMsgStack()
-        // 显示绑定的LocalStorage中PropA的值'PropA'
-        Text(`${this.PropA}`)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
-          .margin(20)
-          .onClick(() => {
-            this.pageInfo.pushPathByName('pageTwo', null);
-          })
-      }.width('100%').height('100%')
-    }.title('pageOne')
-    .onBackPressed(() => {
-      this.pageInfo.pop();
-      return true;
-    })
-  }
-}
+      Text(`From AppStorage ${this.storageLinkObject.code}`)
+        .onClick(() => {
+          this.storageLinkObject.code += 1;
+        })
 
-@Component
-struct pageTwoStack {
-  @Consume('pageInfo') pageInfo: NavPathStack;
-  @LocalStorageLink('PropB') PropB: string = 'Hello World';
-
-  build() {
-    NavDestination() {
-      Column() {
-        NavigationContentMsgStack()
-        // 如果绑定的LocalStorage中没有PropB,显示本地初始化的值 'Hello World'
-        Text(`${this.PropB}`)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
-          .margin(20)
-          .onClick(() => {
-            this.pageInfo.pushPathByName('pageThree', null);
-          })
-
-      }.width('100%').height('100%')
-    }.title('pageTwo')
-    .onBackPressed(() => {
-      this.pageInfo.pop();
-      return true;
-    })
-  }
-}
-
-@Component
-struct pageThreeStack {
-  @Consume('pageInfo') pageInfo: NavPathStack;
-  @LocalStorageLink('PropC') PropC: string = 'pageThreeStack';
-
-  build() {
-    NavDestination() {
-      Column() {
-        NavigationContentMsgStack()
-
-        // 如果绑定的LocalStorage中没有PropC,显示本地初始化的值 'pageThreeStack'
-        Text(`${this.PropC}`)
-        Button('Next Page', { stateEffect: true, type: ButtonType.Capsule })
-          .width('80%')
-          .height(40)
-          .margin(20)
-          .onClick(() => {
-            this.pageInfo.pushPathByName('pageOne', null);
-          })
-
-      }.width('100%').height('100%')
-    }.title('pageThree')
-    .onBackPressed(() => {
-      this.pageInfo.pop();
-      return true;
-    })
-  }
-}
-
-@Component
-struct NavigationContentMsgStack {
-  @LocalStorageLink('PropA') PropA: string = 'Hello';
-
-  build() {
-    Column() {
-      Text(`${this.PropA}`)
-        .fontSize(30)
-        .fontWeight(FontWeight.Bold)
+      Text(`From LocalStorage ${this.localStorageLinkObject.code}`)
+        .onClick(() => {
+          this.localStorageLinkObject.code += 1;
+        })
     }
   }
 }
