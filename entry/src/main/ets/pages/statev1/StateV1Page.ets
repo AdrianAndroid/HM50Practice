@@ -1,4 +1,5 @@
 Environment.envProp('languageCode', 'zh');
+const lang: SubscribedAbstractProperty<string> = AppStorage.prop('languageCode');
 
 @Entry()
 @Component
