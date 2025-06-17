@@ -1,57 +1,29 @@
 @Entry()
 @Component
 struct StateV1Page {
-  @State @Watch('onTaskAChanged') taskA: Task = new Task(false);
-  @State @Watch('onTaskBChanged') taskB: Task = new Task(false);
-
-  onTaskAChanged(changedPropertyName: string): void {
-    console.log(`观测到父组件任务属性变化: ${changedPropertyName}`);
-  }
-
-  onTaskBChanged(changedPropertyName: string): void {
-    console.log(`观测到父组件任务属性变化: ${changedPropertyName}`);
-  }
-
-  build() {
-    Column() {
-      Text(`父组件任务A状态: ${this.taskA.isFinished ? '已完成' : '未完成'}`)
-      Text(`父组件任务B状态: ${this.taskB.isFinished ? '已完成' : '未完成'}`)
-      ChildComponent({ taskA: this.taskA, taskB: this.taskB })
-      Button('切换任务状态')
-        .onClick(() => {
-          this.taskB = new Task(!this.taskB.isFinished);
-          this.taskA = new Task(!this.taskA.isFinished);
-        })
+  @State @Watch('countUpdated') apple: number = 0;
+  @State @Watch('countUpdated') cabbage: number = 0;
+  @State fruit: number = 0;
+  // @Watch 回调
+  countUpdated(propName: string): void {
+    if (propName == 'apple') {
+      this.fruit = this.apple;
     }
   }
-}
-
-@Observed
-class Task {
-  isFinished: boolean = false;
-
-  constructor(isFinished : boolean) {
-    this.isFinished = isFinished;
-  }
-}
-
-@Component
-struct ChildComponent {
-  @ObjectLink @Watch('onObjectLinkTaskChanged') taskB: Task;
-  @Link @Watch('onLinkTaskChanged') taskA: Task;
-
-  onObjectLinkTaskChanged(changedPropertyName: string): void {
-    console.log(`观测到子组件@ObjectLink关联的任务属性变化: ${changedPropertyName}`);
-  }
-
-  onLinkTaskChanged(changedPropertyName: string): void {
-    console.log(`观测到子组件@Link关联的任务属性变化: ${changedPropertyName}`);
-  }
 
   build() {
     Column() {
-      Text(`子组件任务A状态: ${this.taskA.isFinished ? '已完成' : '未完成'}`)
-      Text(`子组件任务B状态: ${this.taskB.isFinished ? '已完成' : '未完成'}`)
+      Text(`Number of apples: ${this.apple.toString()}`).fontSize(30)
+      Text(`Number of cabbages: ${this.cabbage.toString()}`).fontSize(30)
+      Text(`Total number of fruits: ${this.fruit.toString()}`).fontSize(30)
+      Button('Add apples')
+        .onClick(() => {
+          this.apple++;
+        })
+      Button('Add cabbages')
+        .onClick(() => {
+          this.cabbage++;
+        })
     }
   }
 }
