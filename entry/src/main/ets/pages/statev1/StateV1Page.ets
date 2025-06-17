@@ -3,61 +3,82 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State animal: Animals | undefined = new Animals("lion");
+  @State greenButtonState: GreenButtonState = new GreenButtonState(180);
+  @State yellowButtonProp: number = 180;
 
   build() {
     Column() {
-      Text(`Parents' animals are  ${this.animal instanceof Animals ? this.animal.name : 'undefined'}`).fontSize(30)
-
-      Child({animal: this.animal})
-
-      Button('Parents change animals into dogs')
-        .onClick(() => {
-          // 判断animal的类型，做属性的更新
-          if (this.animal instanceof Animals) {
-            this.animal.name = "Dog";
-          } else {
-            console.info('num is undefined, cannot change property');
-          }
-        })
-
-      Button('Parents change animal to undefined')
-        .onClick(() => {
-          // 赋值为undefined
-          this.animal = undefined;
-        })
+      Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
+        // 简单类型从父组件@State向子组件@Link数据同步
+        Button('Parent View: Set yellowButton')
+          .width(312)
+          .height(40)
+          .margin(12)
+          .fontColor('#FFFFFF，90%')
+          .onClick(() => {
+            this.yellowButtonProp = (this.yellowButtonProp < 700) ? this.yellowButtonProp + 40 : 100;
+          })
+        // class类型从父组件@State向子组件@Link数据同步
+        Button('Parent View: Set GreenButton')
+          .width(312)
+          .height(40)
+          .margin(12)
+          .fontColor('#FFFFFF，90%')
+          .onClick(() => {
+            this.greenButtonState.width = (this.greenButtonState.width < 700) ? this.greenButtonState.width + 100 : 100;
+          })
+        // class类型初始化@Link
+        GreenButton({ greenButtonState: $greenButtonState }).margin(12)
+        // 简单类型初始化@Link
+        YellowButton({ yellowButtonState: $yellowButtonProp }).margin(12)
+      }
     }
   }
 }
 
-class Animals {
-  public name: string;
+class GreenButtonState {
+  width: number = 0;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(width: number) {
+    this.width = width;
   }
 }
 
 @Component
-struct Child {
-  @Prop animal: Animals | undefined;
+struct GreenButton {
+  @Link greenButtonState: GreenButtonState;
 
   build() {
-    Column() {
-      Text(`Child's animal is  ${this.animal instanceof Animals ? this.animal.name : 'undefined'}`).fontSize(30)
+    Button('Green Button')
+      .width(this.greenButtonState.width)
+      .height(40)
+      .backgroundColor('#64bb5c')
+      .fontColor('#FFFFFF，90%')
+      .onClick(() => {
+        if (this.greenButtonState.width < 700) {
+          // 更新class的属性，变化可以被观察到同步回父组件
+          this.greenButtonState.width += 60;
+        } else {
+          // 更新class，变化可以被观察到同步回父组件
+          this.greenButtonState = new GreenButtonState(180);
+        }
+      })
+  }
+}
 
-      Button('Child change animals into tigers')
-        .onClick(() => {
-          // 赋值为Animals的实例
-          this.animal = new Animals("Tiger");
-        })
+@Component
+struct YellowButton {
+  @Link yellowButtonState: number;
 
-      Button('Child change animal to undefined')
-        .onClick(() => {
-          // 赋值为undefined
-          this.animal = undefined;
-        })
-
-    }.width('100%')
+  build() {
+    Button('Yellow Button')
+      .width(this.yellowButtonState)
+      .height(40)
+      .backgroundColor('#f7ce00')
+      .fontColor('#FFFFFF，90%')
+      .onClick(() => {
+        // 子组件的简单类型可以同步回父组件
+        this.yellowButtonState += 40.0;
+      })
   }
 }
