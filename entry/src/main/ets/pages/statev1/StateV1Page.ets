@@ -1,29 +1,18 @@
 @Entry()
 @Component
 struct StateV1Page {
-  @State @Watch('countUpdated') apple: number = 0;
-  @State @Watch('countUpdated') cabbage: number = 0;
-  @State fruit: number = 0;
-  // @Watch 回调
-  countUpdated(propName: string): void {
-    if (propName == 'apple') {
-      this.fruit = this.apple;
-    }
-  }
+  @State text: string = ''
+  controller: TextInputController = new TextInputController()
 
   build() {
-    Column() {
-      Text(`Number of apples: ${this.apple.toString()}`).fontSize(30)
-      Text(`Number of cabbages: ${this.cabbage.toString()}`).fontSize(30)
-      Text(`Total number of fruits: ${this.fruit.toString()}`).fontSize(30)
-      Button('Add apples')
-        .onClick(() => {
-          this.apple++;
-        })
-      Button('Add cabbages')
-        .onClick(() => {
-          this.cabbage++;
-        })
-    }
+    Column({ space: 20 }) {
+      Blank().height(500)
+      Text(this.text)
+      TextInput({ text: $$this.text, placeholder: 'input your word...', controller: this.controller })
+        .placeholderColor(Color.Grey)
+        .placeholderFont({ size: 14, weight: 400 })
+        .caretColor(Color.Blue)
+        .width(300)
+    }.width('100%').height('100%').justifyContent(FlexAlign.Center)
   }
 }
