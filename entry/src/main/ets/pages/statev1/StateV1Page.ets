@@ -3,81 +3,64 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State dog: Dog = new Dog('Molly', 2, 'Husky');
-
-  @Styles
-  pressedStyles() {
-    .backgroundColor('#ffd5d5d5')
-  }
-
-  @Styles
-  normalStyles() {
-    .backgroundColor('#ffffff')
-  }
+  @State bag: Bag = new Bag(new Book('JS'));
 
   build() {
     Column() {
       Blank()
         .height(100)
-      Text(`${this.dog.name}`)
+      Text(`Index: ${this.bag.book.name}`) // 无法观察到name的变化
         .width(320)
         .margin(10)
-        .fontSize(30)
         .textAlign(TextAlign.Center)
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
+
+      Button('change bag.book.name')
+        .width(320)
+        .margin(10)
         .onClick(() => {
-          this.dog.name = 'DouDou';
+          this.bag.book.name = 'TS';
         })
 
-      Text(`${this.dog.age}`)
-        .width(320)
-        .margin(10)
-        .fontSize(30)
-        .textAlign(TextAlign.Center)
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
-        .onClick(() => {
-          this.dog.age = 3;
-        })
-
-      Text(`${this.dog.kinds}`)
-        .width(320)
-        .margin(10)
-        .fontSize(30)
-        .textAlign(TextAlign.Center)
-        .stateStyles({
-          pressed: this.pressedStyles,
-          normal: this.normalStyles
-        })
-        .onClick(() => {
-          this.dog.kinds = 'Samoyed';
-        })
+      BookCard({ book: this.bag.book })
     }
   }
 }
 
 @Observed
-class Animal {
+class Book {
   name: string;
-  age: number;
 
-  constructor(name: string, age: number) {
+  constructor(name: string) {
     this.name = name;
-    this.age = age;
   }
 }
 
 @Observed
-class Dog extends Animal {
-  kinds: string;
+class Bag {
+  book: Book;
 
-  constructor(name: string, age: number, kinds: string) {
-    super(name, age);
-    this.kinds = kinds;
+  constructor(book: Book) {
+    this.book = book;
+  }
+}
+
+@Component
+struct BookCard {
+  @ObjectLink book: Book;
+
+  build() {
+    Column() {
+      Text(`BookCard: ${this.book.name}`) // 可以观察到name的变化
+        .width(320)
+        .margin(10)
+        .textAlign(TextAlign.Center)
+
+      Button('change book.name')
+        .width(320)
+        .margin(10)
+        .onClick(() => {
+          this.book.name = 'C++';
+        })
+    }
   }
 }
