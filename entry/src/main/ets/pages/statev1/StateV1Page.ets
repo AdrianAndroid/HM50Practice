@@ -3,75 +3,80 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State message: Info = new Info(new MySet("Set", [0, 1, 2, 3, 4]));
+  @State count: Source | Data | undefined = new Source(10);
 
   build() {
-    Row() {
-      Column() {
-        SetSampleNestedChild({ mySet: this.message.info })
-      }
-      .width('100%')
-    }
-    .height('100%')
+    Column() {
+      Child({ count: this.count })
+
+      Button('change count property')
+        .margin(10)
+        .onClick(() => {
+          // 判断count的类型，做属性的更新
+          if (this.count instanceof Source) {
+            this.count.source += 1;
+          } else if (this.count instanceof Data) {
+            this.count.data += 1;
+          } else {
+            console.info('count is undefined, cannot change property');
+          }
+        })
+
+      Button('change count to Source')
+        .margin(10)
+        .onClick(() => {
+          // 赋值为Source的实例
+          this.count = new Source(100);
+        })
+
+      Button('change count to Data')
+        .margin(10)
+        .onClick(() => {
+          // 赋值为Data的实例
+          this.count = new Data(100);
+        })
+
+      Button('change count to undefined')
+        .margin(10)
+        .onClick(() => {
+          // 赋值为undefined
+          this.count = undefined;
+        })
+    }.width('100%')
   }
 }
 
 @Component
-struct SetSampleNestedChild {
-  @ObjectLink mySet: MySet<number>;
+struct Child {
+  @ObjectLink count: Source | Data | undefined;
 
   build() {
-    Row() {
-      Column() {
-        ForEach(Array.from(this.mySet.entries()), (item: [number, number]) => {
-          Text(`${item}`).fontSize(30)
-          Divider()
-        })
-        Button('set new one')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.mySet.add(5);
-          })
-        Button('clear')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.mySet.clear();
-          })
-        Button('delete the first one')
-          .width(200)
-          .margin(10)
-          .onClick(() => {
-            this.mySet.delete(0);
-          })
-      }
-      .width('100%')
-    }
-    .height('100%')
+    Column() {
+      Text(`count is instanceof ${this.count instanceof Source ? 'Source' :
+        this.count instanceof Data ? 'Data' : 'undefined'}`)
+        .fontSize(30)
+        .margin(10)
+
+      Text(`count's property is  ${this.count instanceof Source ? this.count.source : this.count?.data}`).fontSize(15)
+
+    }.width('100%')
   }
 }
 
 @Observed
-class Info {
-  public info: MySet<number>;
+class Source {
+  public source: number;
 
-  constructor(info: MySet<number>) {
-    this.info = info;
+  constructor(source: number) {
+    this.source = source;
   }
 }
 
-
 @Observed
-export class MySet<T> extends Set<T> {
-  public name: string;
+class Data {
+  public data: number;
 
-  constructor(name?: string, args?: T[]) {
-    super(args);
-    this.name = name ? name : "My Set";
-  }
-
-  getName() {
-    return this.name;
+  constructor(data: number) {
+    this.data = data;
   }
 }
