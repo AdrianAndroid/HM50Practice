@@ -1,82 +1,105 @@
-import { UIUtils } from "@kit.ArkUI";
 
 @Entry
 @Component
 struct StateV1Page {
-  @State count: Source | Data | undefined = new Source(10);
+  @State counter: ParentCounter[] = [new ParentCounter(1), new ParentCounter(2), new ParentCounter(3)];
 
   build() {
-    Column() {
-      Child({ count: this.count })
+    Row() {
+      Column() {
+        CounterComp({ value: this.counter[0] })
+        CounterComp({ value: this.counter[1] })
+        CounterComp({ value: this.counter[2] })
+        Divider().height(5)
+        ForEach(this.counter,
+          (item: ParentCounter) => {
+            CounterComp({ value: item })
+          },
+          (item: ParentCounter) => item.id.toString()
+        )
+        Divider().height(5)
+        Text('Parent: reset entire counter')
+          .fontSize(20).height(50)
+          .onClick(() => {
+            this.counter = [new ParentCounter(1), new ParentCounter(2), new ParentCounter(3)];
+          })
+        Text('Parent: incr counter[0].counter')
+          .fontSize(20).height(50)
+          .onClick(() => {
+            this.counter[0].incrCounter();
+            this.counter[0].incrSubCounter(10);
+          })
+        Text('Parent: set.counter to 10')
+          .fontSize(20).height(50)
+          .onClick(() => {
+            this.counter[0].setSubCounter(10);
+          })
+      }
+    }
+  }
+}
 
-      Button('change count property')
-        .margin(10)
-        .onClick(() => {
-          // 判断count的类型，做属性的更新
-          if (this.count instanceof Source) {
-            this.count.source += 1;
-          } else if (this.count instanceof Data) {
-            this.count.data += 1;
-          } else {
-            console.info('count is undefined, cannot change property');
-          }
-        })
+let nextId = 1;
 
-      Button('change count to Source')
-        .margin(10)
-        .onClick(() => {
-          // 赋值为Source的实例
-          this.count = new Source(100);
-        })
+@Observed
+class SubCounter {
+  counter: number;
 
-      Button('change count to Data')
-        .margin(10)
-        .onClick(() => {
-          // 赋值为Data的实例
-          this.count = new Data(100);
-        })
+  constructor(c: number) {
+    this.counter = c;
+  }
+}
 
-      Button('change count to undefined')
-        .margin(10)
-        .onClick(() => {
-          // 赋值为undefined
-          this.count = undefined;
-        })
-    }.width('100%')
+@Observed
+class ParentCounter {
+  id: number;
+  counter: number;
+  subCounter: SubCounter;
+
+  incrCounter() {
+    this.counter++;
+  }
+
+  incrSubCounter(c: number) {
+    this.subCounter.counter += c;
+  }
+
+  setSubCounter(c: number): void {
+    this.subCounter.counter = c;
+  }
+
+  constructor(c: number) {
+    this.id = nextId++;
+    this.counter = c;
+    this.subCounter = new SubCounter(c);
   }
 }
 
 @Component
-struct Child {
-  @ObjectLink count: Source | Data | undefined;
+struct CounterComp {
+  @ObjectLink value: ParentCounter;
 
   build() {
-    Column() {
-      Text(`count is instanceof ${this.count instanceof Source ? 'Source' :
-        this.count instanceof Data ? 'Data' : 'undefined'}`)
-        .fontSize(30)
-        .margin(10)
-
-      Text(`count's property is  ${this.count instanceof Source ? this.count.source : this.count?.data}`).fontSize(15)
-
-    }.width('100%')
+    Column({ space: 10 }) {
+      Text(`${this.value.counter}`)
+        .fontSize(25)
+        .onClick(() => {
+          this.value.incrCounter();
+        })
+      CounterChild({ subValue: this.value.subCounter })
+      Divider().height(2)
+    }
   }
 }
 
-@Observed
-class Source {
-  public source: number;
+@Component
+struct CounterChild {
+  @ObjectLink subValue: SubCounter;
 
-  constructor(source: number) {
-    this.source = source;
-  }
-}
-
-@Observed
-class Data {
-  public data: number;
-
-  constructor(data: number) {
-    this.data = data;
+  build() {
+    Text(`${this.subValue.counter}`)
+      .onClick(() => {
+        this.subValue.counter += 1;
+      })
   }
 }
