@@ -3,12 +3,12 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State message: Map<number, string> = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+  @State message: Set<number> = new Set([0, 1, 2, 3, 4]);
 
   build() {
     Row() {
       Column() {
-        Child({ value: this.message })
+        Child({ message: this.message })
       }
       .width('100%')
     }
@@ -18,30 +18,28 @@ struct StateV1Page {
 
 @Component
 struct Child {
-  @Link value: Map<number, string>;
+  @Link message: Set<number>;
 
   build() {
     Column() {
-      ForEach(Array.from(this.value.entries()), (item: [number, string]) => {
+      ForEach(Array.from(this.message.entries()), (item: [number, string]) => {
         Text(`${item[0]}`).fontSize(30)
-        Text(`${item[1]}`).fontSize(30)
         Divider()
       })
-      Button('child init map').onClick(() => {
-        this.value = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+      Button('init set').onClick(() => {
+        this.message = new Set([0, 1, 2, 3, 4]);
       })
-      Button('child set new one').onClick(() => {
-        this.value.set(4, "d");
+      Button('set new one').onClick(() => {
+        this.message.add(5);
       })
-      Button('child clear').onClick(() => {
-        this.value.clear();
+      Button('clear').onClick(() => {
+        this.message.clear();
       })
-      Button('child replace the first one').onClick(() => {
-        this.value.set(0, "aa");
-      })
-      Button('child delete the first one').onClick(() => {
-        this.value.delete(0);
+      Button('delete the first one').onClick(() => {
+        this.message.delete(0);
       })
     }
+    .width('100%')
   }
 }
+
