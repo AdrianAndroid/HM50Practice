@@ -3,45 +3,51 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @State name: string | undefined = "mary";
+  @Provide selectedDate: Date = new Date('2021-08-08')
 
   build() {
     Column() {
-      Text(`The name is  ${this.name}`).fontSize(30)
-
-      Child({ name: this.name })
-
-      Button('Parents change name to Peter')
+      Button('parent increase the day by 1')
+        .margin(10)
         .onClick(() => {
-          this.name = "Peter";
+          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
         })
-
-      Button('Parents change name to undefined')
+      Button('parent update the new date')
+        .margin(10)
         .onClick(() => {
-          this.name = undefined;
+          this.selectedDate = new Date('2023-07-07')
         })
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.selectedDate
+      })
+      Child()
     }
   }
 }
 
 @Component
 struct Child {
-  @Link name: string | undefined;
+  @Consume selectedDate: Date;
 
   build() {
     Column() {
-
-      Button('Child change name to Bob')
+      Button(`child increase the day by 1`)
         .onClick(() => {
-          this.name = "Bob";
+          this.selectedDate.setDate(this.selectedDate.getDate() + 1)
         })
-
-      Button('Child change name to undefined')
+      Button('child update the new date')
+        .margin(10)
         .onClick(() => {
-          this.name = undefined;
+          this.selectedDate = new Date('2023-09-09')
         })
-
-    }.width('100%')
+      DatePicker({
+        start: new Date('1970-1-1'),
+        end: new Date('2100-1-1'),
+        selected: this.selectedDate
+      })
+    }
   }
 }
 
