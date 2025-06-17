@@ -1,105 +1,69 @@
-
 @Entry
 @Component
 struct StateV1Page {
-  @State counter: ParentCounter[] = [new ParentCounter(1), new ParentCounter(2), new ParentCounter(3)];
+  @State @Watch('onChange01') info: Info = new Info(new Person('Bob', 10));
+
+  onChange01() {
+    console.log(':::onChange01:' + this.info.person.name); // 2
+  }
 
   build() {
-    Row() {
-      Column() {
-        CounterComp({ value: this.counter[0] })
-        CounterComp({ value: this.counter[1] })
-        CounterComp({ value: this.counter[2] })
-        Divider().height(5)
-        ForEach(this.counter,
-          (item: ParentCounter) => {
-            CounterComp({ value: item })
-          },
-          (item: ParentCounter) => item.id.toString()
-        )
-        Divider().height(5)
-        Text('Parent: reset entire counter')
-          .fontSize(20).height(50)
-          .onClick(() => {
-            this.counter = [new ParentCounter(1), new ParentCounter(2), new ParentCounter(3)];
-          })
-        Text('Parent: incr counter[0].counter')
-          .fontSize(20).height(50)
-          .onClick(() => {
-            this.counter[0].incrCounter();
-            this.counter[0].incrSubCounter(10);
-          })
-        Text('Parent: set.counter to 10')
-          .fontSize(20).height(50)
-          .onClick(() => {
-            this.counter[0].setSubCounter(10);
-          })
-      }
-    }
-  }
-}
-
-let nextId = 1;
-
-@Observed
-class SubCounter {
-  counter: number;
-
-  constructor(c: number) {
-    this.counter = c;
-  }
-}
-
-@Observed
-class ParentCounter {
-  id: number;
-  counter: number;
-  subCounter: SubCounter;
-
-  incrCounter() {
-    this.counter++;
-  }
-
-  incrSubCounter(c: number) {
-    this.subCounter.counter += c;
-  }
-
-  setSubCounter(c: number): void {
-    this.subCounter.counter = c;
-  }
-
-  constructor(c: number) {
-    this.id = nextId++;
-    this.counter = c;
-    this.subCounter = new SubCounter(c);
-  }
-}
-
-@Component
-struct CounterComp {
-  @ObjectLink value: ParentCounter;
-
-  build() {
-    Column({ space: 10 }) {
-      Text(`${this.value.counter}`)
-        .fontSize(25)
-        .onClick(() => {
-          this.value.incrCounter();
-        })
-      CounterChild({ subValue: this.value.subCounter })
-      Divider().height(2)
-    }
-  }
-}
-
-@Component
-struct CounterChild {
-  @ObjectLink subValue: SubCounter;
-
-  build() {
-    Text(`${this.subValue.counter}`)
-      .onClick(() => {
-        this.subValue.counter += 1;
+    Column() {
+      Text(this.info.person.name).height(40)
+      Child({
+        per: this.info.person, clickEvent: () => {
+          console.log(':::clickEvent before', this.info.person.name); // 1
+          this.info.person = new Person('Jack', 12);
+          console.log(':::clickEvent after', this.info.person.name); // 3
+        }
       })
+    }
+  }
+}
+
+@Component
+struct Child {
+  @ObjectLink @Watch('onChange02') per: Person;
+  clickEvent?: () => void;
+
+  onChange02() {
+    console.log(':::onChange02:' + this.per.name); // 5
+  }
+
+  build() {
+    Column() {
+      Button(this.per.name)
+        .height(40)
+        .onClick(() => {
+          this.onClickType();
+        })
+    }
+  }
+
+  private onClickType() {
+    if (this.clickEvent) {
+      this.clickEvent();
+    }
+    console.log(':::--------此时Child中的this.per.name值仍然是：' + this.per.name); // 4
+  }
+}
+
+@Observed
+class Person {
+  name: string = '';
+  age: number = 0;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+@Observed
+class Info {
+  person: Person;
+
+  constructor(person: Person) {
+    this.person = person;
   }
 }
