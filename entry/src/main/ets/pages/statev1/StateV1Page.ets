@@ -3,51 +3,52 @@ import { UIUtils } from "@kit.ArkUI";
 @Entry
 @Component
 struct StateV1Page {
-  @Provide("reviewVotes") reviewVotes: number = 40;
+  @Provide('name') name: string = 'abc';
+
+  @Builder
+  builder2($$: Tmp) {
+    Text(`${$$.name}测试`)
+  }
 
   build() {
     Column() {
-      Blank()
-        .height(100)
-      Button(`reviewVotes(${this.reviewVotes}), give +1`)
-        .onClick(() => this.reviewVotes += 1)
-      Parent()
+      Button('你好').onClick(() => {
+        if (this.name == 'ddd') {
+          this.name = 'abc';
+        } else {
+          this.name = 'ddd';
+        }
+      })
+      CustomWidget() {
+        CustomWidgetChild({ builder: this.builder2 })
+      }
     }
   }
 }
 
+class Tmp {
+  name: string = ''
+}
 
 @Component
-struct GrandSon {
-  // @Consume装饰的变量通过相同的属性名绑定其祖先内的@Provide装饰的变量
-  @Consume("reviewVotes") reviewVotes: number;
+struct CustomWidget {
+  @BuilderParam
+  builder: () => void;
+
+  build() {
+    this.builder()
+  }
+}
+
+@Component
+struct CustomWidgetChild {
+  @Consume('name') name: string;
+  @BuilderParam
+  builder: ($$: Tmp) => void;
 
   build() {
     Column() {
-      Text(`reviewVotes(${this.reviewVotes})`) // Text显示10
-      Button(`reviewVotes(${this.reviewVotes}), give +1`)
-        .onClick(() => this.reviewVotes += 1)
+      this.builder({ name: this.name })
     }
-    .width('50%')
-  }
-}
-
-@Component
-struct Child {
-  @Provide({ allowOverride: "reviewVotes" }) reviewVotes: number = 10;
-
-  build() {
-    Row({ space: 5 }) {
-      GrandSon()
-    }
-  }
-}
-
-@Component
-struct Parent {
-  @Provide({ allowOverride: "reviewVotes" }) reviewVotes: number = 20;
-
-  build() {
-    Child()
   }
 }
