@@ -1,59 +1,39 @@
-@Entry
+// 创建新实例并使用给定对象初始化
+let para: Record<string, number> = { 'PropA': 47 };
+let storage: LocalStorage = new LocalStorage(para);
+
+@Entry(storage)
 @Component
 struct StateV1Page {
-  // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定
-  @LocalStorageLink('PropA') parentLinkNumber: number = 1;
-  // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') parentLinkObject: Data = new Data(0);
+  // @LocalStorageProp变量装饰器与LocalStorage中的'PropA'属性建立单向绑定
+  @LocalStorageProp('PropA') storageProp1: number = 1;
 
   build() {
     Column({ space: 15 }) {
       Blank()
         .height(100)
-      Button(`Parent from LocalStorage ${this.parentLinkNumber}`) // 由于LocalStorage中PropA已经被初始化，因此this.parentLinkNumber的值为47
+      // 点击后从47开始加1，只改变当前组件显示的storageProp1，不会同步到LocalStorage中
+      Button(`Parent from LocalStorage ${this.storageProp1}`)
         .onClick(() => {
-          this.parentLinkNumber += 1;
+          this.storageProp1 += 1;
         })
-
-      Button(`Parent from LocalStorage ${this.parentLinkObject.code}`) // 由于LocalStorage中PropB已经被初始化，因此this.parentLinkObject.code的值为50
-        .onClick(() => {
-          this.parentLinkObject.code += 1;
-        })
-      // @Component子组件自动获得对Parent LocalStorage实例的访问权限。
       Child()
     }
   }
 }
 
-class Data {
-  code: number;
-
-  constructor(code: number) {
-    this.code = code;
-  }
-}
-// 创建新实例并使用给定对象初始化
-let para: Record<string, number> = { 'PropA': 47 };
-let storage: LocalStorage = new LocalStorage(para);
-storage.setOrCreate('PropB', new Data(50));
-
 @Component
 struct Child {
-  // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定
-  @LocalStorageLink('PropA') childLinkNumber: number = 1;
-  // @LocalStorageLink变量装饰器与LocalStorage中的'PropB'属性建立双向绑定
-  @LocalStorageLink('PropB') childLinkObject: Data = new Data(0);
+  // @LocalStorageProp变量装饰器与LocalStorage中的'PropA'属性建立单向绑定
+  @LocalStorageProp('PropA') storageProp2: number = 2;
 
   build() {
     Column({ space: 15 }) {
-      Button(`Child from LocalStorage ${this.childLinkNumber}`) // 更改将同步至LocalStorage中的'PropA'以及Parent.parentLinkNumber
+      // 当Parent改变时，当前storageProp2不会改变，显示47
+      Text(`Parent from LocalStorage ${this.storageProp2}`)
+      Button('Child Click')
         .onClick(() => {
-          this.childLinkNumber += 1;
-        })
-
-      Button(`Child from LocalStorage ${this.childLinkObject.code}`) // 更改将同步至LocalStorage中的'PropB'以及Parent.parentLinkObject.code
-        .onClick(() => {
-          this.childLinkObject.code += 1;
+          this.storageProp2 += 1
         })
     }
   }
