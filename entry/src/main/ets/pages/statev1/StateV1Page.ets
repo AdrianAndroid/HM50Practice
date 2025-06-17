@@ -1,29 +1,58 @@
+class PurchaseItem {
+  static NextId: number = 0;
+  public id: number;
+  public price: number;
+
+  constructor(price: number) {
+    this.id = PurchaseItem.NextId++;
+    this.price = price;
+  }
+}
+
 @Component
-struct TotalView {
-  @Prop @Watch('onCountUpdated') count: number = 0;
-  @State total: number = 0;
+struct BasketViewer {
+  @Link @Watch('onBasketUpdated') shopBasket: PurchaseItem[];
+  @State totalPurchase: number = 0;
+
+  updateTotal(): number {
+    let total = this.shopBasket.reduce((sum, i) => sum + i.price, 0);
+    // 超过100欧元可享受折扣
+    if (total >= 100) {
+      total = 0.9 * total;
+    }
+    return total;
+  }
   // @Watch 回调
-  onCountUpdated(propName: string): void {
-    this.total += this.count;
+  onBasketUpdated(propName: string): void {
+    this.totalPurchase = this.updateTotal();
   }
 
   build() {
-    Text(`Total: ${this.total}`)
+    Column() {
+      ForEach(this.shopBasket,
+        (item: PurchaseItem) => {
+          Text(`Price: ${item.price.toFixed(2)} €`)
+        },
+        (item: PurchaseItem) => item.id.toString()
+      )
+      Text(`Total: ${this.totalPurchase.toFixed(2)} €`)
+    }
   }
 }
+
 
 @Entry()
 @Component
 struct StateV1Page {
-  @State count: number = 0;
+  @State shopBasket: PurchaseItem[] = [];
 
   build() {
     Column() {
-      Button('add to basket')
+      Button('Add to basket')
         .onClick(() => {
-          this.count++
+          this.shopBasket.push(new PurchaseItem(Math.round(100 * Math.random())))
         })
-      TotalView({ count: this.count })
+      BasketViewer({ shopBasket: $shopBasket })
     }
   }
 }
