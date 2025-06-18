@@ -1,26 +1,39 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  outer: Outer = new Outer();
+  derived: Derived = new Derived("AAA");
   build() {
     Column() {
+      Blank()
+        .height(100)
       Button("change name")
         .onClick(() => {
-          this.outer.inner.num = 100; // 能够触发onChange方法
+          this.derived.name = "BBB"; // 能够先后触发onBaseNameChange、onDerivedNameChange方法
         })
     }
   }
 }
 
 @ObservedV2
-class Inner {
-  @Trace num: number = 0;
+class Base {
+  @Trace name: string;
+  // 基类监听name属性
+  @Monitor("name")
+  onBaseNameChange(monitor: IMonitor) {
+    console.log(`Base Class name change`);
+  }
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 @ObservedV2
-class Outer {
-  inner: Inner = new Inner();
-  @Monitor("inner.num")
-  onChange(monitor: IMonitor) {
-    console.log(`inner.num change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+class Derived extends Base {
+  // 继承类监听name属性
+  @Monitor("name")
+  onDerivedNameChange(monitor: IMonitor) {
+    console.log(`Derived Class name change`);
+  }
+  constructor(name: string) {
+    super(name);
   }
 }
