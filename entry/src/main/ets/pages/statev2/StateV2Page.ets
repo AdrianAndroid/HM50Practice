@@ -3,103 +3,61 @@ import Constants from '../../common/Constants';
 @Entry
 @ComponentV2
 struct StateV2Page {
-  arr: Arr = new Arr();
-  scroller = new Scroller()
+  info: Info = new Info();
 
   build() {
-    Scroll() {
-      Column() {
-        Blank()
-          .height(100)
-        Text(`length: ${this.arr.numberArr.length}`)
+    Column() {
+      Text(`length: ${this.info.personList.length}`)
+        .fontSize(40)
+      Divider()
+      if (this.info.personList.length >= 3) {
+        Text(`${this.info.personList[0].age}`)
           .fontSize(40)
-        Divider()
-        if (this.arr.numberArr.length >= 3) {
-          Text(`${this.arr.numberArr[0]}`)
-            .fontSize(40)
-            .onClick(() => {
-              this.arr.numberArr[0]++;
-            })
-          Text(`${this.arr.numberArr[1]}`)
-            .fontSize(40)
-            .onClick(() => {
-              this.arr.numberArr[1]++;
-            })
-          Text(`${this.arr.numberArr[2]}`)
-            .fontSize(40)
-            .onClick(() => {
-              this.arr.numberArr[2]++;
-            })
-        }
-
-        Divider()
-
-        ForEach(this.arr.numberArr, (item: number, index: number) => {
-          Text(`${index} ${item}`)
-            .fontSize(40)
-        })
-
-        Button('push')
           .onClick(() => {
-            this.arr.numberArr.push(50);
+            this.info.personList[0].age++;
           })
 
-        Button('pop')
+        Text(`${this.info.personList[1].age}`)
+          .fontSize(40)
           .onClick(() => {
-            this.arr.numberArr.pop();
+            this.info.personList[1].age++;
           })
 
-        Button('shift')
+        Text(`${this.info.personList[2].age}`)
+          .fontSize(40)
           .onClick(() => {
-            this.arr.numberArr.shift();
-          })
-
-        Button('splice')
-          .onClick(() => {
-            this.arr.numberArr.splice(1, 0, 60);
-          })
-
-
-        Button('unshift')
-          .onClick(() => {
-            this.arr.numberArr.unshift(100);
-          })
-
-        Button('copywithin')
-          .onClick(() => {
-            this.arr.numberArr.copyWithin(0, 1, 2);
-          })
-
-        Button('fill')
-          .onClick(() => {
-            this.arr.numberArr.fill(0, 2, 4);
-          })
-
-        Button('reverse')
-          .onClick(() => {
-            this.arr.numberArr.reverse();
-          })
-
-        Button('sort')
-          .onClick(() => {
-            this.arr.numberArr.sort();
+            this.info.personList[2].age++;
           })
       }
+
+      Divider()
+
+      ForEach(this.info.personList, (item: Person, index: number) => {
+        Text(`${index} ${item.age}`)
+          .fontSize(40)
+      })
     }
-    .width(Constants.FULL_PERCENT)
-    .height(Constants.FULL_PERCENT)
   }
 }
 
 let nextId: number = 0;
 
 @ObservedV2
-class Arr {
+class Person {
+  @Trace age: number = 0;
+
+  constructor(age: number) {
+    this.age = age;
+  }
+}
+
+@ObservedV2
+class Info {
   id: number = 0;
-  @Trace numberArr: number[] = [];
+  @Trace personList: Person[] = [];
 
   constructor() {
     this.id = nextId++;
-    this.numberArr = [0, 1, 2];
+    this.personList = [new Person(0), new Person(1), new Person(2)];
   }
 }
