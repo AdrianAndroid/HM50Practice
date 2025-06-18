@@ -66,6 +66,7 @@
     "pages/LifecyclePages",
     "pages/statev1/StateV1Page",
     "pages/statev1/StateV1Page2",
-    "pages/statev2/StateV2Page"
+    "pages/statev2/StateV2Page",
+    "pages/statev2/StateV2Page2"
   ]
 }

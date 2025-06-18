@@ -23,6 +23,14 @@
       "data": {
         "description" : "this is mainPage"
       }
+    },
+    {
+      "name": "StateV2Page2",
+      "pageSourceFile": "src/main/ets/pages/statev2/StateV2Page2.ets",
+      "buildFunction": "Page2Builder",
+      "data": {
+        "description" : "AppStorageV2 example"
+      }
     }
   ]
 }
