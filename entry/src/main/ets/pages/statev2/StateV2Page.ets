@@ -1,36 +1,21 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  arrMonitor: ArrMonitor = new ArrMonitor();
+  info: Info = new Info("Tom", 25);
   build() {
     Column() {
-      Button("Change dimensionTwo")
+      Blank().height(100)
+      Button("Step1、Only change name")
         .onClick(() => {
-          // 能够触发onDimensionTwoChange方法
-          this.arrMonitor.dimensionTwo[0][0]++;
-          this.arrMonitor.dimensionTwo[1][1]++;
+          this.info.person = new Person("Jack", 25);  // 能够触发onNameChange方法，不触发onAgeChange方法
         })
-      Button("Change dimensionThree")
+      Button("Step2、Only change age")
         .onClick(() => {
-          // 能够触发onDimensionThreeChange方法
-          this.arrMonitor.dimensionThree[0][0][0]++;
-          this.arrMonitor.dimensionThree[1][1][0]++;
+          this.info.person = new Person("Jack", 18);  // 能够触发onAgeChange方法，不触发onNameChange方法
         })
-      Button("Change info property")
+      Button("Step3、Change name and age")
         .onClick(() => {
-          // 能够触发onInfoArrPropertyChange方法
-          this.arrMonitor.infoArr[0].name = "Tom";
-          this.arrMonitor.infoArr[1].age = 19;
-        })
-      Button("Change whole infoArr")
-        .onClick(() => {
-          // 能够触发onInfoArrChange、onInfoArrPropertyChange、onInfoArrLengthChange方法
-          this.arrMonitor.infoArr = [new Info("Cindy", 8)];
-        })
-      Button("Push new info to infoArr")
-        .onClick(() => {
-          // 能够触发onInfoArrPropertyChange、onInfoArrLengthChange方法
-          this.arrMonitor.infoArr.push(new Info("David", 50));
+          this.info.person = new Person("Lucy", 19);  // 能够触发onNameChange、onAgeChange方法
         })
     }
   }
@@ -38,48 +23,25 @@ struct StateV2Page {
 
 @ObservedV2
 class Info {
-  @Trace name: string;
-  @Trace age: number;
-
+  @Trace person: Person;
+  @Monitor("person.name")
+  onNameChange(monitor: IMonitor) {
+    console.log(`name change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
+  @Monitor("person.age")
+  onAgeChange(monitor: IMonitor) {
+    console.log(`age change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
   constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+    this.person = new Person(name, age);
   }
 }
 @ObservedV2
-class ArrMonitor {
-  @Trace dimensionTwo: number[][] = [[1,1,1],[2,2,2],[3,3,3]];
-  @Trace dimensionThree: number[][][] = [[[1],[2],[3]],[[4],[5],[6]],[[7],[8],[9]]];
-  @Trace infoArr: Info[] = [new Info("Jack", 24), new Info("Lucy", 18)];
-  // dimensionTwo为二维简单类型数组，且被@Trace装饰，能够观测里面的元素变化
-  @Monitor("dimensionTwo.0.0", "dimensionTwo.1.1")
-  onDimensionTwoChange(monitor: IMonitor) {
-    monitor.dirty.forEach((path: string) => {
-      console.log(`dimensionTwo path: ${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
-    })
-  }
-  // dimensionThree为三维简单类型数组，且被@Trace装饰，能够观测里面的元素变化
-  @Monitor("dimensionThree.0.0.0", "dimensionThree.1.1.0")
-  onDimensionThreeChange(monitor: IMonitor) {
-    monitor.dirty.forEach((path: string) => {
-      console.log(`dimensionThree path: ${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
-    })
-  }
-  // Info类中属性name、age均被@Trace装饰，能够监听到变化
-  @Monitor("infoArr.0.name", "infoArr.1.age")
-  onInfoArrPropertyChange(monitor: IMonitor) {
-    monitor.dirty.forEach((path: string) => {
-      console.log(`infoArr path:${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
-    })
-  }
-  // infoArr被@Trace装饰，能够监听到infoArr整体赋值的变化
-  @Monitor("infoArr")
-  onInfoArrChange(monitor: IMonitor) {
-    console.log(`infoArr whole change`);
-  }
-  // 能够监听到infoArr的长度变化
-  @Monitor("infoArr.length")
-  onInfoArrLengthChange(monitor: IMonitor) {
-    console.log(`infoArr length change`);
+class Person {
+  @Trace name: string;
+  @Trace age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
   }
 }
