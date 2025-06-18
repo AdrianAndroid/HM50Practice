@@ -1,48 +1,24 @@
 @Entry
-@Component
+@ComponentV2
 struct StateV2Page {
-  @State father: Father = new Father("John", 8);
+  father: Father = new Father();
 
   build() {
     Column() {
-      Child({son: this.father.son})
+      // 当点击改变age时，Text组件会刷新
+      Blank()
+        .height(200)
+      Text(`${this.father.son.age}`)
+        .onClick(() => {
+          this.father.son.age++;
+        })
     }
   }
 }
-@Component
-struct Child {
-  @ObjectLink son: Son;
-
-  build() {
-    Row() {
-      Column() {
-        Text(`name: ${this.son.name} age: ${this.son.age}`)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-          .onClick(() => {
-            this.son.age++;
-          })
-      }
-      .width('100%')
-    }
-    .height('100%')
-  }
-}
-@Observed
-class Father {
-  son: Son;
-
-  constructor(name: string, age: number) {
-    this.son = new Son(name, age);
-  }
-}
-@Observed
+@ObservedV2
 class Son {
-  name: string;
-  age: number;
-
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
-  }
+  @Trace age: number = 100;
+}
+class Father {
+  son: Son = new Son();
 }
