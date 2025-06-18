@@ -1,47 +1,51 @@
-import { AppStorageV2 } from '@kit.ArkUI';
-import Constants from '../../common/Constants';
-import { Sample2 } from './Sample2';
+import { taskpool } from '@kit.ArkTS';
+import { UIUtils } from '@kit.ArkUI';
+import Logger from '../../common/Logger';
+import { SendableData } from './SendableData';
+
+@Sendable
+export class SendableData2  {
+  name: string = 'Tom';
+  age: number = 20;
+  gender: number = 1;
+  // ....更多其他属性
+  likes: number = 1;
+  follow: boolean = false;
+}
+
+@Concurrent
+function threadGetData(param: string): SendableData {
+  Logger.debug('StateV2Page', `threadGetData => ${param}`)
+  // 在子线程处理数据
+  let ret = new SendableData();
+  console.info(`Concurrent threadGetData, param ${param}`);
+  ret.name = param + "-o";
+  ret.age = Math.floor(Math.random() * 40);
+  ret.likes = Math.floor(Math.random() * 100);
+  return ret;
+}
 
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local dataArr: Array<string> = []; // 数据源
-
-  aboutToAppear(): void {
-    for (let i = 0; i < 50; i++) {
-      this.dataArr.push(`data_${i}`); // 为数组添加一些数据
-    }
-  }
-
+  @Local send: SendableData = UIUtils.makeObserved(new SendableData());
   build() {
     Column() {
-      List() {
-        Repeat<string>(this.dataArr)
-          .each((ri: RepeatItem<string>) => { // 默认模板
-            ListItem() {
-              Text('each_A_' + ri.item).fontSize(30).fontColor(Color.Red) // 文本颜色为红色
-            }
-          })
-          .key((item: string, index: number): string => item) // 键值生成函数
-          .virtualScroll({ totalCount: this.dataArr.length }) // 打开virtualScroll模式，totalCount为期望加载的数据长度
-          .templateId((item: string, index: number): string => { // 根据返回值寻找对应的模板子组件进行渲染
-            return index <= 4 ? 'A' : (index <= 10 ? 'B' : ''); // 前5个节点模板为A，接下来的5个为B，其余为默认模板
-          })
-          .template('A', (ri: RepeatItem<string>) => { // 'A'模板
-            ListItem() {
-              Text('ttype_A_' + ri.item).fontSize(30).fontColor(Color.Green) // 文本颜色为绿色
-            }
-          }, { cachedCount: 3 }) // 'A'模板的缓存列表容量为3
-          .template('B', (ri: RepeatItem<string>) => { // 'B'模板
-            ListItem() {
-              Text('ttype_B_' + ri.item).fontSize(30).fontColor(Color.Blue) // 文本颜色为蓝色
-            }
-          }, { cachedCount: 4 }) // 'B'模板的缓存列表容量为4
-      }
-      .cachedCount(2) // 容器组件的预加载区域大小
-      .height('70%')
-      .width(Constants.FULL_PERCENT)
-      .border({ width: 1 }) // 边框
+      Blank().height(100)
+      Text(this.send.name)
+      Button("change name").onClick(() => {
+        // ok 可以观察到属性的改变
+        this.send.name += "0";
+      })
+
+      Button("task").onClick(() => {
+        // 将待执行的函数放入taskpool内部任务队列等待，等待分发到工作线程执行。
+        taskpool.execute(threadGetData, this.send.name).then(val => {
+          Logger.debug('StateV2Page', `then`)
+          // 和@Local一起使用，可以观察this.send的变化
+          this.send = UIUtils.makeObserved(val as SendableData);
+        })
+      })
     }
   }
 }
