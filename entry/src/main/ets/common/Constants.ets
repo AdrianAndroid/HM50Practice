@@ -1,4 +1,6 @@
 export default class Constants {
+  static readonly bundleName = 'com.example.myapplication'
+
   static readonly EVENT_HUB_1 = 'event1'
   static readonly EVENT_HUB_2 = 'event2'
   static readonly DOMAIN_NUMBER: number = 0xFF00;
@@ -42,6 +44,7 @@ export default class Constants {
   static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
   static readonly PAGES_SystemRouterMapPage = 'pages/SystemRouterMapPage'
   static readonly PAGES_MVVMPage = 'pages/MVVMPage'
+  static readonly PAGES_Page_StartModel = 'pages/Page_StartModel'
   static readonly PAGES_PreferencesPage = 'pages/PreferencesPage'
   static readonly PAGES_AnimationPage = 'pages/AnimationPage'
   static readonly PAGES_TransitionAnimationPage = 'pages/TransitionAnimationPage'

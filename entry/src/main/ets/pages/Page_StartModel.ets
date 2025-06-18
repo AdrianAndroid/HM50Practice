@@ -3,6 +3,7 @@
 import { common, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import Constants from '../common/Constants';
 
 
 const TAG: string = '[Page_StartModel]';
@@ -24,13 +25,13 @@ struct Page_StartModel {
     Row() {
       Column() {
         // ...
-        Button()
+        Button('AAAAAAAAAA')
           .onClick(() => {
             let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
             // context为调用方UIAbility的UIAbilityContext;
             let want: Want = {
               deviceId: '', // deviceId为空表示本设备
-              bundleName: 'com.samples.stagemodelabilitydevelop',
+              bundleName: Constants.bundleName,
               abilityName: 'SpecifiedFirstAbility',
               moduleName: 'entry', // moduleName非必选
               parameters: {
@@ -46,13 +47,13 @@ struct Page_StartModel {
             this.KEY_NEW = this.KEY_NEW + 'a';
           })
         // ...
-        Button()
+        Button('BBBBBBBBB')
           .onClick(() => {
             let context: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
             // context为调用方UIAbility的UIAbilityContext;
             let want: Want = {
               deviceId: '', // deviceId为空表示本设备
-              bundleName: 'com.samples.stagemodelabilitydevelop',
+              bundleName: Constants.bundleName,
               abilityName: 'SpecifiedSecondAbility',
               moduleName: 'entry', // moduleName非必选
               parameters: {

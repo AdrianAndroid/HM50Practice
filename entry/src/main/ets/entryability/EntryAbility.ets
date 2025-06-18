@@ -38,7 +38,7 @@ export default class EntryAbility extends UIAbility {
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
-    windowStage.loadContent(Constants.PAGES_statev2_StateV2Page, this.storage, (err, data) => {
+    windowStage.loadContent(Constants.PAGES_Page_StartModel, this.storage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
@@ -73,5 +73,40 @@ export default class EntryAbility extends UIAbility {
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', `Ability onNewWant -> want=${JSON.stringify(want)}, launchParam=${JSON.stringify(launchParam)}`);
+  }
+
+  onDump(params: string[]): string[] {
+    return params
+  }
+
+  onWindowStageWillDestroy(windowStage: window.WindowStage): void {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onWindowStageWillDestroy windowStage`);
+  }
+
+  onWindowStageRestore(windowStage: window.WindowStage): void {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onWindowStageRestore onWindowStageRestore`);
+  }
+
+  onShare(wantParam: Record<string, Object>): void {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onShare`);
+  }
+
+  onPrepareToTerminate(): boolean {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onPrepareToTerminate`);
+    return false
+  }
+
+  // onPrepareToTerminateAsync(): Promise<boolean> {
+  //   return new Promise<false>();
+  // }
+
+  onBackPressed(): boolean {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onPrepareToTerminate`);
+    return false
   }
 }
