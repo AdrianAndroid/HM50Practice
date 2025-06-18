@@ -1,33 +1,46 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  frequence: Frequence = new Frequence();
+  textStyle: UIStyle = new UIStyle();
   build() {
     Column() {
-      Blank()
-        .height(100)
-      Button("change count to 1000")
+      Text(`Important Value: ${this.textStyle.info.value}`)
+        .fontColor(this.textStyle.color)
+        .fontSize(this.textStyle.fontSize)
+      Button("change!")
         .onClick(() => {
-          for (let i = 1; i <= 1000; i++) {
-            this.frequence.count = i;
-          }
-        })
-      Button("change count to 0 then to 1000")
-        .onClick(() => {
-          for (let i = 999; i >= 0; i--) {
-            this.frequence.count = i;
-          }
-          this.frequence.count = 1000; // 最终不触发onCountChange方法
+          this.textStyle.info.value = Math.floor(Math.random() * 100) + 1;
         })
     }
   }
 }
 
+
 @ObservedV2
-class Frequence {
-  @Trace count: number = 0;
-  @Monitor("count")
-  onCountChange(monitor: IMonitor) {
-    console.log(`count change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+class Info {
+  @Trace value: number = 50;
+}
+@ObservedV2
+class UIStyle {
+  info: Info = new Info();
+  @Trace color: Color = Color.Black;
+  @Trace fontSize: number = 45;
+  @Monitor("info.value")
+  onValueChange(monitor: IMonitor) {
+    let lastValue: number = monitor.value()?.before as number;
+    let curValue: number = monitor.value()?.now as number;
+    if (lastValue != 0) {
+      let diffPercent: number = (curValue - lastValue) / lastValue;
+      if (diffPercent > 0.1) {
+        this.color = Color.Red;
+        this.fontSize = 50;
+      } else if (diffPercent < -0.1) {
+        this.color = Color.Green;
+        this.fontSize = 40;
+      } else {
+        this.color = Color.Black;
+        this.fontSize = 45;
+      }
+    }
   }
 }
