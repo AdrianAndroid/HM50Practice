@@ -1,11 +1,19 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local message: string = "Hello World";
-  @Local name: string = "Tom";
-  @Local age: number = 24;
-  @Monitor("message", "name")
-  onStrChange(monitor: IMonitor) {
+  @Local info: Info = new Info("Tom", 25);
+
+  @Monitor("info")
+  infoChange(monitor: IMonitor) {
+    console.log(`info change changed from`);
+    monitor.dirty.forEach((path: string) => {
+      console.log(`${path} changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
+    })
+  }
+
+  @Monitor("info.name")
+  infoPropertyChange(monitor: IMonitor) {
+    console.log(`info name change  changed from`);
     monitor.dirty.forEach((path: string) => {
       console.log(`${path} changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
     })
@@ -14,11 +22,24 @@ struct StateV2Page {
     Column() {
       Blank()
         .height(100)
-      Button("change string")
+      Text(`name: ${this.info.name}, age: ${this.info.age}`)
+      Button("change info")
         .onClick(() => {
-          this.message += "!";
-          this.name = "Jack";
+          this.info = new Info("Lucy", 18); // 能够监听到
+        })
+      Button("change info.name")
+        .onClick(() => {
+          this.info.name = "Jack"; // 监听不到
         })
     }
+  }
+}
+
+class Info {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
   }
 }
