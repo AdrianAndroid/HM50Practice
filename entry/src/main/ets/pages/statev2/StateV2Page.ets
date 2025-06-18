@@ -1,67 +1,105 @@
+import Constants from '../../common/Constants';
+
 @Entry
 @ComponentV2
 struct StateV2Page {
-  son: Son = new Son(0);
-  cousin: Cousin = new Cousin(0);
-  renderTimes: number = 0;
-
-  isRender(id: number): number {
-    console.info(`id: ${id} renderTimes: ${this.renderTimes}`);
-    this.renderTimes++;
-    return 40;
-  }
+  arr: Arr = new Arr();
+  scroller = new Scroller()
 
   build() {
-    Row() {
+    Scroll() {
       Column() {
         Blank()
           .height(100)
-        Text(`Son ${this.son.age}`)
-          .fontSize(this.isRender(1))
-          .fontWeight(FontWeight.Bold)
-        Text(`Cousin ${this.cousin.age}`)
-          .fontSize(this.isRender(2))
-          .fontWeight(FontWeight.Bold)
-        Button('change Son age')
+        Text(`length: ${this.arr.numberArr.length}`)
+          .fontSize(40)
+        Divider()
+        if (this.arr.numberArr.length >= 3) {
+          Text(`${this.arr.numberArr[0]}`)
+            .fontSize(40)
+            .onClick(() => {
+              this.arr.numberArr[0]++;
+            })
+          Text(`${this.arr.numberArr[1]}`)
+            .fontSize(40)
+            .onClick(() => {
+              this.arr.numberArr[1]++;
+            })
+          Text(`${this.arr.numberArr[2]}`)
+            .fontSize(40)
+            .onClick(() => {
+              this.arr.numberArr[2]++;
+            })
+        }
+
+        Divider()
+
+        ForEach(this.arr.numberArr, (item: number, index: number) => {
+          Text(`${index} ${item}`)
+            .fontSize(40)
+        })
+
+        Button('push')
           .onClick(() => {
-            this.son.age++;
+            this.arr.numberArr.push(50);
           })
-        Button('change Cousin age')
+
+        Button('pop')
           .onClick(() => {
-            this.cousin.age++;
+            this.arr.numberArr.pop();
+          })
+
+        Button('shift')
+          .onClick(() => {
+            this.arr.numberArr.shift();
+          })
+
+        Button('splice')
+          .onClick(() => {
+            this.arr.numberArr.splice(1, 0, 60);
+          })
+
+
+        Button('unshift')
+          .onClick(() => {
+            this.arr.numberArr.unshift(100);
+          })
+
+        Button('copywithin')
+          .onClick(() => {
+            this.arr.numberArr.copyWithin(0, 1, 2);
+          })
+
+        Button('fill')
+          .onClick(() => {
+            this.arr.numberArr.fill(0, 2, 4);
+          })
+
+        Button('reverse')
+          .onClick(() => {
+            this.arr.numberArr.reverse();
+          })
+
+        Button('sort')
+          .onClick(() => {
+            this.arr.numberArr.sort();
           })
       }
-      .width('100%')
     }
-    .height('100%')
+    .width(Constants.FULL_PERCENT)
+    .height(Constants.FULL_PERCENT)
   }
 }
+
+let nextId: number = 0;
 
 @ObservedV2
-class GrandFather {
-  @Trace age: number = 0;
+class Arr {
+  id: number = 0;
+  @Trace numberArr: number[] = [];
 
-  constructor(age: number) {
-    this.age = age;
-  }
-}
-class Father extends GrandFather{
-  constructor(father: number) {
-    super(father);
-  }
-}
-class Uncle extends GrandFather {
-  constructor(uncle: number) {
-    super(uncle);
-  }
-}
-class Son extends Father {
-  constructor(son: number) {
-    super(son);
-  }
-}
-class Cousin extends Uncle {
-  constructor(cousin: number) {
-    super(cousin);
+  constructor() {
+    this.id = nextId++;
+    this.numberArr = [0, 1, 2];
   }
 }
