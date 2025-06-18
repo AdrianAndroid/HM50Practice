@@ -1,60 +1,59 @@
-import Constants from '../../common/Constants';
-
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local rawObject: RawObject = new RawObject("rawObject");
-  @Local observedObject: ObservedObject = new ObservedObject("observedObject");
+  @Local infoList: Info[] = [new Info("Alice", 8, 0, 0), new Info("Barry", 10, 1, 20), new Info("Cindy", 18, 24, 40)];
   build() {
     Column() {
-      Blank()
-        .height(100)
-      Text(`${this.rawObject.name}`)
-      Text(`${this.observedObject.name}`)
-      Button("change object")
-        .onClick(() => {
-          // 对类对象整体的修改均能观察到
-          this.rawObject = new RawObject("new rawObject");
-          this.observedObject = new ObservedObject("new observedObject");
-        })
-      Button("change name")
-        .onClick(() => {
-          // @Local与@Param均不具备观察类对象属性的能力，因此对rawObject.name的修改无法观察到
-          this.rawObject.name = "new rawObject name";
-          // 由于ObservedObject的name属性被@Trace装饰，因此对observedObject.name的修改能被观察到
-          this.observedObject.name = "new observedObject name";
-        })
-      Child({
-        rawObject: this.rawObject,
-        observedObject: this.observedObject
+      ForEach(this.infoList, (info: Info) => {
+        MiddleComponent({ info: info })
       })
+      Button("change")
+        .onClick(() => {
+          this.infoList[0] = new Info("Atom", 40, 27, 90);
+          this.infoList[1].name = "Bob";
+          this.infoList[2].region = new Region(7, 9);
+        })
     }
   }
 }
-
 @ComponentV2
-struct Child {
-  @Require @Param rawObject: RawObject;
-  @Require @Param observedObject: ObservedObject;
+struct MiddleComponent {
+  @Require @Param info: Info;
   build() {
     Column() {
-      Text(`${this.rawObject.name}`)
-      Text(`${this.observedObject.name}`)
+      Text(`name: ${this.info.name}`)
+      Text(`age: ${this.info.age}`)
+      SubComponent({ region: this.info.region })
     }
   }
-
+}
+@ComponentV2
+struct SubComponent {
+  @Require @Param region: Region;
+  build() {
+    Column() {
+      Text(`region: ${this.region.x}-${this.region.y}`)
+    }
+  }
 }
 
-class RawObject {
-  name: string;
-  constructor(name: string) {
-    this.name = name;
+@ObservedV2
+class Region {
+  @Trace x: number;
+  @Trace y: number;
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 }
 @ObservedV2
-class ObservedObject {
+class Info {
   @Trace name: string;
-  constructor(name: string) {
+  @Trace age: number;
+  @Trace region: Region;
+  constructor(name: string, age: number, x: number, y: number) {
     this.name = name;
+    this.age = age;
+    this.region = new Region(x, y);
   }
 }
