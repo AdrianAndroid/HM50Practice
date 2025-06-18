@@ -69,4 +69,9 @@ export default class EntryAbility extends UIAbility {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
+
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onNewWant -> want=${JSON.stringify(want)}, launchParam=${JSON.stringify(launchParam)}`);
+  }
 }
