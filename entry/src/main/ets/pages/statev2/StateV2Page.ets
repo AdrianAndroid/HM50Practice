@@ -1,47 +1,33 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  info: Info = new Info("Tom", 25);
+  frequence: Frequence = new Frequence();
   build() {
     Column() {
-      Blank().height(100)
-      Button("Step1、Only change name")
+      Blank()
+        .height(100)
+      Button("change count to 1000")
         .onClick(() => {
-          this.info.person = new Person("Jack", 25);  // 能够触发onNameChange方法，不触发onAgeChange方法
+          for (let i = 1; i <= 1000; i++) {
+            this.frequence.count = i;
+          }
         })
-      Button("Step2、Only change age")
+      Button("change count to 0 then to 1000")
         .onClick(() => {
-          this.info.person = new Person("Jack", 18);  // 能够触发onAgeChange方法，不触发onNameChange方法
-        })
-      Button("Step3、Change name and age")
-        .onClick(() => {
-          this.info.person = new Person("Lucy", 19);  // 能够触发onNameChange、onAgeChange方法
+          for (let i = 999; i >= 0; i--) {
+            this.frequence.count = i;
+          }
+          this.frequence.count = 1000; // 最终不触发onCountChange方法
         })
     }
   }
 }
 
 @ObservedV2
-class Info {
-  @Trace person: Person;
-  @Monitor("person.name")
-  onNameChange(monitor: IMonitor) {
-    console.log(`name change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
-  }
-  @Monitor("person.age")
-  onAgeChange(monitor: IMonitor) {
-    console.log(`age change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
-  }
-  constructor(name: string, age: number) {
-    this.person = new Person(name, age);
-  }
-}
-@ObservedV2
-class Person {
-  @Trace name: string;
-  @Trace age: number;
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+class Frequence {
+  @Trace count: number = 0;
+  @Monitor("count")
+  onCountChange(monitor: IMonitor) {
+    console.log(`count change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
   }
 }
