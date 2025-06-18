@@ -1,8 +1,10 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  son: Son = new Son();
+  son: Son = new Son(0);
+  cousin: Cousin = new Cousin(0);
   renderTimes: number = 0;
+
   isRender(id: number): number {
     console.info(`id: ${id} renderTimes: ${this.renderTimes}`);
     this.renderTimes++;
@@ -10,36 +12,56 @@ struct StateV2Page {
   }
 
   build() {
-    Column() {
-      Blank()
-        .height(100)
-      Text('pencil length'+ this.son.bag.pencil.length)
-        .fontSize(this.isRender(1))   // UINode (1)
-      Button("change length")
-        .onClick(() => {
-          // 点击更改length值，UINode（1）会刷新
-          this.son.bag.pencil.length += 100;
-        })
-      Button("assign Son")
-        .onClick(() => {
-          // 由于变量son非状态变量，因此无法刷新UINode（1）
-          this.son = new Son();
-        })
+    Row() {
+      Column() {
+        Blank()
+          .height(100)
+        Text(`Son ${this.son.age}`)
+          .fontSize(this.isRender(1))
+          .fontWeight(FontWeight.Bold)
+        Text(`Cousin ${this.cousin.age}`)
+          .fontSize(this.isRender(2))
+          .fontWeight(FontWeight.Bold)
+        Button('change Son age')
+          .onClick(() => {
+            this.son.age++;
+          })
+        Button('change Cousin age')
+          .onClick(() => {
+            this.cousin.age++;
+          })
+      }
+      .width('100%')
     }
+    .height('100%')
   }
 }
 
 @ObservedV2
-class Pencil {
-  @Trace length: number = 21; // 当length变化时，会刷新关联的组件
+class GrandFather {
+  @Trace age: number = 0;
+
+  constructor(age: number) {
+    this.age = age;
+  }
 }
-class Bag {
-  width: number = 50;
-  height: number = 60;
-  pencil: Pencil = new Pencil();
+class Father extends GrandFather{
+  constructor(father: number) {
+    super(father);
+  }
 }
-class Son {
-  age: number = 5;
-  school: string = "some";
-  bag: Bag = new Bag();
+class Uncle extends GrandFather {
+  constructor(uncle: number) {
+    super(uncle);
+  }
+}
+class Son extends Father {
+  constructor(son: number) {
+    super(son);
+  }
+}
+class Cousin extends Uncle {
+  constructor(cousin: number) {
+    super(cousin);
+  }
 }
