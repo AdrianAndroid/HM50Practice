@@ -3,61 +3,28 @@ import Constants from '../../common/Constants';
 @Entry
 @ComponentV2
 struct StateV2Page {
-  info: Info = new Info();
+  @Local numArr: number[] = [1,2,3,4,5];
+  @Local dimensionTwo: number[][] = [[1,2,3],[4,5,6]];
 
   build() {
     Column() {
-      Text(`length: ${this.info.personList.length}`)
-        .fontSize(40)
-      Divider()
-      if (this.info.personList.length >= 3) {
-        Text(`${this.info.personList[0].age}`)
-          .fontSize(40)
-          .onClick(() => {
-            this.info.personList[0].age++;
-          })
-
-        Text(`${this.info.personList[1].age}`)
-          .fontSize(40)
-          .onClick(() => {
-            this.info.personList[1].age++;
-          })
-
-        Text(`${this.info.personList[2].age}`)
-          .fontSize(40)
-          .onClick(() => {
-            this.info.personList[2].age++;
-          })
-      }
-
-      Divider()
-
-      ForEach(this.info.personList, (item: Person, index: number) => {
-        Text(`${index} ${item.age}`)
-          .fontSize(40)
-      })
+      Text(`${this.numArr[0]}`)
+      Text(`${this.numArr[1]}`)
+      Text(`${this.numArr[2]}`)
+      Text(`${this.dimensionTwo[0][0]}`)
+      Text(`${this.dimensionTwo[1][1]}`)
+      Button("change array item")
+        .onClick(() => {
+          this.numArr[0]++;
+          this.numArr[1] += 2;
+          this.dimensionTwo[0][0] = 0;
+          this.dimensionTwo[1][1] = 0;
+        })
+      Button("change whole array")
+        .onClick(() => {
+          this.numArr = [5,4,3,2,1];
+          this.dimensionTwo = [[7,8,9],[0,1,2]];
+        })
     }
-  }
-}
-
-let nextId: number = 0;
-
-@ObservedV2
-class Person {
-  @Trace age: number = 0;
-
-  constructor(age: number) {
-    this.age = age;
-  }
-}
-
-@ObservedV2
-class Info {
-  id: number = 0;
-  @Trace personList: Person[] = [];
-
-  constructor() {
-    this.id = nextId++;
-    this.personList = [new Person(0), new Person(1), new Person(2)];
   }
 }
