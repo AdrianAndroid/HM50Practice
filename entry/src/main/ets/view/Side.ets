@@ -24,7 +24,6 @@ export struct Side {
   @State isFocus: boolean = false;
   @State isLike: boolean = false;
   @State isFavorite: boolean = false;
-  private utils = new Utils();
   private head: Resource = $r('app.media.tab_head_image');
 
   // Callback function for clicking the like button.
@@ -68,7 +67,7 @@ export struct Side {
         })
         .margin({ left: TabContentConstants.TAB_HEAD_IMAGE_MARGIN_LEFT })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Image(this.isFocus ? $r("app.media.tab_follow") : $r('app.media.tab_foucs_add'))
         .width($r('app.integer.tab_focus_image_width'))
@@ -126,7 +125,7 @@ export struct Side {
         })
         .margin({ top: $r('app.integer.tab_like_image_margin_top') })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text(this.commentCount.toString())
         .fontSize($r('app.integer.tab_like_text_font_size'))
@@ -178,7 +177,7 @@ export struct Side {
         })
         .margin({ top: $r('app.integer.tab_like_image_margin_top') })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text($r('app.string.tab_share'))
         .fontSize($r('app.integer.tab_like_text_font_size'))

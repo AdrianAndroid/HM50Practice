@@ -19,7 +19,7 @@ function getInstance(): string {
 @Component
 struct Page_StartModel {
   private KEY_NEW = 'KEY';
-
+  private context = getContext(this) as common.UIAbilityContext
 
   build() {
     Row() {
@@ -32,7 +32,7 @@ struct Page_StartModel {
             let want: Want = {
               deviceId: '', // deviceId为空表示本设备
               bundleName: Constants.bundleName,
-              abilityName: 'SpecifiedFirstAbility',
+              abilityName: 'SpecifiedAbility', //SpecifiedFirstAbility',
               moduleName: 'entry', // moduleName非必选
               parameters: {
                 // 自定义信息
@@ -54,7 +54,7 @@ struct Page_StartModel {
             let want: Want = {
               deviceId: '', // deviceId为空表示本设备
               bundleName: Constants.bundleName,
-              abilityName: 'SpecifiedSecondAbility',
+              abilityName: 'SpecifiedAbility', //'SpecifiedSecondAbility',
               moduleName: 'entry', // moduleName非必选
               parameters: {
                 // 自定义信息

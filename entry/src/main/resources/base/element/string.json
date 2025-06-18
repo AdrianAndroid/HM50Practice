@@ -1487,6 +1487,14 @@
     {
       "name": "EntryAbility1_label",
       "value": "label"
+    },
+    {
+      "name": "SpecifiedAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "SpecifiedAbility_label",
+      "value": "label"
     }
   ]
 }

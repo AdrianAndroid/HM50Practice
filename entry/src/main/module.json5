@@ -52,6 +52,15 @@
         "label": "$string:EntryAbility1_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "SpecifiedAbility",
+        "srcEntry": "./ets/specifiedability/SpecifiedAbility.ets",
+        "description": "$string:SpecifiedAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:SpecifiedAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background"
       }
     ],
     "extensionAbilities": [

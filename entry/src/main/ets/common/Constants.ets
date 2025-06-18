@@ -8,6 +8,7 @@ export default class Constants {
 
   static readonly PAGES_INDEX = "pages/Index"
   static readonly PAGES_SECOND = "pages/Second"
+  static readonly PAGES_PageSpecifiedAbility = "pages/PageSpecifiedAbility"
   static readonly PAGES_PAGE_EVENTHUB = "pages/Page_EventHub"
   static readonly PAGES_Page_UIAbilityComponentsBasicUsage = "pages/Page_UIAbilityComponentsBasicUsage"
   static readonly PAGES_Page_UIAbilityComponentsInteractive = "pages/Page_UIAbilityComponentsInteractive"

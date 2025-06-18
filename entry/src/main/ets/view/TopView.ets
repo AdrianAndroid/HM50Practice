@@ -35,7 +35,7 @@ export struct TopView {
           left: $r('app.integer.tab_search_image_margin')
         })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text($r('app.string.tab_focus'))
         .fontColor($r('app.color.tab_font_color'))
@@ -49,7 +49,7 @@ export struct TopView {
         .textAlign(TextAlign.Center)
         .margin({ left: $r('app.integer.tab_search_image_margin') })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text($r('app.string.tab_selected'))
         .fontColor(Color.White)
@@ -62,7 +62,7 @@ export struct TopView {
           left: { anchor: TabContentConstants.TAB_FOLLOW_TEXT, align: HorizontalAlign.End }
         })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text($r('app.string.tab_recommendation'))
         .fontColor($r('app.color.tab_font_color'))
@@ -75,7 +75,7 @@ export struct TopView {
           left: { anchor: TabContentConstants.TAB_SELECTED_TEXT, align: HorizontalAlign.End }
         })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Text($r('app.string.tab_screening_hall'))
         .fontColor($r('app.color.tab_font_color'))
@@ -89,7 +89,7 @@ export struct TopView {
         })
         .margin({ right: $r('app.integer.tab_search_image_margin') })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
       Divider()
         .width($r('app.integer.tab_tab_divider_width'))
@@ -118,7 +118,7 @@ export struct TopView {
           right: $r('app.integer.tab_search_image_margin')
         })
         .onClick(() => {
-          this.utils.showPromptAction();
+          Utils.showPromptAction();
         })
     }
     .height($r('app.integer.tab_top_view_relativecontainer_height'))

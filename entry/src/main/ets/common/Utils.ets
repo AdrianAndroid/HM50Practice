@@ -13,16 +13,36 @@
  * limitations under the License.
  */
 
-import { promptAction } from '@kit.ArkUI';
 import { TabContentConstants } from './TabContentConstants';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { common } from '@kit.AbilityKit';
 
 const uiContext: UIContext | undefined = AppStorage.get('uiContext');
 
 export class Utils {
-  showPromptAction() {
+  static showPromptAction() {
     uiContext?.getPromptAction().showToast({
       message: $r('app.string.tab_toast_message'),
       duration: TabContentConstants.TAB_DURATION
     });
+  }
+
+  static finishSelf(context?: common.UIAbilityContext) {
+    try {
+      context?.terminateSelf((err: BusinessError) => {
+        if (err.code) {
+          // 处理业务逻辑错误
+          console.error(`terminateSelf failed, code is ${err.code}, message is ${err.message}`);
+          return;
+        }
+        // 执行正常业务
+        console.info('terminateSelf succeed');
+      })
+    } catch (err) {
+      // 捕获同步的参数错误
+      let code = (err as BusinessError).code;
+      let message = (err as BusinessError).message;
+      console.error(`terminateSelf failed, code is ${code}, message is ${message}`);
+    }
   }
 }
