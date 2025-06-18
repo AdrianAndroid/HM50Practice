@@ -1,113 +1,37 @@
-import { collections } from '@kit.ArkTS';
+import { JSON } from '@kit.ArkTS';
 import { UIUtils } from '@kit.ArkUI';
 
-@Sendable
 class Info {
   id: number = 0;
-  name: string = 'cc';
 
   constructor(id: number) {
     this.id = id;
   }
 }
 
+let test: Record<string, number> = { "a": 123 };
+let testJsonStr :string = JSON.stringify(test);
+let test2: Record<string, Info> = { "a": new Info(20) };
+let test2JsonStr: string = JSON.stringify(test2);
+
 @Entry
 @ComponentV2
 struct StateV2Page {
-  scroller: Scroller = new Scroller();
-  @Local arrCollect: collections.Array<Info> =
-    UIUtils.makeObserved(new collections.Array<Info>(new Info(1), new Info(2)));
+  message: Record<string, number> = UIUtils.makeObserved<Record<string, number>>(JSON.parse(testJsonStr) as Record<string, number>);
+  message2: Record<string, Info> = UIUtils.makeObserved<Record<string, Info>>(JSON.parse(test2JsonStr) as Record<string, Info>);
 
   build() {
     Column() {
-      // ForEach接口仅支持Array<any>，不支持collections.Array<any>。
-      // 但ForEach的实现用到的Array的API，collections.Array都有提供。所以可以使用as类型断言Array。
-      // 需要注意断言并不会改变原本的数据类型。
-      ForEach(this.arrCollect as object as Array<Info>, (item: Info) => {
-        Text(`${item.id}`).onClick(() => {
-          item.id++;
+      Text(`${this.message.a}`)
+        .fontSize(50)
+        .onClick(() => {
+          this.message.a++;
         })
-      }, (item: Info, index) => item.id.toString() + index.toString())
-      Divider()
-        .color('blue')
-      if (this.arrCollect.length > 0) {
-        Text(`the first one ${this.arrCollect[this.arrCollect.length - this.arrCollect.length].id}`)
-        Text(`the last one ${this.arrCollect[this.arrCollect.length - 1].id}`)
-      }
-      Divider()
-        .color('blue')
-
-      /****************************改变数据长度的api**************************/
-      Scroll(this.scroller) {
-        Column({space: 10}) {
-          // push: 新增新元素
-          Button('push').onClick(() => {
-            this.arrCollect.push(new Info(30));
-          })
-          // pop: 删除最后一个
-          Button('pop').onClick(() => {
-            this.arrCollect.pop();
-          })
-          // shift: 删除第一个
-          Button('shift').onClick(() => {
-            this.arrCollect.shift();
-          })
-          // unshift: 在数组的开头插入新项
-          Button('unshift').onClick(() => {
-            this.arrCollect.unshift(new Info(50));
-          })
-          // splice: 从数组的指定位置删除元素
-          Button('splice').onClick(() => {
-            this.arrCollect.splice(1);
-          })
-
-          // shrinkTo: 将数组长度缩小到给定的长度
-          Button('shrinkTo').onClick(() => {
-            this.arrCollect.shrinkTo(1);
-          })
-          // extendTo: 将数组长度扩展到给定的长度
-          Button('extendTo').onClick(() => {
-            this.arrCollect.extendTo(6, new Info(20));
-          })
-
-          Divider()
-            .color('blue')
-
-          /****************************************改变数组item本身*****************/
-          // sort：从大到小排序
-          Button('sort').onClick(() => {
-            this.arrCollect.sort((a: Info, b: Info) => b.id - a.id);
-          })
-          // fill: 用值填充指定部分
-          Button('fill').onClick(() => {
-            this.arrCollect.fill(new Info(5), 0, 2);
-          })
-
-          /*****************************不会改变数组本身API***************************/
-          // slice：返回新的数组，根据start end对原数组的拷贝，不会改变原数组，所以直接调用slice不会触发UI刷新
-          // 可以构建用例为返回的浅拷贝的数据赋值给this.arrCollect,需要注意这里依然要调用makeObserved，否则this.arr被普通变量赋值后，会丧失观察能力
-          Button('slice').onClick(() => {
-            this.arrCollect = UIUtils.makeObserved(this.arrCollect.slice(0, 1));
-          })
-          // map：原理同上
-          Button('map').onClick(() => {
-            this.arrCollect = UIUtils.makeObserved(this.arrCollect.map((value) => {
-              value.id += 10;
-              return value;
-            }))
-          })
-          // filter：原理同上
-          Button('filter').onClick(() => {
-            this.arrCollect = UIUtils.makeObserved(this.arrCollect.filter((value: Info) => value.id % 2 === 0));
-          })
-
-          // concat：原理同上
-          Button('concat').onClick(() => {
-            let array1 = new collections.Array(new Info(100))
-            this.arrCollect = UIUtils.makeObserved(this.arrCollect.concat(array1));
-          })
-        }.height('200%')
-      }.height('60%')
+      Text(`${this.message2.a.id}`)
+        .fontSize(50)
+        .onClick(() => {
+          this.message2.a.id++;
+        })
     }
     .height('100%')
     .width('100%')
