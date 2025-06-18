@@ -1,23 +1,20 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  son: Son = new Son();
-
   build() {
     Column() {
-      // 当点击改变name时，Text组件会刷新
+      // 当点击改变count时，Text组件会刷新
       Blank()
         .height(200)
-      Text(`${this.son.name}`)
+      Text(`${Manager.count}`)
+        .fontSize(100)
         .onClick(() => {
-          this.son.name = "Jack";
+          Manager.count++;
         })
     }
   }
 }
 @ObservedV2
-class Father {
-  @Trace name: string = "Tom";
-}
-class Son extends Father {
+class Manager {
+  @Trace static count: number = 1;
 }
