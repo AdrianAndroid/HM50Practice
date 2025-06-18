@@ -1,64 +1,32 @@
-@Entry
-@ComponentV2
-struct StateV2Page {
-  @Local shoppingBasket: Article[] = [new Article(1, 20), new Article(5, 2)];
+import { Type } from '@kit.ArkUI';
+import { PersistenceV2 } from '@kit.ArkUI';
 
-  @Computed
-  get total(): number {
-    return this.shoppingBasket.reduce((acc: number, item: Article) => acc + (item.quantity * item.unitPrice), 0);
-  }
-
-  @Computed
-  get qualifiesForDiscount(): boolean {
-    return this.total >= 100;
-  }
-
-  build() {
-    Column() {
-      Blank()
-        .height(100)
-      Text(`Shopping List: `).fontSize(30)
-      ForEach(this.shoppingBasket, (item: Article) => {
-        Row() {
-          Text(`unitPrice: ${item.unitPrice}`)
-          Button('-').onClick(() => {
-            if (item.quantity > 0) {
-              item.quantity--;
-            }
-          })
-          Text(`quantity: ${item.quantity}`)
-          Button('+').onClick(() => {
-            item.quantity++;
-          })
-        }
-
-        Divider()
-      })
-      Child({ total: this.total, qualifiesForDiscount: this.qualifiesForDiscount })
-    }.alignItems(HorizontalAlign.Start)
-  }
-}
-
-@ComponentV2
-struct Child {
-  @Param total: number = 0;
-  @Param qualifiesForDiscount: boolean = false;
-
-  build() {
-    Row() {
-      Text(`Total: ${this.total} `).fontSize(30)
-      Text(`Discount: ${this.qualifiesForDiscount} `).fontSize(30)
-    }
-  }
+// 数据中心
+@ObservedV2
+class SampleChild {
+  @Trace p1: number = 0;
+  p2: number = 10;
 }
 
 @ObservedV2
-class Article {
-  @Trace quantity: number = 0;
-  unitPrice: number = 0;
+export class Sample {
+  // 对于复杂对象需要@Type修饰，确保序列化成功
+  @Type(SampleChild)
+  @Trace f: SampleChild = new SampleChild();
+}
 
-  constructor(quantity: number, unitPrice: number) {
-    this.quantity = quantity;
-    this.unitPrice = unitPrice;
+@Entry
+@ComponentV2
+struct StateV2Page {
+  prop: Sample = PersistenceV2.connect(Sample, () => new Sample())!;
+
+  build() {
+    Column() {
+      Text(`Page1 add 1 to prop.p1: ${this.prop.f.p1}`)
+        .fontSize(30)
+        .onClick(() => {
+          this.prop.f.p1++;
+        })
+    }
   }
 }
