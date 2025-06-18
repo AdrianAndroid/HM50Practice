@@ -4,13 +4,23 @@ struct StateV2Page {
   @State father: Father = new Father("John", 8);
 
   build() {
+    Column() {
+      Child({son: this.father.son})
+    }
+  }
+}
+@Component
+struct Child {
+  @ObjectLink son: Son;
+
+  build() {
     Row() {
       Column() {
-        Text(`name: ${this.father.son.name} age: ${this.father.son.age}`)
+        Text(`name: ${this.son.name} age: ${this.son.age}`)
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
           .onClick(() => {
-            this.father.son.age++;
+            this.son.age++;
           })
       }
       .width('100%')
@@ -18,7 +28,6 @@ struct StateV2Page {
     .height('100%')
   }
 }
-
 @Observed
 class Father {
   son: Son;
