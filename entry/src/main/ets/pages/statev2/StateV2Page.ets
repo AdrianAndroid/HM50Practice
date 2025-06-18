@@ -1,44 +1,64 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local celsius: number = 20;
+  @Local shoppingBasket: Article[] = [new Article(1, 20), new Article(5, 2)];
 
   @Computed
-  get fahrenheit(): number {
-    return this.celsius * 9 / 5 + 32; // C -> F
+  get total(): number {
+    return this.shoppingBasket.reduce((acc: number, item: Article) => acc + (item.quantity * item.unitPrice), 0);
   }
 
   @Computed
-  get kelvin(): number {
-    return (this.fahrenheit - 32) * 5 / 9 + 273.15; // F -> K
-  }
-
-  @Monitor("kelvin")
-  onKelvinMonitor(mon: IMonitor) {
-    console.log("kelvin changed from " + mon.value()?.before + " to " + mon.value()?.now);
+  get qualifiesForDiscount(): boolean {
+    return this.total >= 100;
   }
 
   build() {
-    Column({ space: 20 }) {
+    Column() {
       Blank()
         .height(100)
-      Row({ space: 20 }) {
-        Button('-')
-          .onClick(() => {
-            this.celsius--;
+      Text(`Shopping List: `).fontSize(30)
+      ForEach(this.shoppingBasket, (item: Article) => {
+        Row() {
+          Text(`unitPrice: ${item.unitPrice}`)
+          Button('-').onClick(() => {
+            if (item.quantity > 0) {
+              item.quantity--;
+            }
           })
-
-        Text(`Celsius ${this.celsius.toFixed(1)}`).fontSize(50)
-
-        Button('+')
-          .onClick(() => {
-            this.celsius++;
+          Text(`quantity: ${item.quantity}`)
+          Button('+').onClick(() => {
+            item.quantity++;
           })
-      }
+        }
 
-      Text(`Fahrenheit ${this.fahrenheit.toFixed(2)}`).fontSize(50)
-      Text(`Kelvin ${this.kelvin.toFixed(2)}`).fontSize(50)
+        Divider()
+      })
+      Child({ total: this.total, qualifiesForDiscount: this.qualifiesForDiscount })
+    }.alignItems(HorizontalAlign.Start)
+  }
+}
+
+@ComponentV2
+struct Child {
+  @Param total: number = 0;
+  @Param qualifiesForDiscount: boolean = false;
+
+  build() {
+    Row() {
+      Text(`Total: ${this.total} `).fontSize(30)
+      Text(`Discount: ${this.qualifiesForDiscount} `).fontSize(30)
     }
-    .width('100%')
+  }
+}
+
+@ObservedV2
+class Article {
+  @Trace quantity: number = 0;
+  unitPrice: number = 0;
+
+  constructor(quantity: number, unitPrice: number) {
+    this.quantity = quantity;
+    this.unitPrice = unitPrice;
   }
 }
