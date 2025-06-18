@@ -1,16 +1,26 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  textStyle: UIStyle = new UIStyle();
+  @Local info: Info = new Info();
+  @Local flag: boolean = false;
+  @Monitor("info.message")
+  onMessageChange(monitor: IMonitor) {
+    console.log(`Index message change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
+
   build() {
     Column() {
-      Text(`Important Value: ${this.textStyle.info.value}`)
-        .fontColor(this.textStyle.color)
-        .fontSize(this.textStyle.fontSize)
-      Button("change!")
+      Button("show/hide Child")
         .onClick(() => {
-          this.textStyle.info.value = Math.floor(Math.random() * 100) + 1;
+          this.flag = !this.flag
         })
+      Button("change message in Index")
+        .onClick(() => {
+          this.info.message = "Index click to change Message";
+        })
+      if (this.flag) {
+        Child({ info: this.info })
+      }
     }
   }
 }
@@ -18,29 +28,37 @@ struct StateV2Page {
 
 @ObservedV2
 class Info {
-  @Trace value: number = 50;
+  @Trace message: string = "not initialized";
+
+  constructor() {
+    console.log("in constructor message change to initialized");
+    this.message = "initialized";
+  }
 }
-@ObservedV2
-class UIStyle {
-  info: Info = new Info();
-  @Trace color: Color = Color.Black;
-  @Trace fontSize: number = 45;
-  @Monitor("info.value")
-  onValueChange(monitor: IMonitor) {
-    let lastValue: number = monitor.value()?.before as number;
-    let curValue: number = monitor.value()?.now as number;
-    if (lastValue != 0) {
-      let diffPercent: number = (curValue - lastValue) / lastValue;
-      if (diffPercent > 0.1) {
-        this.color = Color.Red;
-        this.fontSize = 50;
-      } else if (diffPercent < -0.1) {
-        this.color = Color.Green;
-        this.fontSize = 40;
-      } else {
-        this.color = Color.Black;
-        this.fontSize = 45;
-      }
+@ComponentV2
+struct Child {
+  @Param info: Info = new Info();
+  @Monitor("info.message")
+  onMessageChange(monitor: IMonitor) {
+    console.log(`Child message change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
+  aboutToAppear(): void {
+    this.info.message = "Child aboutToAppear";
+  }
+  aboutToDisappear(): void {
+    console.log("Child aboutToDisappear");
+    this.info.message = "Child aboutToDisappear";
+  }
+  build() {
+    Column() {
+      Text("Child")
+      Button("change message in Child")
+        .onClick(() => {
+          this.info.message = "Child click to change Message";
+        })
     }
+    .borderColor(Color.Red)
+    .borderWidth(2)
+
   }
 }
