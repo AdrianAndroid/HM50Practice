@@ -1,24 +1,23 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  father: Father = new Father();
+  son: Son = new Son();
 
   build() {
     Column() {
-      // 当点击改变age时，Text组件会刷新
+      // 当点击改变name时，Text组件会刷新
       Blank()
         .height(200)
-      Text(`${this.father.son.age}`)
+      Text(`${this.son.name}`)
         .onClick(() => {
-          this.father.son.age++;
+          this.son.name = "Jack";
         })
     }
   }
 }
 @ObservedV2
-class Son {
-  @Trace age: number = 100;
-}
 class Father {
-  son: Son = new Son();
+  @Trace name: string = "Tom";
+}
+class Son extends Father {
 }
