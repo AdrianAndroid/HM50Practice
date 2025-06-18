@@ -1,45 +1,50 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local info: Info = new Info("Tom", 25);
-
-  @Monitor("info")
-  infoChange(monitor: IMonitor) {
-    console.log(`info change changed from`);
-    monitor.dirty.forEach((path: string) => {
-      console.log(`${path} changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
-    })
-  }
-
-  @Monitor("info.name")
-  infoPropertyChange(monitor: IMonitor) {
-    console.log(`info name change  changed from`);
-    monitor.dirty.forEach((path: string) => {
-      console.log(`${path} changed from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`)
-    })
-  }
+  info: Info = new Info();
   build() {
     Column() {
-      Blank()
-        .height(100)
-      Text(`name: ${this.info.name}, age: ${this.info.age}`)
-      Button("change info")
+      Button("change name")
         .onClick(() => {
-          this.info = new Info("Lucy", 18); // 能够监听到
+          this.info.name = "Jack"; // 能够触发onNameChange方法
         })
-      Button("change info.name")
+      Button("change age")
         .onClick(() => {
-          this.info.name = "Jack"; // 监听不到
+          this.info.age = 26; // 不能够触发onAgeChange方法
+        })
+      Button("change region")
+        .onClick(() => {
+          this.info.region = "South"; // 能够触发onChange方法
+        })
+      Button("change job")
+        .onClick(() => {
+          this.info.job = "Driver"; // 能够触发onChange方法
         })
     }
   }
 }
 
+@ObservedV2
 class Info {
-  name: string;
-  age: number;
-  constructor(name: string, age: number) {
-    this.name = name;
-    this.age = age;
+  @Trace name: string = "Tom";
+  @Trace region: string = "North";
+  @Trace job: string = "Teacher";
+  age: number = 25;
+  // name被@Trace装饰，能够监听变化
+  @Monitor("name")
+  onNameChange(monitor: IMonitor) {
+    console.log(`name change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
+  // age未被@Trace装饰，不能监听变化
+  @Monitor("age")
+  onAgeChange(monitor: IMonitor) {
+    console.log(`age change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+  }
+  // region与job均被@Trace装饰，能够监听变化
+  @Monitor("region", "job")
+  onChange(monitor: IMonitor) {
+    monitor.dirty.forEach((path: string) => {
+      console.log(`${path} change from ${monitor.value(path)?.before} to ${monitor.value(path)?.now}`);
+    })
   }
 }
