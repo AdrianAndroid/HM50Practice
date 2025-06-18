@@ -3,28 +3,39 @@ import Constants from '../../common/Constants';
 @Entry
 @ComponentV2
 struct StateV2Page {
-  @Local numArr: number[] = [1,2,3,4,5];
-  @Local dimensionTwo: number[][] = [[1,2,3],[4,5,6]];
-
+  @Local count: number = 0;
+  @Local message: string = "Hello";
+  @Local flag: boolean = false;
   build() {
     Column() {
-      Text(`${this.numArr[0]}`)
-      Text(`${this.numArr[1]}`)
-      Text(`${this.numArr[2]}`)
-      Text(`${this.dimensionTwo[0][0]}`)
-      Text(`${this.dimensionTwo[1][1]}`)
-      Button("change array item")
-        .onClick(() => {
-          this.numArr[0]++;
-          this.numArr[1] += 2;
-          this.dimensionTwo[0][0] = 0;
-          this.dimensionTwo[1][1] = 0;
+      Text(`Local ${this.count}`)
+      Text(`Local ${this.message}`)
+      Text(`Local ${this.flag}`)
+      Button("change Local")
+        .onClick(()=>{
+          // 对数据源的更改会同步给子组件
+          this.count++;
+          this.message += " World";
+          this.flag = !this.flag;
         })
-      Button("change whole array")
-        .onClick(() => {
-          this.numArr = [5,4,3,2,1];
-          this.dimensionTwo = [[7,8,9],[0,1,2]];
-        })
+      Child({
+        count: this.count,
+        message: this.message,
+        flag: this.flag
+      })
+    }
+  }
+}
+@ComponentV2
+struct Child {
+  @Require @Param count: number;
+  @Require @Param message: string;
+  @Require @Param flag: boolean;
+  build() {
+    Column() {
+      Text(`Param ${this.count}`)
+      Text(`Param ${this.message}`)
+      Text(`Param ${this.flag}`)
     }
   }
 }
