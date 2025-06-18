@@ -1,28 +1,45 @@
 @Entry
 @ComponentV2
 struct StateV2Page {
-  person: Person = new Person();
+  son: Son = new Son();
+  renderTimes: number = 0;
+  isRender(id: number): number {
+    console.info(`id: ${id} renderTimes: ${this.renderTimes}`);
+    this.renderTimes++;
+    return 40;
+  }
 
   build() {
     Column() {
-      // age被@Trace装饰，用在UI中可以触发UI刷新
-      Text(`${this.person.age}`)
-        .fontSize(100)
+      Blank()
+        .height(100)
+      Text('pencil length'+ this.son.bag.pencil.length)
+        .fontSize(this.isRender(1))   // UINode (1)
+      Button("change length")
         .onClick(() => {
-          this.person.age++; // 点击会触发UI刷新
+          // 点击更改length值，UINode（1）会刷新
+          this.son.bag.pencil.length += 100;
         })
-      // id未被@Trace装饰，用在UI中不会触发UI刷新
-      Text(`${this.person.id}`) // 当id变化时不会刷新
-        .fontSize(100)
+      Button("assign Son")
         .onClick(() => {
-          this.person.id++; // 点击不会触发UI刷新
+          // 由于变量son非状态变量，因此无法刷新UINode（1）
+          this.son = new Son();
         })
     }
   }
 }
 
 @ObservedV2
-class Person {
-  id: number = 0;
-  @Trace age: number = 8;
+class Pencil {
+  @Trace length: number = 21; // 当length变化时，会刷新关联的组件
+}
+class Bag {
+  width: number = 50;
+  height: number = 60;
+  pencil: Pencil = new Pencil();
+}
+class Son {
+  age: number = 5;
+  school: string = "some";
+  bag: Bag = new Bag();
 }
