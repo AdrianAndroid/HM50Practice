@@ -38,7 +38,7 @@ export default class EntryAbility extends UIAbility {
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
-    windowStage.loadContent(Constants.PAGES_statev1_StateV1Page, this.storage, (err, data) => {
+    windowStage.loadContent(Constants.PAGES_statev2_StateV2Page, this.storage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');

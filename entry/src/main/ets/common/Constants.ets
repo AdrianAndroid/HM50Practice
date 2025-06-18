@@ -52,6 +52,7 @@ export default class Constants {
   static readonly PAGES_LifecyclePages = 'pages/LifecyclePages'
   static readonly PAGES_statev1_StateV1Page = 'pages/statev1/StateV1Page'
   static readonly PAGES_statev1_StateV1Page2 = 'pages/statev1/StateV1Page2'
+  static readonly PAGES_statev2_StateV2Page = 'pages/statev2/StateV2Page'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
