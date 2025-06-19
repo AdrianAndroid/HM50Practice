@@ -1,21 +1,30 @@
-import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+import {
+  AbilityConstant,
+  AbilityLifecycleCallback,
+  contextConstant,
+  UIAbility,
+  Want
+} from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Router, window } from '@kit.ArkUI';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { window } from '@kit.ArkUI';
 import Constants from '../common/Constants';
 import ConnectionUtils from '../common/network/ConnectionUtils';
 import RDBStoreUtil from '../common/database/RDBStoreUtil';
 import preferenceUtilsObject from '../common/database/PreferencesUtil';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
 
 export default class EntryAbility extends UIAbility {
-  para: Record<string, number> = { 'PropA' : 47 }
+  para: Record<string, number> = { 'PropA': 47 }
   storage: LocalStorage = new LocalStorage(this.para)
+  // 定义生命周期ID
+  lifecycleId: number = -1;
 
   eventFunc(argOne: Context, argTwo: Context): void {
-    hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} eventFunc argOne=${argOne} ${typeof argOne} argTwo=${argTwo} ${typeof argTwo}`)
+    hilog.info(DOMAIN_NUMBER, TAG, '%{public}s',
+      `eventeventevent ${Constants.EVENT_HUB_1} eventFunc argOne=${argOne} ${typeof argOne} argTwo=${argTwo} ${typeof argTwo}`)
     return
   }
 
@@ -28,17 +37,97 @@ export default class EntryAbility extends UIAbility {
     preferenceUtilsObject.getFontPreferences(this.context);
     ConnectionUtils.openRegister();
 
+    this.switchArea()
+    this.registerLifecycle()
+
     let eventhub = this.context.eventHub
     eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
     eventhub.on(Constants.EVENT_HUB_1, (data: Object, data2: Object) => {
       // 触发事件，完成相应的业务操作
-      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s',
+        `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
     })
 
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
     hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+  }
+
+  registerLifecycle() {
+    let TAG = 'registerLifecycle'
+    // 定义生命周期回调对象
+    let abilityLifecycleCallback: AbilityLifecycleCallback = {
+      // 当UIAbility创建时被调用
+      onAbilityCreate(uiAbility) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当窗口创建时被调用
+      onWindowStageCreate(uiAbility, windowStage: window.WindowStage) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口处于活动状态时被调用
+      onWindowStageActive(uiAbility, windowStage: window.WindowStage) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageActive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageActive windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口处于非活动状态时被调用
+      onWindowStageInactive(uiAbility, windowStage: window.WindowStage) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageInactive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageInactive windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口被销毁时被调用
+      onWindowStageDestroy(uiAbility, windowStage: window.WindowStage) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当UIAbility被销毁时被调用
+      onAbilityDestroy(uiAbility) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility从后台转到前台时触发回调
+      onAbilityForeground(uiAbility) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityForeground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility从前台转到后台时触发回调
+      onAbilityBackground(uiAbility) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityBackground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility迁移时被调用
+      onAbilityContinue(uiAbility) {
+        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityContinue uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      }
+    }
+    let applicationContext = this.context.getApplicationContext()
+    try {
+      // 注册应用内生命周期回调
+      this.lifecycleId = applicationContext.on('abilityLifecycle', abilityLifecycleCallback);
+    } catch (err) {
+      let code = (err as BusinessError).code;
+      let message = (err as BusinessError).message;
+      hilog.error(DOMAIN_NUMBER, TAG, `Failed to register applicationContext. Code is ${code}, message is ${message}`);
+    }
+
+    hilog.info(DOMAIN_NUMBER, TAG, `register callback number: ${this.lifecycleId}`);
+  }
+
+  switchArea() {
+    // // 存储普通信息前，切换到EL1设备级加密
+    // this.context.area = contextConstant.AreaMode.EL1; // 切换area
+    // // 存储普通信息
+    // // 存储敏感信息前，切换到EL2用户级加密
+    // this.context.area = contextConstant.AreaMode.EL2; // 切换area
+    // // 存储敏感信息
+    // // 存储敏感信息前，切换到EL3用户级加密
+    // this.context.area = contextConstant.AreaMode.EL3; // 切换area
+    // // 存储敏感信息
+    // // 存储敏感信息前，切换到EL4用户级加密
+    // this.context.area = contextConstant.AreaMode.EL4; // 切换area
+    // // 存储敏感信息
+    // // 存储敏感信息前，切换到EL5应用级加密
+    // this.context.area = contextConstant.AreaMode.EL5; // 切换area
+    // // 存储敏感信息
   }
 
   onDestroy(): void | Promise<void> {
@@ -91,7 +180,8 @@ export default class EntryAbility extends UIAbility {
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-    hilog.info(0x0000, 'testTag', '%{public}s', `Ability onNewWant -> want=${JSON.stringify(want)}, launchParam=${JSON.stringify(launchParam)}`);
+    hilog.info(0x0000, 'testTag', '%{public}s',
+      `Ability onNewWant -> want=${JSON.stringify(want)}, launchParam=${JSON.stringify(launchParam)}`);
   }
 
   onDump(params: string[]): string[] {
