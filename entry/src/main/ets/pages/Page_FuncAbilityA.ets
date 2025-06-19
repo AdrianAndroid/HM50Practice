@@ -22,7 +22,7 @@ struct Page_FuncAbilityA {
             let abilityResult: common.AbilityResult = {
               resultCode: RESULT_CODE,
               want: {
-                bundleName: 'com.example.myapplication',
+                bundleName: Constants.bundleName,
                 moduleName: 'entry', // moduleName非必选
                 abilityName: 'FuncAbilityB',
                 parameters: {

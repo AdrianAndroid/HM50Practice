@@ -4,6 +4,7 @@ import Constants from '../common/Constants';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
 import { JSON } from '@kit.ArkTS';
+import { Utils } from '../common/Utils';
 
 @Entry
 @Component
@@ -18,13 +19,14 @@ struct Page_UIAbilityComponentsInteractive {
             Text('Hello')
           }
           .onClick(() => {
+            // Utils.startAbility(getContext(this) as common.UIAbilityContext, 'FuncAbilityA')
             let  context = getContext(this) as common.UIAbilityContext;
             const RESULT_CODE : number = 1001;
             // context为Ability对象的成员，在非Ability对象内部调用需要
             // 将Context对象传递过去
             let wantInfo: Want = {
               deviceId: '', // deviceId为空表示本设备
-              bundleName: 'com.example.myapplication',
+              bundleName: Constants.bundleName,
               moduleName: 'entry', // moduleName非必选
               abilityName: 'FuncAbilityA',
               parameters: { // 自定义参数传递页面信息

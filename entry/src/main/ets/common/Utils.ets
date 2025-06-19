@@ -15,7 +15,8 @@
 
 import { TabContentConstants } from './TabContentConstants';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { common } from '@kit.AbilityKit';
+import { common, Want } from '@kit.AbilityKit';
+import Constants from './Constants';
 
 const uiContext: UIContext | undefined = AppStorage.get('uiContext');
 
@@ -44,5 +45,35 @@ export class Utils {
       let message = (err as BusinessError).message;
       console.error(`terminateSelf failed, code is ${code}, message is ${message}`);
     }
+  }
+
+  static startAbility(
+    context: common.UIAbilityContext,
+    abilityName: string,
+    parameter?: Record<string, Object>
+  ) : Promise<void> {
+    let want: Want = {
+      deviceId: '', // deviceId为空表示本设备
+      bundleName: Constants.bundleName,
+      moduleName: 'entry', // moduleName非必选
+      abilityName: abilityName,
+      parameters: parameter
+    };
+    return context.startAbility(want)
+  }
+
+  static startAbilityForResult(
+    context: common.UIAbilityContext,
+    abilityName: string,
+    parameter?: Record<string, Object>
+  ) : Promise<Object> {
+    let want: Want = {
+      deviceId: '', // deviceId为空表示本设备
+      bundleName: Constants.bundleName,
+      moduleName: 'entry', // moduleName非必选
+      abilityName: abilityName,
+      parameters: parameter
+    };
+    return context.startAbilityForResult(want)
   }
 }
