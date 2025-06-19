@@ -73,6 +73,7 @@
     "pages/EmbeddedUIPages",
     "pages/ContextGetPage",
     "pages/PageStartup",
-    "pages/PageEnvironmentChange"
+    "pages/PageEnvironmentChange",
+    "pages/OpenLinkPage"
   ]
 }

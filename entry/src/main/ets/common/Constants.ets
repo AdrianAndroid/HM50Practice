@@ -10,6 +10,7 @@ export default class Constants {
   static readonly PAGES_INDEX = "pages/Index"
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
+  static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"
   static readonly PAGES_EmbeddedUIPages = "pages/EmbeddedUIPages"
   static readonly PAGES_PageSpecifiedAbility = "pages/PageSpecifiedAbility"
   static readonly PAGES_PAGE_EVENTHUB = "pages/Page_EventHub"
