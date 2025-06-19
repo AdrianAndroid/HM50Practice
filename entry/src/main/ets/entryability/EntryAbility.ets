@@ -14,9 +14,22 @@ export default class EntryAbility extends UIAbility {
   para: Record<string, number> = { 'PropA' : 47 }
   storage: LocalStorage = new LocalStorage(this.para)
 
+  eventFunc(argOne: Context, argTwo: Context): void {
+    hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} eventFunc argOne=${argOne} ${typeof argOne} argTwo=${argTwo} ${typeof argTwo}`)
+    return
+  }
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     preferenceUtilsObject.getFontPreferences(this.context);
     ConnectionUtils.openRegister();
+
+    let eventhub = this.context.eventHub
+    eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
+    eventhub.on(Constants.EVENT_HUB_1, (data: Object, data2: Object) => {
+      // 触发事件，完成相应的业务操作
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
+    })
+
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
@@ -24,6 +37,7 @@ export default class EntryAbility extends UIAbility {
   }
 
   onDestroy(): void | Promise<void> {
+    this.context.eventHub.off(Constants.EVENT_HUB_1)
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
@@ -38,7 +52,7 @@ export default class EntryAbility extends UIAbility {
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
-    windowStage.loadContent(Constants.PAGES_Page_StartModel, this.storage, (err, data) => {
+    windowStage.loadContent(Constants.PAGES_PAGE_EVENTHUB, this.storage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');

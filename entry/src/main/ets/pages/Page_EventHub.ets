@@ -2,6 +2,10 @@ import { common, Want } from '@kit.AbilityKit';
 import { promptAction } from '@kit.ArkUI';
 import Constants from '../common/Constants';
 
+class EventHubBean {
+
+}
+
 @Entry
 @Component
 struct Page_EventHub {
@@ -11,15 +15,21 @@ struct Page_EventHub {
   eventHubFunc(): void {
     // 不带参数触发自定义event1事件
     this.context.eventHub.emit(Constants.EVENT_HUB_1)
+    this.context.eventHub.emit(Constants.EVENT_HUB_1, new EventHubBean())
     // 带1个参数触发自定义event1事件
     this.context.eventHub.emit(Constants.EVENT_HUB_1, 1)
     // 带2个参数触发自定义event1事件
     this.context.eventHub.emit(Constants.EVENT_HUB_1, 2, 'test')
     // 开发者可以根据世纪的业务场景设计事件传递的参数
+    promptAction.showToast({
+      message: '这是一条Toast消息：eventHubFunc',
+      showMode: promptAction.ToastShowMode.TOP_MOST
+    })
   }
 
   build() {
     Column() {
+      Blank().height(100)
       List({ initialIndex: 0 }) {
         ListItem() {
           Row() {
