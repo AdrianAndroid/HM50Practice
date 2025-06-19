@@ -6,6 +6,7 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "srcEntry": "./ets/application/MyAbilityStage.ets",
+    "appStartup": "$profile:startup_config",
     "deviceTypes": [
       "phone",
       "tablet",

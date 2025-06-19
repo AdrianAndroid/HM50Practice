@@ -2,6 +2,7 @@ import {
   AbilityConstant,
   AbilityLifecycleCallback,
   contextConstant,
+  startupManager,
   UIAbility,
   Want
 } from '@kit.AbilityKit';
@@ -12,6 +13,7 @@ import ConnectionUtils from '../common/network/ConnectionUtils';
 import RDBStoreUtil from '../common/database/RDBStoreUtil';
 import preferenceUtilsObject from '../common/database/PreferencesUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
+import Logger from '../common/Logger';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -39,6 +41,7 @@ export default class EntryAbility extends UIAbility {
 
     this.switchArea()
     this.registerLifecycle()
+    this.startupInit()
 
     let eventhub = this.context.eventHub
     eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
@@ -112,6 +115,23 @@ export default class EntryAbility extends UIAbility {
     hilog.info(DOMAIN_NUMBER, TAG, `register callback number: ${this.lifecycleId}`);
   }
 
+  startupInit() {
+    let startParams = ["StartupTask_005", "StartupTask_006"];
+    try {
+      startupManager.run(startParams).then(() => {
+        Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest startupManager run then, startParams = ');
+      }).catch((error: BusinessError) => {
+        Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, error = ' + JSON.stringify(error));
+        Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, startParams = ' + JSON.stringify(startParams));
+      })
+    } catch (error) {
+      let errMsg = JSON.stringify(error);
+      let errCode: number = error.code;
+      Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error , errCode= ' + errCode);
+      Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error ,error= ' + errMsg);
+    }
+  }
+
   switchArea() {
     // // 存储普通信息前，切换到EL1设备级加密
     // this.context.area = contextConstant.AreaMode.EL1; // 切换area
@@ -146,7 +166,7 @@ export default class EntryAbility extends UIAbility {
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
-    windowStage.loadContent(Constants.PAGES_ContextGetPage, this.storage, (err, data) => {
+    windowStage.loadContent(Constants.PAGES_PageStartup, this.storage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');

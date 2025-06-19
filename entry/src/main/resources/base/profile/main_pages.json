@@ -71,6 +71,7 @@
     "pages/PageSpecifiedAbility",
     "embeddeduiextability/pages/EmbeddedUIExtAbilityPage",
     "pages/EmbeddedUIPages",
-    "pages/ContextGetPage"
+    "pages/ContextGetPage",
+    "pages/PageStartup"
   ]
 }

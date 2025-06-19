@@ -5,9 +5,11 @@ export default class Constants {
   static readonly EVENT_HUB_2 = 'event2'
   static readonly DOMAIN_NUMBER: number = 0xFF00;
   static readonly TAG: string = '[EntryAbility]';
+  static readonly TAG_STARTUP_TASK: string = 'TAG_STARTUP_TASK';
 
   static readonly PAGES_INDEX = "pages/Index"
   static readonly PAGES_SECOND = "pages/Second"
+  static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_EmbeddedUIPages = "pages/EmbeddedUIPages"
   static readonly PAGES_PageSpecifiedAbility = "pages/PageSpecifiedAbility"
   static readonly PAGES_PAGE_EVENTHUB = "pages/Page_EventHub"
