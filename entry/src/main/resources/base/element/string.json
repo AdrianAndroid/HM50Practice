@@ -1495,6 +1495,14 @@
     {
       "name": "SpecifiedAbility_label",
       "value": "label"
+    },
+    {
+      "name": "EmbeddedUIExtAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EmbeddedUIExtAbility_label",
+      "value": "label"
     }
   ]
 }

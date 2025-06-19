@@ -33,6 +33,7 @@ export default class MyAbilityStage extends AbilityStage {
         return `SpecifiedAbilityInstance_${want.parameters.instanceKey}`;
       }
     }
+    // 仅specified模式下触发
     return "onAcceptWant"
   }
   // onNewProcessRequest(want: Want): string;
@@ -46,6 +47,7 @@ export default class MyAbilityStage extends AbilityStage {
   }
   // onMemoryLevel(level: AbilityConstant.MemoryLevel): void;
   onMemoryLevel(level: AbilityConstant.MemoryLevel): void {
+    // 根据系统可用内存的变化情况，释放不必要的内存
     Logger.info('[AbilityStage]', 'MyAbilityStage onMemoryLevel');
   }
   // onDestroy(): void;

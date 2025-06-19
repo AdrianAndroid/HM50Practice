@@ -1,10 +1,11 @@
 {
   "module": {
     "name": "entry",
+//    "type": "entry",
     "type": "entry",
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
-    "srcEntry": "./ets/application/AbilityStage.ets",
+    "srcEntry": "./ets/application/MyAbilityStage.ets",
     "deviceTypes": [
       "phone",
       "tablet",
@@ -75,6 +76,13 @@
             "resource": "$profile:backup_config"
           }
         ]
+      },
+      {
+        "name": "EmbeddedUIExtAbility",
+        "srcEntry": "./ets/embeddeduiextability/EmbeddedUIExtAbility.ets",
+        "description": "$string:EmbeddedUIExtAbility_desc",
+        "label": "$string:EmbeddedUIExtAbility_label",
+        "type": "embeddedUI"
       }
     ],
     "requestPermissions": [
