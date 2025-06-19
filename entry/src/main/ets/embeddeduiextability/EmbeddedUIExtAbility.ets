@@ -1,5 +1,5 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { UIExtensionContentSession, Want } from '@kit.AbilityKit';
+import { Configuration, UIExtensionContentSession, Want } from '@kit.AbilityKit';
 import EmbeddedUIExtensionAbility from '@ohos.app.ability.EmbeddedUIExtensionAbility';
 
 const DOMAIN = 0x0000;
@@ -36,5 +36,9 @@ export default class EmbeddedUIExtAbility extends EmbeddedUIExtensionAbility {
       // handle error
     });
     hilog.info(DOMAIN, 'testTag', `onSessionDestroy`);
+  }
+
+  onConfigurationUpdate(newConfig: Configuration): void {
+
   }
 }

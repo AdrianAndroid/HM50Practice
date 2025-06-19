@@ -1,6 +1,7 @@
 import {
   AbilityConstant,
   AbilityLifecycleCallback,
+  Configuration,
   contextConstant,
   startupManager,
   UIAbility,
@@ -17,6 +18,8 @@ import Logger from '../common/Logger';
 
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
+
+let systemLanguage: string | undefined; // 系统当前语言
 
 export default class EntryAbility extends UIAbility {
   para: Record<string, number> = { 'PropA': 47 }
@@ -50,6 +53,8 @@ export default class EntryAbility extends UIAbility {
       hilog.info(DOMAIN_NUMBER, TAG, '%{public}s',
         `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
     })
+
+    systemLanguage = this.context.config.language; // UIAbility实例首次加载时，获取系统当前语言
 
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
@@ -237,5 +242,12 @@ export default class EntryAbility extends UIAbility {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', `Ability onPrepareToTerminate`);
     return false
+  }
+
+  onConfigurationUpdate(newConfig: Configuration): void {
+    if (systemLanguage !== newConfig.language) {
+      hilog.info(DOMAIN_NUMBER, TAG, `systemLanguage from ${systemLanguage} changed to ${newConfig.language}`);
+      systemLanguage = newConfig.language; // 将变化之后的系统语言保存，作为下一次变化前的系统语言
+    }
   }
 }
