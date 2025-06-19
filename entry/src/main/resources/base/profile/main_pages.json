@@ -70,6 +70,7 @@
     "pages/statev2/StateV2Page2",
     "pages/PageSpecifiedAbility",
     "embeddeduiextability/pages/EmbeddedUIExtAbilityPage",
-    "pages/EmbeddedUIPages"
+    "pages/EmbeddedUIPages",
+    "pages/ContextGetPage"
   ]
 }

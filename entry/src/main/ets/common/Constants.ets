@@ -17,6 +17,7 @@ export default class Constants {
   static readonly PAGES_LifeCyclePage = 'pages/LifeCyclePage'
   static readonly PAGES_CounterView = 'pages/CounterView'
   static readonly PAGES_Parent = 'pages/Parent'
+  static readonly PAGES_ContextGetPage = 'pages/ContextGetPage'
   static readonly PAGES_ArticleList = 'pages/ArticleList'
   static readonly PAGES_ForEachSort = 'pages/ForEachSort'
   static readonly PAGES_MyComponent = 'pages/MyComponent'
