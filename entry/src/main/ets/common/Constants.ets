@@ -76,7 +76,12 @@ export default class Constants {
   static readonly PAGES_arkts_sendable_SendableObjectFreezePage = 'pages/arkts/sendable/SendableObjectFreezePage'
   static readonly PAGES_arkts_sendable_SendableClassPage = 'pages/arkts/sendable/SendableClassPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_sendable_SendableClassPage
+  static readonly PAGES_arkts_Com1Page = 'pages/arkts/com1/Com1Page'
+  static readonly PAGES_arkts_Com2Page = 'pages/arkts/com1/Com2Page'
+  static readonly PAGES_arkts_Com3Page = 'pages/arkts/com1/Com3Page'
+  static readonly PAGES_arkts_Com4Page = 'pages/arkts/com1/Com4Page'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_Com4Page
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

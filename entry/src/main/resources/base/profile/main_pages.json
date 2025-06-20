@@ -89,6 +89,10 @@
     "pages/arkts/sendable/SingletonAPage2",
     "pages/arkts/sendable/SendableObjectFreezePage",
     "pages/arkts/sendable/SendableBigDataPage",
-    "pages/arkts/sendable/SendableClassPage"
+    "pages/arkts/sendable/SendableClassPage",
+    "pages/arkts/com1/Com1Page",
+    "pages/arkts/com1/Com2Page",
+    "pages/arkts/com1/Com3Page",
+    "pages/arkts/com1/Com4Page"
   ]
 }

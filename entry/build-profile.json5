@@ -9,7 +9,9 @@
     "sourceOption": {
       "workers": [
         './src/main/ets/workers/Worker.ets',
-        './src/main/ets/workers/Worker2.ets'
+        './src/main/ets/workers/Worker2.ets',
+        './src/main/ets/workers/Worker3.ets',
+        './src/main/ets/workers/Worker1.ets'
       ]
     }
   },
