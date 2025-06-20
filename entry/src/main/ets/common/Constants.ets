@@ -86,8 +86,9 @@ export default class Constants {
   static readonly IO_IoPage = 'pages/arkts/multithread/IO_IoPage'
   static readonly MUL_TaskPoolPage = 'pages/arkts/multithread/MUL_TaskPoolPage'
   static readonly MUL_WorkerPage = 'pages/arkts/multithread/MUL_WorkerPage'
+  static readonly LongTaskPoolPage = 'pages/arkts/multithread/LongTaskPoolPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.MUL_WorkerPage
+  static readonly LOAD_ENTRY_PAGE = Constants.LongTaskPoolPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

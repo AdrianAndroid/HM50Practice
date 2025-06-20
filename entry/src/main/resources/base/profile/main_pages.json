@@ -98,6 +98,7 @@
     "pages/arkts/multithread/CPU_WorkThreadPage",
     "pages/arkts/multithread/IO_IoPage",
     "pages/arkts/multithread/MUL_TaskPoolPage",
-    "pages/arkts/multithread/MUL_WorkerPage"
+    "pages/arkts/multithread/MUL_WorkerPage",
+    "pages/arkts/multithread/LongTaskPoolPage"
   ]
 }
