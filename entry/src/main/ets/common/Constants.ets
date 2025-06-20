@@ -81,7 +81,13 @@ export default class Constants {
   static readonly PAGES_arkts_Com3Page = 'pages/arkts/com1/Com3Page'
   static readonly PAGES_arkts_Com4Page = 'pages/arkts/com1/Com4Page'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_Com4Page
+  static readonly CpuPage = 'pages/arkts/multithread/CPU_CpuPage'
+  static readonly WorkThreadPage = 'pages/arkts/multithread/CPU_WorkThreadPage'
+  static readonly IO_IoPage = 'pages/arkts/multithread/IO_IoPage'
+  static readonly MUL_TaskPoolPage = 'pages/arkts/multithread/MUL_TaskPoolPage'
+  static readonly MUL_WorkerPage = 'pages/arkts/multithread/MUL_WorkerPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.MUL_WorkerPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

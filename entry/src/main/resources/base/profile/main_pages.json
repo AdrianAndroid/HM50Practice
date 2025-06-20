@@ -93,6 +93,11 @@
     "pages/arkts/com1/Com1Page",
     "pages/arkts/com1/Com2Page",
     "pages/arkts/com1/Com3Page",
-    "pages/arkts/com1/Com4Page"
+    "pages/arkts/com1/Com4Page",
+    "pages/arkts/multithread/CPU_CpuPage",
+    "pages/arkts/multithread/CPU_WorkThreadPage",
+    "pages/arkts/multithread/IO_IoPage",
+    "pages/arkts/multithread/MUL_TaskPoolPage",
+    "pages/arkts/multithread/MUL_WorkerPage"
   ]
 }

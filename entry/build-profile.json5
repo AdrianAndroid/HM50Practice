@@ -11,7 +11,9 @@
         './src/main/ets/workers/Worker.ets',
         './src/main/ets/workers/Worker2.ets',
         './src/main/ets/workers/Worker3.ets',
-        './src/main/ets/workers/Worker1.ets'
+        './src/main/ets/workers/Worker1.ets',
+        './src/main/ets/workers/Worker4.ets',
+        './src/main/ets/workers/Worker5.ets'
       ]
     }
   },
