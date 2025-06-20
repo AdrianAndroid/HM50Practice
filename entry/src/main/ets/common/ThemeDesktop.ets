@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { ImageAndName } from '../pages/PreferencesPage';
+import { ImageAndName } from '../pages/normal/PreferencesPage';
 
 @Component
 export default struct ThemeDesktop {
