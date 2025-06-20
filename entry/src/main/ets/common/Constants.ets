@@ -64,6 +64,13 @@ export default class Constants {
   static readonly PAGES_statev2_StateV2Page = 'pages/statev2/StateV2Page'
   static readonly PAGES_statev2_StateV2Page2 = 'pages/statev2/StateV2Page2'
 
+
+  static readonly PAGES_arkts_PromiseAsyncAwaitPage = 'pages/arkts/PromiseAsyncAwaitPage'
+  static readonly PAGES_arkts_WorkerPage = 'pages/arkts/WorkerPage'
+  static readonly PAGES_arkts_TaskPoolPage = 'pages/arkts/TaskPoolPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_WorkerPage
+
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;
   static DEFAULT_FONT_SIZE: number = 30;

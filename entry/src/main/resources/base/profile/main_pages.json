@@ -74,6 +74,9 @@
     "pages/ContextGetPage",
     "pages/PageStartup",
     "pages/PageEnvironmentChange",
-    "pages/OpenLinkPage"
+    "pages/OpenLinkPage",
+    "pages/arkts/PromiseAsyncAwaitPage",
+    "pages/arkts/TaskPoolPage",
+    "pages/arkts/WorkerPage"
   ]
 }

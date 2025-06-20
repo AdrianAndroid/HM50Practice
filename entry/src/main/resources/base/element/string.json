@@ -1477,6 +1477,10 @@
       "value": "location_permission_reason"
     },
     {
+      "name": "location_permission_datasync",
+      "value": "location_permission_datasync"
+    },
+    {
       "name": "network_info_permission_reason",
       "value": "network_info_permission_reason"
     },

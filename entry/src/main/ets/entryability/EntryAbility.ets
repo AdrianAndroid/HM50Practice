@@ -2,7 +2,6 @@ import {
   AbilityConstant,
   AbilityLifecycleCallback,
   Configuration,
-  contextConstant,
   startupManager,
   UIAbility,
   Want
@@ -15,7 +14,25 @@ import RDBStoreUtil from '../common/database/RDBStoreUtil';
 import preferenceUtilsObject from '../common/database/PreferencesUtil';
 import { BusinessError } from '@kit.BasicServicesKit';
 import Logger from '../common/Logger';
+import { relationalStore } from '@kit.ArkData';
+import { commonType, distributedDataObject } from '@kit.ArkData';
+import { fileIo, fileUri } from '@kit.CoreFileKit';
 
+// 业务数据定义
+class Data {
+  title: string | undefined;
+  text: string | undefined;
+  attachment: commonType.Asset; // 可以使用资产类型记录分布式目录下的文件，迁移资产数据时，对应的文件会一起迁移到接收端。（不迁移文件时不需要此字段，下方代码中的createAttachment、createEmptyAttachment方法也都不需要。）
+  // attachment2: commonType.Asset; // 暂不支持资产类型数组，如果要迁移多个文件，在业务数据中定义多条资产数据来记录
+
+  constructor(title: string | undefined, text: string | undefined, attachment: commonType.Asset) {
+    this.title = title;
+    this.text = text;
+    this.attachment = attachment;
+  }
+}
+
+let dataObject: distributedDataObject.DataObject;
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
 
@@ -34,6 +51,13 @@ export default class EntryAbility extends UIAbility {
   }
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    if (launchParam.launchReason == AbilityConstant.LaunchReason.CONTINUATION) {
+      if (want.parameters && want.parameters.distributedSessionId) {
+        this.restoreDistributedDataObject(want);
+      }
+    }
+
+
     // 获取UIAbilityContext
     let context = this.context
     // 获取ApplicationContext（应用级别的Context
@@ -72,39 +96,47 @@ export default class EntryAbility extends UIAbility {
       },
       // 当窗口创建时被调用
       onWindowStageCreate(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当窗口处于活动状态时被调用
       onWindowStageActive(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageActive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onWindowStageActive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageActive windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当窗口处于非活动状态时被调用
       onWindowStageInactive(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageInactive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onWindowStageInactive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageInactive windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当窗口被销毁时被调用
       onWindowStageDestroy(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当UIAbility被销毁时被调用
       onAbilityDestroy(uiAbility) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onAbilityDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
       },
       // 当UIAbility从后台转到前台时触发回调
       onAbilityForeground(uiAbility) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityForeground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onAbilityForeground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
       },
       // 当UIAbility从前台转到后台时触发回调
       onAbilityBackground(uiAbility) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityBackground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onAbilityBackground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
       },
       // 当UIAbility迁移时被调用
       onAbilityContinue(uiAbility) {
-        hilog.info(DOMAIN_NUMBER, TAG, `onAbilityContinue uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG,
+          `onAbilityContinue uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
       }
     }
     let applicationContext = this.context.getApplicationContext()
@@ -127,7 +159,8 @@ export default class EntryAbility extends UIAbility {
         Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest startupManager run then, startParams = ');
       }).catch((error: BusinessError) => {
         Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, error = ' + JSON.stringify(error));
-        Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, startParams = ' + JSON.stringify(startParams));
+        Logger.debug(Constants.TAG_STARTUP_TASK,
+          'StartupTest promise catch error, startParams = ' + JSON.stringify(startParams));
       })
     } catch (error) {
       let errMsg = JSON.stringify(error);
@@ -135,6 +168,30 @@ export default class EntryAbility extends UIAbility {
       Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error , errCode= ' + errCode);
       Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error ,error= ' + errMsg);
     }
+  }
+
+  // 1. 迁移发起端在onContinue接口中创建分布式数据对象并保存数据到接收端
+  onContinue(wantParam: Record<string, Object>): AbilityConstant.OnContinueResult | Promise<AbilityConstant.OnContinueResult> {
+    hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onContinue');
+
+
+    // 1.1 调用create接口创建并得到一个分布式数据对象实例
+    let attachment = this.createAttachment();
+    let data = new Data('The title', 'The text', attachment);
+    dataObject = distributedDataObject.create(this.context, data);
+
+    // 1.2 调用genSessionId接口创建一个sessionId，调用setSessionId接口设置同步的sessionId，并将这个sessionId放入wantParam
+    let sessionId = distributedDataObject.genSessionId();
+    console.log(TAG + `gen sessionId: ${sessionId}`);
+    dataObject.setSessionId(sessionId);
+    wantParam.distributedSessionId = sessionId;
+
+    // 1.3 从wantParam获取接收端设备networkId，使用这个networkId调用save接口保存数据到接收端
+    let deviceId = wantParam.targetDevice as string;
+    console.log(TAG + `get deviceId: ${deviceId}`);
+    dataObject.save(deviceId);
+    return AbilityConstant.OnContinueResult.AGREE;
   }
 
   switchArea() {
@@ -171,7 +228,7 @@ export default class EntryAbility extends UIAbility {
     })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
-    windowStage.loadContent(Constants.PAGES_OpenLinkPage, this.storage, (err, data) => {
+    windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
@@ -182,6 +239,52 @@ export default class EntryAbility extends UIAbility {
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
       PersistentStorage.persistProp('aProp', 47)
     });
+  }
+
+  initDbOp() {
+    const STORE_CONFIG: relationalStore.StoreConfig = {
+      name: 'RdbTest.db', // 数据库文件名
+      securityLevel: relationalStore.SecurityLevel.S3, // 数据库安全级别
+      encrypt: false, // 可选参数，指定数据库是否加密，默认不加密
+      customDir: 'customDir/subCustomDir', // 可选参数，数据库自定义路径。数据库将在如下的目录结构中被创建：context.databaseDir + '/rdb/' + customDir，其中context.databaseDir是应用沙箱对应的路径，'/rdb/'表示创建的是关系型数据库，customDir表示自定义的路径。当此参数不填时，默认在本应用沙箱目录下创建RdbStore实例。
+      isReadOnly: false // 可选参数，指定数据库是否以只读方式打开。该参数默认为false，表示数据库可读可写。该参数为true时，只允许从数据库读取数据，不允许对数据库进行写操作，否则会返回错误码801。
+    };
+    // 判断数据库版本，如果不匹配则需进行升降级操作
+    // 假设当前数据库版本为3，表结构：EMPLOYEE (NAME, AGE, SALARY, CODES, IDENTITY)
+    const SQL_CREATE_TABLE =
+      'CREATE TABLE IF NOT EXISTS EMPLOYEE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, AGE INTEGER, SALARY REAL, CODES BLOB, IDENTITY UNLIMITED INT)'; // 建表Sql语句, IDENTITY为bigint类型，sql中指定类型为UNLIMITED INT
+
+    relationalStore.getRdbStore(this.context, STORE_CONFIG, (err, store) => {
+      if (err) {
+        console.error(`Failed to get RdbStore. Code:${err.code}, message:${err.message}`);
+        return;
+      }
+      console.info('Succeeded in getting RdbStore.');
+
+      // 当数据库创建时，数据库默认版本为0
+      if (store.version === 0) {
+        store.executeSql(SQL_CREATE_TABLE); // 创建数据表
+        // 设置数据库的版本，入参为大于0的整数
+        store.version = 3;
+      }
+
+      // 如果数据库版本不为0且和当前数据库版本不匹配，需要进行升降级操作
+      // 当数据库存在并假定版本为1时，例应用从某一版本升级到当前版本，数据库需要从1版本升级到2版本
+      if (store.version === 1) {
+        // version = 1：表结构：EMPLOYEE (NAME, SALARY, CODES, ADDRESS) => version = 2：表结构：EMPLOYEE (NAME, AGE, SALARY, CODES, ADDRESS)
+        (store as relationalStore.RdbStore).executeSql('ALTER TABLE EMPLOYEE ADD COLUMN AGE INTEGER');
+        store.version = 2;
+      }
+
+      // 当数据库存在并假定版本为2时，例应用从某一版本升级到当前版本，数据库需要从2版本升级到3版本
+      if (store.version === 2) {
+        // version = 2：表结构：EMPLOYEE (NAME, AGE, SALARY, CODES, ADDRESS) => version = 3：表结构：EMPLOYEE (NAME, AGE, SALARY, CODES)
+        (store as relationalStore.RdbStore).executeSql('ALTER TABLE EMPLOYEE DROP COLUMN ADDRESS TEXT');
+        store.version = 3;
+      }
+    });
+
+    // 请确保获取到RdbStore实例后，再进行数据库的增、删、改、查等操作
   }
 
   onWindowStageDestroy(): void {
@@ -204,6 +307,11 @@ export default class EntryAbility extends UIAbility {
   }
 
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    if (launchParam.launchReason == AbilityConstant.LaunchReason.CONTINUATION) {
+      if (want.parameters && want.parameters.distributedSessionId) {
+        this.restoreDistributedDataObject(want);
+      }
+    }
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s',
       `Ability onNewWant -> want=${JSON.stringify(want)}, launchParam=${JSON.stringify(launchParam)}`);
@@ -249,5 +357,73 @@ export default class EntryAbility extends UIAbility {
       hilog.info(DOMAIN_NUMBER, TAG, `systemLanguage from ${systemLanguage} changed to ${newConfig.language}`);
       systemLanguage = newConfig.language; // 将变化之后的系统语言保存，作为下一次变化前的系统语言
     }
+  }
+
+
+
+
+  restoreDistributedDataObject(want: Want) {
+    if (!want.parameters || !want.parameters.distributedSessionId) {
+      console.error(TAG + 'missing sessionId');
+      return;
+    }
+
+    // 2.1 调用create接口创建并得到一个分布式数据对象实例
+    let attachment = this.createEmptyAttachment(); // 接收端需要将资产数据的各个属性设置为空字符串，才能恢复发起端保存的资产数据
+    let data = new Data(undefined, undefined, attachment);
+    dataObject = distributedDataObject.create(this.context, data);
+
+    // 2.2 注册恢复状态监听。收到状态为'restored'的回调通知时，表示接收端分布式数据对象已恢复发起端保存过来的数据（有资产数据时，对应的文件也迁移过来了）
+    dataObject.on('status', (sessionId: string, networkId: string, status: string) => {
+      if (status == 'restored') { // 收到'restored'的状态通知表示已恢复发起端保存的数据
+        console.log(TAG + `title: ${dataObject['title']}, text: ${dataObject['text']}`);
+      }
+    });
+
+    // 2.3 从want.parameters中获取发起端放入的sessionId，调用setSessionId接口设置同步的sessionId
+    let sessionId = want.parameters.distributedSessionId as string;
+    console.log(TAG + `get sessionId: ${sessionId}`);
+    dataObject.setSessionId(sessionId);
+  }
+
+  // 在分布式文件目录下创建一个文件并使用资产类型记录（也可以记录分布式文件目录下已有文件，非分布式文件目录下的文件可以复制或移动到分布式文件目录下再进行记录）
+  createAttachment() {
+    let attachment = this.createEmptyAttachment();
+    try {
+      let distributedDir: string = this.context.distributedFilesDir; // 分布式文件目录
+      let fileName: string = 'text_attachment.txt'; // 文件名
+      let filePath: string = distributedDir + '/' + fileName; // 文件路径
+      let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
+      fileIo.writeSync(file.fd, 'The text in attachment');
+      fileIo.closeSync(file.fd);
+      let uri: string = fileUri.getUriFromPath(filePath); // 获取文件URI
+      let stat = fileIo.statSync(filePath); // 获取文件详细属性信息
+
+      // 写入资产数据
+      attachment = {
+        name: fileName,
+        uri: uri,
+        path: filePath,
+        createTime: stat.ctime.toString(),
+        modifyTime: stat.mtime.toString(),
+        size: stat.size.toString()
+      }
+    } catch (e) {
+      let err = e as BusinessError;
+      console.error(TAG + `file error, error code: ${err.code}, error message: ${err.message}`);
+    }
+    return attachment;
+  }
+
+  createEmptyAttachment() {
+    let attachment: commonType.Asset = {
+      name: '',
+      uri: '',
+      path: '',
+      createTime: '',
+      modifyTime: '',
+      size: ''
+    }
+    return attachment;
   }
 }
