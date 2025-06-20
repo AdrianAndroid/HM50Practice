@@ -70,8 +70,13 @@ export default class Constants {
   static readonly PAGES_arkts_TaskPoolPage = 'pages/arkts/TaskPoolPage'
   static readonly PAGES_arkts_ComNormalPage = 'pages/arkts/ComNormalPage'
   static readonly PAGES_arkts_ComArrayBufferPage = 'pages/arkts/ComArrayBufferPage'
+  static readonly PAGES_arkts_sendable_AsynchronousLockPage = 'pages/arkts/sendable/AsynchronousLockPage'
+  static readonly PAGES_arkts_sendable_ASONPage = 'pages/arkts/sendable/ASONPage'
+  static readonly PAGES_arkts_sendable_SharedContainerPage = 'pages/arkts/sendable/SharedContainerPage'
+  static readonly PAGES_arkts_sendable_SendableObjectFreezePage = 'pages/arkts/sendable/SendableObjectFreezePage'
+  static readonly PAGES_arkts_sendable_SendableClassPage = 'pages/arkts/sendable/SendableClassPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_ComArrayBufferPage
+  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_sendable_SendableClassPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

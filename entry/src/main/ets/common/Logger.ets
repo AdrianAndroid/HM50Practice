@@ -41,6 +41,10 @@ class Logger {
   }
 
   info(...args: string[]): void { // 处理每个参数，对应字符
+    hilog.info(this.domain, this.prefix, this.formatStr(...args), args);
+  }
+
+  log(...args: string[]): void {
     const processedArgs = args.map(arg => {
       if (typeof arg === 'string') {
         return this.wrapStringAtNumChars(arg);
@@ -49,10 +53,6 @@ class Logger {
     });
     const combinedMessage = processedArgs;
     hilog.info(this.domain, this.prefix, this.formatStr(...args), [combinedMessage]);
-  }
-
-  log(...args: string[]): void {
-    hilog.info(this.domain, this.prefix, this.formatStr(...args), args);
   }
 
   warn(...args: string[]): void {

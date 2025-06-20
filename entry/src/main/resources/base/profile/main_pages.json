@@ -81,6 +81,14 @@
     "pages/arkts/ComNormalPage",
     "pages/arkts/ComArrayBufferPage",
     "pages/arkts/ComSharedArrayBufferPage",
-    "pages/arkts/ComTransferablePage"
+    "pages/arkts/ComTransferablePage",
+    "pages/arkts/sendable/AsynchronousLockPage",
+    "pages/arkts/sendable/ASONPage",
+    "pages/arkts/sendable/SharedContainerPage",
+    "pages/arkts/sendable/SingletonAPage",
+    "pages/arkts/sendable/SingletonAPage2",
+    "pages/arkts/sendable/SendableObjectFreezePage",
+    "pages/arkts/sendable/SendableBigDataPage",
+    "pages/arkts/sendable/SendableClassPage"
   ]
 }
