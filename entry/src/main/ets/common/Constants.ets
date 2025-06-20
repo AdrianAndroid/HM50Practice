@@ -68,8 +68,10 @@ export default class Constants {
   static readonly PAGES_arkts_PromiseAsyncAwaitPage = 'pages/arkts/PromiseAsyncAwaitPage'
   static readonly PAGES_arkts_WorkerPage = 'pages/arkts/WorkerPage'
   static readonly PAGES_arkts_TaskPoolPage = 'pages/arkts/TaskPoolPage'
+  static readonly PAGES_arkts_ComNormalPage = 'pages/arkts/ComNormalPage'
+  static readonly PAGES_arkts_ComArrayBufferPage = 'pages/arkts/ComArrayBufferPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_WorkerPage
+  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_arkts_ComArrayBufferPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

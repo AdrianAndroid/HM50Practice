@@ -77,6 +77,10 @@
     "pages/OpenLinkPage",
     "pages/arkts/PromiseAsyncAwaitPage",
     "pages/arkts/TaskPoolPage",
-    "pages/arkts/WorkerPage"
+    "pages/arkts/WorkerPage",
+    "pages/arkts/ComNormalPage",
+    "pages/arkts/ComArrayBufferPage",
+    "pages/arkts/ComSharedArrayBufferPage",
+    "pages/arkts/ComTransferablePage"
   ]
 }
