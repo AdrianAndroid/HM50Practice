@@ -7,7 +7,7 @@ import {
   Want
 } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { display, window } from '@kit.ArkUI';
 import Constants from '../common/Constants';
 import ConnectionUtils from '../common/network/ConnectionUtils';
 import RDBStoreUtil from '../common/database/RDBStoreUtil';
@@ -84,6 +84,40 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
     hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+
+    // let windowClass: window.Window | undefined = undefined;
+    // window.getLastWindow(this.context, (err: BusinessError, data) => {
+    //   if (err.code) {
+    //     hilog.error(0x0000, 'testTag', 'Failed to obtain top window. Cause:' + JSON.stringify(err));
+    //     return;
+    //   }
+    //   windowClass = data;
+    //   // Top status bar height for window content avoidance.
+    //   let statusHeight = 0;
+    //   // Height of the bottom security zone that is avoided by the window content.
+    //   let bottomHeight = 0;
+    //   // Gets the region that the window content avoids.
+    //   let type = window.AvoidAreaType.TYPE_SYSTEM;
+    //   try {
+    //     let avoidArea: window.AvoidArea = windowClass.getWindowAvoidArea(type);
+    //     statusHeight = avoidArea.topRect.height;
+    //     bottomHeight = avoidArea.bottomRect.height
+    //   } catch (exception) {
+    //     hilog.error(0x0000, 'testTag', 'Failed to obtain the area. Cause:' + JSON.stringify(exception));
+    //   }
+    //   AppStorage.setOrCreate('statusHeight', statusHeight);
+    //   AppStorage.setOrCreate('bottomHeight', bottomHeight);
+    //   let screenHeight: number = 0;
+    //   let displayClass: display.Display | null = null;
+    //   try {
+    //     displayClass = display.getDefaultDisplaySync();
+    //     screenHeight = displayClass.height;
+    //   } catch (exception) {
+    //     hilog.error(0x0000, 'testTag', 'Failed to obtain the default display object. Code: ' + JSON.stringify(exception));
+    //   }
+    //   hilog.info(0x0000, 'testTag', 'Succeeded to obtain the default display object. Code: ' + JSON.stringify(displayClass));
+    //   AppStorage.setOrCreate('screenHeight', screenHeight);
+    // });
   }
 
   registerLifecycle() {
