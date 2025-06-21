@@ -17,6 +17,7 @@ import { TabContentConstants } from './TabContentConstants';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { common, Want } from '@kit.AbilityKit';
 import Constants from './Constants';
+import { util } from '@kit.ArkTS';
 
 const uiContext: UIContext | undefined = AppStorage.get('uiContext');
 
@@ -51,7 +52,7 @@ export class Utils {
     context: common.UIAbilityContext,
     abilityName: string,
     parameter?: Record<string, Object>
-  ) : Promise<void> {
+  ): Promise<void> {
     let want: Want = {
       deviceId: '', // deviceId为空表示本设备
       bundleName: Constants.bundleName,
@@ -66,7 +67,7 @@ export class Utils {
     context: common.UIAbilityContext,
     abilityName: string,
     parameter?: Record<string, Object>
-  ) : Promise<Object> {
+  ): Promise<Object> {
     let want: Want = {
       deviceId: '', // deviceId为空表示本设备
       bundleName: Constants.bundleName,
@@ -75,5 +76,9 @@ export class Utils {
       parameters: parameter
     };
     return context.startAbilityForResult(want)
+  }
+
+  static getObjAddress(my_object: Object): number {
+    return util.getHash(my_object)
   }
 }

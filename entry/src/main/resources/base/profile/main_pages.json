@@ -99,6 +99,14 @@
     "pages/arkts/multithread/IO_IoPage",
     "pages/arkts/multithread/MUL_TaskPoolPage",
     "pages/arkts/multithread/MUL_WorkerPage",
-    "pages/arkts/multithread/LongTaskPoolPage"
+    "pages/arkts/multithread/LongTaskPoolPage",
+    "pages/arkts/multithread/LongWorkerPage",
+    "pages/arkts/threadexample/DatasTaskPoolPage",
+    "pages/arkts/threadexample/SharedTaskPoolPage",
+    "pages/arkts/threadexample/CalculatorTaskPoolPage",
+    "pages/arkts/threadexample/ConfigLockPage",
+    "pages/arkts/threadexample/SendableUpdatePage",
+    "pages/arkts/threadexample/SendableObjTestPage",
+    "pages/arkts/threadexample/WaterFlowTaskPoolPage"
   ]
 }

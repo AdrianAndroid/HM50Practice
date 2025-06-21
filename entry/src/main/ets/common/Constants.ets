@@ -87,8 +87,17 @@ export default class Constants {
   static readonly MUL_TaskPoolPage = 'pages/arkts/multithread/MUL_TaskPoolPage'
   static readonly MUL_WorkerPage = 'pages/arkts/multithread/MUL_WorkerPage'
   static readonly LongTaskPoolPage = 'pages/arkts/multithread/LongTaskPoolPage'
+  static readonly LongWorkerPage = 'pages/arkts/multithread/LongWorkerPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.LongTaskPoolPage
+  static readonly TaskPoolDatasPage = 'pages/arkts/threadexample/DatasTaskPoolPage'
+  static readonly SharedTaskPoolPage = 'pages/arkts/threadexample/SharedTaskPoolPage'
+  static readonly CalculatorTaskPoolPage = 'pages/arkts/threadexample/CalculatorTaskPoolPage'
+  static readonly ConfigTaskPoolPage = 'pages/arkts/threadexample/ConfigTaskPoolPage'
+  static readonly SendableUpdatePage = 'pages/arkts/threadexample/SendableUpdatePage'
+  static readonly SendableObjTestPage = 'pages/arkts/threadexample/SendableObjTestPage'
+  static readonly WaterFlowTaskPoolPage = 'pages/arkts/threadexample/WaterFlowTaskPoolPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.WaterFlowTaskPoolPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

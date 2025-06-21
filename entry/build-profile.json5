@@ -13,7 +13,8 @@
         './src/main/ets/workers/Worker3.ets',
         './src/main/ets/workers/Worker1.ets',
         './src/main/ets/workers/Worker4.ets',
-        './src/main/ets/workers/Worker5.ets'
+        './src/main/ets/workers/Worker5.ets',
+        './src/main/ets/workers/Worker6.ets'
       ]
     }
   },
