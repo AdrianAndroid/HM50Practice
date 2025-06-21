@@ -97,7 +97,10 @@ export default class Constants {
   static readonly SendableObjTestPage = 'pages/arkts/threadexample/SendableObjTestPage'
   static readonly WaterFlowTaskPoolPage = 'pages/arkts/threadexample/WaterFlowTaskPoolPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.WaterFlowTaskPoolPage
+  static readonly RowColumnPage = 'pages/viewgroup/RowColumnPage'
+  static readonly StackPage = 'pages/viewgroup/StackPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.StackPage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

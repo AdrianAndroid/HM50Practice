@@ -107,6 +107,8 @@
     "pages/arkts/threadexample/ConfigLockPage",
     "pages/arkts/threadexample/SendableUpdatePage",
     "pages/arkts/threadexample/SendableObjTestPage",
-    "pages/arkts/threadexample/WaterFlowTaskPoolPage"
+    "pages/arkts/threadexample/WaterFlowTaskPoolPage",
+    "pages/viewgroup/RowColumnPage",
+    "pages/viewgroup/StackPage"
   ]
 }

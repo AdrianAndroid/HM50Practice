@@ -5,10 +5,10 @@ import { uiObserver } from "@kit.ArkUI"
 @Component
 struct NavigationDialogExample {
   @Provide('NavPathStack') pageStack: NavPathStack = new NavPathStack()
-  navDesInfo: uiObserver.NavDestinationInfo | undefined
+  // navDesInfo: uiObserver.NavDestinationInfo | undefined
 
   aboutToAppear(): void {
-    this.navDesInfo = this.queryNavDestinationInfo()
+    // this.navDesInfo = this.queryNavDestinationInfo()
     uiObserver.on('navDestinationUpdate', (info) => {
       console.info('NavDestination state update', JSON.stringify(info));
     })
@@ -27,7 +27,7 @@ struct NavigationDialogExample {
 
   build() {
     Column() {
-      Text("所属页面Name: " + this.navDesInfo?.name)
+      // Text("所属页面Name: " + this.navDesInfo?.name)
       Navigation(this.pageStack) {
         Button('Push DialogPage')
           .margin(20)
