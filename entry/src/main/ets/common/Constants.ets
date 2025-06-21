@@ -100,8 +100,18 @@ export default class Constants {
   static readonly RowColumnPage = 'pages/viewgroup/RowColumnPage'
   static readonly StackPage = 'pages/viewgroup/StackPage'
   static readonly StackExamplePage = 'pages/viewgroup/StackExamplePage'
+  static readonly FlexExamplePage = 'pages/viewgroup/FlexExamplePage'
+  static readonly RelativeContainerPage = 'pages/viewgroup/RelativeContainerPage'
+  // static readonly RelativeContainerPage = 'pages/viewgroup/RelativeContainerPage'
+  static readonly SysColorPage = 'pages/viewgroup/SysColorPage'
+  static readonly SysStringPage = 'pages/viewgroup/SysStringPage'
+  static readonly SysMediaPage = 'pages/viewgroup/SysMediaPage'
+  static readonly SysSymbolPage = 'pages/viewgroup/SysSymbolPage'
+  static readonly SysFloatPage = 'pages/viewgroup/SysFloatPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.StackExamplePage
+  static readonly LOAD_ENTRY_PAGE = Constants.SysFloatPage
+
+  static readonly ANCHOR_PARENT = '__container__'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

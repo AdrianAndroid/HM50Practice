@@ -110,6 +110,14 @@
     "pages/arkts/threadexample/WaterFlowTaskPoolPage",
     "pages/viewgroup/RowColumnPage",
     "pages/viewgroup/StackPage",
-    "pages/viewgroup/StackExamplePage"
+    "pages/viewgroup/StackExamplePage",
+    "pages/viewgroup/FlexExamplePage",
+    "pages/viewgroup/RelativeContainerPage",
+    "pages/viewgroup/GridRowGridColPage",
+    "pages/viewgroup/SysColorPage",
+    "pages/viewgroup/SysStringPage",
+    "pages/viewgroup/SysMediaPage",
+    "pages/viewgroup/SysSymbolPage",
+    "pages/viewgroup/SysFloatPage"
   ]
 }
