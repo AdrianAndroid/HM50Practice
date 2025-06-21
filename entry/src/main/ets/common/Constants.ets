@@ -99,8 +99,9 @@ export default class Constants {
 
   static readonly RowColumnPage = 'pages/viewgroup/RowColumnPage'
   static readonly StackPage = 'pages/viewgroup/StackPage'
+  static readonly StackExamplePage = 'pages/viewgroup/StackExamplePage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.StackPage
+  static readonly LOAD_ENTRY_PAGE = Constants.StackExamplePage
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

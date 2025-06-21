@@ -109,6 +109,7 @@
     "pages/arkts/threadexample/SendableObjTestPage",
     "pages/arkts/threadexample/WaterFlowTaskPoolPage",
     "pages/viewgroup/RowColumnPage",
-    "pages/viewgroup/StackPage"
+    "pages/viewgroup/StackPage",
+    "pages/viewgroup/StackExamplePage"
   ]
 }
