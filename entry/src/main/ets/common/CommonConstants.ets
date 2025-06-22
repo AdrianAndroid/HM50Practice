@@ -38,6 +38,17 @@ export class CommonConstants {
   static readonly NINETY_PERCENT: string = '90%';
   static readonly LIST_HEIGHT: string = 'calc(100% - 40vp)';
   static readonly GRID_COLUMNS_TEMPLATE: string = '1fr 1fr 1fr 1fr';
+
+
+  static readonly FULL_SIZE: string = '100%';
+  static readonly LIST_ITEM_WIDTH: string = '30%';
+  static readonly LIST_WIDTH: string = '60%';
+  static readonly COLUMN_WIDTH: string = '60%';
+  static readonly VIDEO_INFO_WIDTH: string = '80%';
+  static readonly TEXT_WIDTH: string = '70%';
+  static readonly COLUMN_HEIGHT: string = '70%';
+  static readonly ROW_WIDTH: string = '66%';
+  static readonly DURATION: number = 200;
 }
 
 export enum ScrollPosition {

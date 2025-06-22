@@ -5,6 +5,22 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "font_color",
+      "value": "#aaaaaa"
+    },
+    {
+      "name": "background_color",
+      "value": "#e8e8e8"
+    },
+    {
+      "name": "time_color",
+      "value": "#bbbbbb"
+    },
+    {
+      "name": "up_color",
+      "value": "#ff3300"
+    },
+    {
       "name": "ohos_id_color_sub_background",
       "value": "#F1F3F5"
     },
@@ -283,10 +299,6 @@
     {
       "name": "title_color",
       "value": "#182431"
-    },
-    {
-      "name": "background_color",
-      "value": "#F1F3F5"
     },
     {
       "name": "title_font_color",

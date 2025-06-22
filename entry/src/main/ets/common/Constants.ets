@@ -114,11 +114,14 @@ export default class Constants {
   static readonly GridCalculator = 'pages/viewgroup/GridCalculator'
   static readonly GridCalc2 = 'pages/viewgroup/GridCalc2'
   static readonly GridNestSwiperIndex = 'pages/viewgroup/GridNestSwiperIndex'
+  static readonly SwiperExamplePage = 'pages/viewgroup/SwiperExamplePage'
+  // entry/src/main/ets/pages/viewgroup/SwiperShortVideoPage.ets
+  static readonly SwiperShortVideoPage = 'pages/viewgroup/SwiperShortVideoPage'
 
   static readonly ToDoListPage = 'pages/todo/ToDoListPage'
   static readonly ToDoList = 'pages/todo/ToDoList'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.GridNestDemos
+  static readonly LOAD_ENTRY_PAGE = Constants.SwiperShortVideoPage
 
   static readonly ANCHOR_PARENT = '__container__'
 

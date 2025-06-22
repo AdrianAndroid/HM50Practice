@@ -13,186 +13,218 @@
  * limitations under the License.
  */
 
-import { TabContentConstants } from '../common/TabContentConstants';
-import { Utils } from '../common/Utils';
+import { CommonConstants as Const } from '../common/CommonConstants';
 
 @Component
 export struct Side {
-  @State likeCount: number = TabContentConstants.SIDE_NUMBER;
-  @State commentCount: number = TabContentConstants.SIDE_NUMBER;
-  @State favoriteCount: number = TabContentConstants.SIDE_NUMBER;
-  @State isFocus: boolean = false;
+  @State head: Resource = $r('app.media.app_icon');
+  @State likeCount: string = '';
+  @State commentCount: string = '';
+  @State favoriteCount: string = '';
+  @State shareCount: string = '';
+  @State isFocus: boolean = true;
   @State isLike: boolean = false;
-  @State isFavorite: boolean = false;
-  private head: Resource = $r('app.media.tab_head_image');
+  @State isFavorite: boolean = true;
+  @State index: number = 0;
 
-  // Callback function for clicking the like button.
-  private changeLikeCount() {
-    if (!this.isLike) {
-      this.likeCount++;
+  /**
+   * The callback function for the click event of the like button.
+   * @param isAdd
+   */
+  private changeLikeCount(isAdd: boolean) {
+    let likeCountNum = Number(this.likeCount);
+    if(isAdd) {
+      likeCountNum++;
     } else {
-      this.likeCount--;
+      likeCountNum--;
     }
-    this.getUIContext().animateTo({ duration: TabContentConstants.TAB_DURATION, curve: Curve.EaseInOut }, () => {
+    this.likeCount = '' + likeCountNum;
+    this.getUIContext().animateTo({ duration: Const.DURATION, curve: Curve.EaseInOut }, () => {
       this.isLike = !this.isLike;
     })
   }
 
-  // Callback function for clicking the favorites button.
-  private changeFavoriteCount() {
-    if (!this.isFavorite) {
-      this.favoriteCount++;
+  /**
+   * The callback function for the click event of the favorite button.
+   * @param isIncrease
+   */
+  private changeFavoriteCount(isIncrease: boolean) {
+    let favoriteCountNum = Number(this.favoriteCount);
+    if(isIncrease) {
+      favoriteCountNum++;
     } else {
-      this.favoriteCount--;
+      favoriteCountNum--;
     }
-    this.getUIContext().animateTo({ duration: TabContentConstants.TAB_DURATION, curve: Curve.EaseInOut }, () => {
+    this.favoriteCount = '' + favoriteCountNum;
+    this.getUIContext().animateTo({ duration: Const.DURATION, curve: Curve.EaseInOut }, () => {
       this.isFavorite = !this.isFavorite;
     })
   }
 
   build() {
-    RelativeContainer() {
-      Image(this.head)
-        .width($r('app.integer.tab_head_image_width'))
-        .height($r('app.integer.tab_head_image_height'))
-        .borderRadius(TabContentConstants.TAB_HEAD_IMAGE_BORDER_RADIUS)
-        .border({
-          width: $r('app.integer.tab_head_image_border_width'),
-          color: Color.White
-        })
-        .id(TabContentConstants.TAB_HEAD_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_CONTAINER, align: VerticalAlign.Top },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start }
-        })
-        .margin({ left: TabContentConstants.TAB_HEAD_IMAGE_MARGIN_LEFT })
-        .onClick(() => {
-          Utils.showPromptAction();
-        })
-      Image(this.isFocus ? $r("app.media.tab_follow") : $r('app.media.tab_foucs_add'))
-        .width($r('app.integer.tab_focus_image_width'))
-        .height($r('app.integer.tab_focus_image_height'))
-        .borderRadius($r('app.integer.tab_focus_image_border_radius'))
-        .margin({
-          top: $r('app.integer.tab_focus_image_margin'),
-          left: $r('app.integer.tab_focus_image_margin')
-        })
-        .onClick(() => {
-          this.getUIContext().animateTo({ duration: TabContentConstants.TAB_DURATION, curve: Curve.EaseInOut }, () => {
-            this.isFocus = !this.isFocus;
+    Column() {
+      Stack({ alignContent: Alignment.Bottom }) {
+        Image(this.head)
+          .width($r('app.integer.avatar_size'))
+          .height($r('app.integer.avatar_size'))
+          .borderRadius($r('app.float.avatar_borderRadius'))
+          .border({
+            width: 1,
+            color: Color.White
           })
-        })
-        .id(TabContentConstants.TAB_FOCUS_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_HEAD_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_HEAD_IMAGE, align: HorizontalAlign.Center }
-        })
-      Image(this.isLike ? $r('app.media.tab_fabulo') : $r('app.media.tab_fabulous'))
-        .width($r('app.integer.tab_like_image_width'))
-        .height($r('app.integer.tab_like_image_height'))
-        .objectFit(ImageFit.ScaleDown)
-        .onClick(() => {
-          this.changeLikeCount();
-        })
-        .id(TabContentConstants.TAB_LIKE_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_FOCUS_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_image_margin_top') })
-      Text(this.likeCount.toString())
-        .fontSize($r('app.integer.tab_like_text_font_size'))
-        .fontColor(Color.White)
-        .opacity(TabContentConstants.TAB_TEXT_OPACITY)
-        .id(TabContentConstants.TAB_LIKE_TEXT)
-        .textAlign(TextAlign.Center)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_LIKE_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_text_margin_top') })
-      Image($r('app.media.tab_comment'))
-        .width($r('app.integer.tab_like_image_width'))
-        .height($r('app.integer.tab_like_image_height'))
-        .objectFit(ImageFit.ScaleDown)
-        .id(TabContentConstants.TAB_COMMENT_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_LIKE_TEXT, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_image_margin_top') })
-        .onClick(() => {
-          Utils.showPromptAction();
-        })
-      Text(this.commentCount.toString())
-        .fontSize($r('app.integer.tab_like_text_font_size'))
-        .fontColor(Color.White)
-        .opacity(TabContentConstants.TAB_TEXT_OPACITY)
-        .id(TabContentConstants.TAB_COMMENT_TEXT)
-        .textAlign(TextAlign.Center)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_COMMENT_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_text_margin_top') })
-      Image(this.isFavorite ? $r('app.media.tab_high_yellow') :
-      $r('app.media.tab_high_white'))
-        .width($r('app.integer.tab_like_image_width'))
-        .height($r('app.integer.tab_like_image_height'))
-        .onClick(() => {
-          this.changeFavoriteCount();
-        })
-        .id(TabContentConstants.TAB_FAVORITE_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_COMMENT_TEXT, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_image_margin_top') })
-      Text(this.favoriteCount.toString())
-        .fontSize($r('app.integer.tab_like_text_font_size'))
-        .fontColor(Color.White)
-        .opacity(TabContentConstants.TAB_TEXT_OPACITY)
-        .id(TabContentConstants.TAB_FAVORITE_TEXT)
-        .textAlign(TextAlign.Center)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_FAVORITE_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_text_margin_top') })
-      Image($r('app.media.tab_share'))
-        .width($r('app.integer.tab_like_image_width'))
-        .height($r('app.integer.tab_like_image_height'))
-        .objectFit(ImageFit.ScaleDown)
-        .id(TabContentConstants.TAB_SHARE_IMAGE)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_FAVORITE_TEXT, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_image_margin_top') })
-        .onClick(() => {
-          Utils.showPromptAction();
-        })
-      Text($r('app.string.tab_share'))
-        .fontSize($r('app.integer.tab_like_text_font_size'))
-        .fontColor(Color.White)
-        .opacity(TabContentConstants.TAB_TEXT_OPACITY)
-        .id(TabContentConstants.TAB_SHARE_TEXT)
-        .textAlign(TextAlign.Center)
-        .alignRules({
-          top: { anchor: TabContentConstants.TAB_SHARE_IMAGE, align: VerticalAlign.Bottom },
-          left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start },
-          right: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.End }
-        })
-        .margin({ top: $r('app.integer.tab_like_text_margin_top') })
+        if (this.isFocus) {
+          Image($r('app.media.img'))
+            .width($r('app.integer.concern_size'))
+            .height($r('app.integer.concern_size'))
+            .borderRadius($r('app.integer.concern_border_radius'))
+            .margin({ bottom: $r('app.integer.concern_margin_bottom') })
+            .onClick(() => {
+              this.getUIContext().animateTo({ duration: Const.DURATION, curve: Curve.EaseInOut }, () => {
+                this.isFocus = !this.isFocus;
+              })
+            })
+        }
+        if (!this.isFocus) {
+          Image($r('app.media.follow1'))
+            .width($r('app.integer.concern_size'))
+            .height($r('app.integer.concern_size'))
+            .borderRadius($r('app.integer.concern_border_radius'))
+            .margin({ bottom: $r('app.integer.concern_margin_bottom') })
+            .onClick(() => {
+              this.getUIContext().animateTo({ duration: Const.DURATION, curve: Curve.EaseInOut }, () => {
+                this.isFocus = !this.isFocus;
+              })
+            })
+        }
+      }
+      .width(Const.FULL_SIZE)
+      .height($r('app.integer.avatar_height'))
+      .padding({ bottom: $r('app.integer.avatar_padding_bottom') })
+
+      Column() {
+        if (!this.isLike) {
+          Image($r('app.media.fabulous'))
+            .height($r('app.integer.fabulous_height'))
+            .width($r('app.integer.fabulous_width'))
+            .objectFit(ImageFit.ScaleDown)
+            .onClick(() => {
+              this.changeLikeCount(true);
+            })
+            .margin({ bottom: $r('app.integer.fabulous_margin_bottom') })
+          Text(this.likeCount)
+            .fontSize($r('app.integer.fabulous_font_size'))
+            .fontColor(Color.White)
+            .opacity($r('app.float.fabulous_opacity'))
+        }
+        if (this.isLike) {
+          Image($r('app.media.fabulo'))
+            .height($r('app.integer.fabulous_height'))
+            .width($r('app.integer.fabulous_width'))
+            .objectFit(ImageFit.ScaleDown)
+            .onClick(() => {
+              this.changeLikeCount(false);
+            })
+            .margin({ bottom: $r('app.integer.fabulous_margin_bottom') })
+          Text(this.likeCount)
+            .fontSize($r('app.integer.fabulous_font_size'))
+            .fontColor(Color.White)
+            .opacity($r('app.float.fabulous_opacity'))
+        }
+      }.width(Const.COLUMN_WIDTH)
+      .height($r('app.integer.all_fabulous_height'))
+
+      Column() {
+        Image($r('app.media.new_icon'))
+          .height($r('app.integer.fabulous_height'))
+          .width($r('app.integer.fabulous_width'))
+          .objectFit(ImageFit.ScaleDown)
+          .margin({ bottom: $r('app.integer.fabulous_margin_bottom') })
+        Text(this.commentCount)
+          .fontSize($r('app.integer.fabulous_font_size'))
+          .fontColor(Color.White)
+          .opacity($r('app.float.fabulous_opacity'))
+      }.width(Const.COLUMN_WIDTH)
+      .height($r('app.integer.all_fabulous_height'))
+
+      Column() {
+        if (this.isFavorite) {
+          Image($r('app.media.ic_public_highlightsed_white'))
+            .height($r('app.integer.fabulous_height'))
+            .width($r('app.integer.fabulous_width'))
+            .onClick(() => {
+              this.changeFavoriteCount(true);
+            })
+            .margin({ bottom: $r('app.integer.fabulous_margin_bottom') })
+          Text(this.favoriteCount)
+            .fontSize($r('app.integer.fabulous_font_size'))
+            .fontColor(Color.White)
+            .opacity($r('app.float.fabulous_opacity'))
+        }
+        if (!this.isFavorite) {
+          Image($r('app.media.ic_public_highlightsed_yellow'))
+            .height($r('app.integer.fabulous_height'))
+            .width($r('app.integer.fabulous_width'))
+            .onClick(() => {
+              this.changeFavoriteCount(false);
+            })
+            .margin({ bottom: $r('app.integer.fabulous_margin_bottom') })
+          Text(this.favoriteCount)
+            .fontSize($r('app.integer.fabulous_font_size'))
+            .fontColor(Color.White)
+            .opacity($r('app.float.fabulous_opacity'))
+        }
+      }.width(Const.COLUMN_WIDTH)
+      .height($r('app.integer.all_fabulous_height'))
+
+      Column() {
+        Image($r('app.media.share1'))
+          .height($r('app.integer.share_height'))
+          .width($r('app.integer.share_height'))
+          .objectFit(ImageFit.ScaleDown)
+        Text($r('app.string.share'))
+          .fontSize($r('app.integer.fabulous_font_size'))
+          .fontColor(Color.White)
+          .opacity($r('app.float.fabulous_opacity'))
+      }.width(Const.COLUMN_WIDTH)
+      .height($r('app.integer.share_all_width'))
     }
-    .height($r('app.integer.tab_relativecontainer_height'))
-    .width($r('app.integer.tab_relativecontainer_width'))
+    .margin({ bottom: $r('app.integer.side_margin_bottom') })
+    .height(Const.COLUMN_HEIGHT)
+    .width($r('app.integer.side_width'))
+    .justifyContent(FlexAlign.End)
+  }
+}
+
+@Component
+export struct VideoDes {
+  @State name: string = '';
+  @State description: string = '';
+  @State hotspot: string = '';
+  @State time: string = '';
+
+  build() {
+    Column() {
+      Text(this.name)
+        .fontSize($r('app.integer.name_font_size'))
+        .fontWeight(FontWeight.Bold)
+        .fontColor(Color.White)
+        .margin({ bottom: $r('app.integer.name_margin_bottom') })
+
+      Text(this.description)
+        .fontSize($r('app.integer.new_font_size'))
+        .fontColor(Color.White)
+        .width(Const.TEXT_WIDTH)
+        .maxLines(2)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+
+      Row() {
+        Text(this.time)
+          .fontSize($r('app.integer.time_font_size'))
+          .fontColor($r('app.color.time_color'))
+      }
+    }
+    .padding({ left: $r('app.integer.name_padding_left') })
+    .alignItems(HorizontalAlign.Start)
+    .width(Const.VIDEO_INFO_WIDTH)
   }
 }

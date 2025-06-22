@@ -1,6 +1,14 @@
 {
   "float": [
     {
+      "name": "avatar_borderRadius",
+      "value": "22.5"
+    },
+    {
+      "name": "fabulous_opacity",
+      "value": "0.7"
+    },
+    {
       "name": "title_font_size",
       "value": "24fp"
     },

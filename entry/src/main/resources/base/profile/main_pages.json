@@ -121,6 +121,8 @@
     "pages/viewgroup/SysFloatPage",
     "pages/viewgroup/MediaQueryPage",
     "pages/viewgroup/ListExamplePage",
-    "pages/viewgroup/GridGridItemPage"
+    "pages/viewgroup/GridGridItemPage",
+    "pages/viewgroup/SwiperExamplePage",
+    "pages/viewgroup/SwiperShortVideoPage"
   ]
 }
