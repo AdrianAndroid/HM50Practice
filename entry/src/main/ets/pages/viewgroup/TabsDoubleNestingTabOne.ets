@@ -20,7 +20,7 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct DoubleNestingTabOne {
+struct TabsDoubleNestingTabOne {
   @State tabArray: Array<TabItem> = initTabData();
   @State topTabData: Array<string | Resource> = Constants.TOP_TAB_DATA;
   @State focusIndex: number = 0;
@@ -32,7 +32,7 @@ struct DoubleNestingTabOne {
   private panOptionRight: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.Left });
 
   @Builder
-  tabBuilder(index: number, name: string | Resource) {
+  private tabBuilder(index: number, name: string | Resource) {
     Column() {
       Text(name)
         .fontColor('#E6000000')
@@ -43,7 +43,7 @@ struct DoubleNestingTabOne {
   }
   // [Start Double_nesting_tab_one_sub_tab_builder]
   @Builder
-  subTabBuilder(tabName: string | Resource, tabIndex: number) {
+  private subTabBuilder(tabName: string | Resource, tabIndex: number) {
     Row() {
       Text(tabName)
         .fontSize(16)
@@ -61,7 +61,7 @@ struct DoubleNestingTabOne {
   // [End Double_nesting_tab_one_sub_tab_builder]
 
   @Builder
-  contentBuilder(index: number, text: string | Resource) {
+  private contentBuilder(index: number, text: string | Resource) {
     TabContent() {
       Column() {
         Row() {

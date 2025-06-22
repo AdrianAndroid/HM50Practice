@@ -21,7 +21,7 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct UnderlineTab {
+struct TabsUnderlineTab {
   @State tabArray: Array<TabItem> = initTabData();
   @State currentIndex: number = 0;
 

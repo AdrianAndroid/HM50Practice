@@ -19,7 +19,7 @@ import { resourceManager } from '@kit.LocalizationKit';
 
 @Entry
 @Component
-struct LeftTab {
+struct TabsLeftTab {
   @State tabArray: Array<number> = [0, 1, 2];
   @State currentIndex: number = 0;
   @State indicatorLeftMargin: number = 0;
@@ -63,6 +63,7 @@ struct LeftTab {
       this.currentIndex = tabIndex;
     })
   }
+
   // [End LeftTab_builder_tab]
 
   build() {
@@ -71,9 +72,13 @@ struct LeftTab {
       Stack({ alignContent: Alignment.TopStart }) {
         // The text of tab.
         Row() {
-          ForEach(this.tabArray, (item: number, index: number) => {
-            this.tab(this.tabStr + item, item, index);
-          }, (item: number, _index: number) => item.toString())
+          ForEach(
+            this.tabArray,
+            (item: number, index: number) => {
+              this.tab(this.tabStr + item, item, index);
+            },
+            (item: number, _index: number) => item.toString()
+          )
           Blank()
           Text('+')
             .width(24)
@@ -96,6 +101,7 @@ struct LeftTab {
       }
       .height(56)
       .margin({ left: this.tabLeftOffset })
+
       // [End LeftTab_stack]
 
       Tabs({ controller: this.controller }) {
@@ -133,6 +139,7 @@ struct LeftTab {
         let targetIndexInfo = this.getTextInfo(targetIndex);
         this.startAnimateTo(this.animationDuration, targetIndexInfo.left, targetIndexInfo.width);
       })
+
       // [End on_animation_start]
     }
     .height('100%')
@@ -160,12 +167,16 @@ struct LeftTab {
     let currentIndicatorWidth: number = indexInfo.width + (nextIndexInfo.width - indexInfo.width) * swipeRatio;
     return { 'index': currentIndex, 'left': currentIndicatorLeft, 'width': currentIndicatorWidth };
   }
+
   // [End on_gesture_swipe]
 
   // [Start on_animation_start]
   private getTextInfo(index: number): Record<string, number> {
     let modePosition: componentUtils.ComponentInfo = this.getUIContext().getComponentUtils().getRectangleById(index.toString());
-    return { 'left': this.getUIContext().px2vp(modePosition.windowOffset.x), 'width': this.getUIContext().px2vp(modePosition.size.width) };
+    return {
+      'left': this.getUIContext().px2vp(modePosition.windowOffset.x),
+      'width': this.getUIContext().px2vp(modePosition.size.width)
+    };
   }
 
   private startAnimateTo(duration: number, leftMargin: number, width: number) {
@@ -179,5 +190,6 @@ struct LeftTab {
       this.indicatorWidth = width;
     })
   }
+
   // [End on_animation_start]
 }

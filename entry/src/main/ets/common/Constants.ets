@@ -42,7 +42,6 @@ export default class Constants {
   static readonly PAGES_GridNestListIndex = 'pages/GridNestListIndex'
   static readonly PAGES_GridNestSwiperIndex = 'pages/GridNestSwiperIndex'
   static readonly PAGES_HandleTabsPage = 'pages/HandleTabsPage'
-  static readonly PAGES_MultiTabNavigationPage = 'pages/MultiTabNavigationPage'
   static readonly PAGES_NavigationExample = 'pages/NavigationExample'
   static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
   static readonly PAGES_SystemRouterMapPage = 'pages/SystemRouterMapPage'
@@ -118,11 +117,12 @@ export default class Constants {
   // entry/src/main/ets/pages/viewgroup/SwiperShortVideoPage.ets
   static readonly SwiperShortVideoPage = 'pages/viewgroup/SwiperShortVideoPage'
   static readonly TabsExamplePage = 'pages/viewgroup/TabsExamplePage'
+  static readonly TabsMultiTabNavigationPage = 'pages/viewgroup/TabsMultiTabNavigationPage'
 
   static readonly ToDoListPage = 'pages/todo/ToDoListPage'
   static readonly ToDoList = 'pages/todo/ToDoList'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.TabsExamplePage
+  static readonly LOAD_ENTRY_PAGE = Constants.TabsMultiTabNavigationPage
 
   static readonly ANCHOR_PARENT = '__container__'
 
@@ -331,7 +331,7 @@ export default class Constants {
   /**
    * Animation duration.
    */
-  static readonly ANIMATION_DURATION: number = 3000;
+  static readonly ANIMATION_DURATION: number = 0;
   /**
    * Margin sixteen.
    */
@@ -396,15 +396,15 @@ export default class Constants {
       child: [
         {
           text: $r('app.string.common_bottom_nav'),
-          to: 'BottomTab'
+          to: 'TabsBottomTab'
         },
         {
           text: $r('app.string.rudder_bottom_nav'),
-          to: 'RudderStyleTab'
+          to: 'TabsRudderStyleTab'
         },
         {
           text: $r('app.string.video_slide'),
-          to: 'TabContentOverflow'
+          to: 'TabsTabContentOverflow'
         }
       ]
     },
@@ -413,31 +413,31 @@ export default class Constants {
       child: [
         {
           text: $r('app.string.left_tab'),
-          to: 'LeftTab'
+          to: 'TabsLeftTab'
         },
         {
           text: $r('app.string.underline_tab'),
-          to: 'UnderlineTab'
+          to: 'TabsUnderlineTab'
         },
         {
           text: $r('app.string.background_light_tab'),
-          to: 'BackgroundLightTab'
+          to: 'TabsBackgroundLightTab'
         },
         {
           text: $r('app.string.word_tab'),
-          to: 'WordTab'
+          to: 'TabsWordTab'
         },
         {
           text: $r('app.string.double_nesting_tab_one'),
-          to: 'DoubleNestingTabOne'
+          to: 'TabsDoubleNestingTabOne'
         },
         {
           text: $r('app.string.double_nesting_tab_two'),
-          to: 'DoubleNestingTabTwo'
+          to: 'TabsDoubleNestingTabTwo'
         },
         {
           text: $r('app.string.slide_and_mor_tab'),
-          to: 'SlideAndMoreTab'
+          to: 'TabsSlideAndMoreTab'
         }
       ]
     },
@@ -446,11 +446,11 @@ export default class Constants {
       child: [
         {
           text: $r('app.string.common_side_tab'),
-          to: 'SideTab'
+          to: 'TabsSideTab'
         },
         {
           text: $r('app.string.drawer_tab'),
-          to: 'DrawerTab'
+          to: 'TabsDrawerTab'
         }
       ]
     }

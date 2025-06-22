@@ -39,13 +39,13 @@ struct ClassifyItem {
 
 @Entry
 @Component
-struct SideTab {
+struct TabsSideTab {
   @State currentClassify: number = 0;
   @State ClassifyArray: Array<ClassifyModel> = initSideData();
   private classifyScroller: Scroller = new Scroller();
   private scroller: Scroller = new Scroller();
 
-  classifyChangeAction(index: number, isClassify: boolean): void {
+  private classifyChangeAction(index: number, isClassify: boolean): void {
     if (this.currentClassify !== index) {
       this.currentClassify = index;
       if (isClassify) {

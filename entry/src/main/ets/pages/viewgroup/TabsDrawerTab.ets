@@ -17,7 +17,7 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct DrawerTab {
+struct TabsDrawerTab {
   @State navList: Array<number> = [0, 1, 2, 3, 4, 5];
   @State active: number = 0;
   @State show: boolean = false;
@@ -125,6 +125,7 @@ struct DrawerTab {
     .onChange((value: boolean) => {
       this.show = value;
     })
+    .margin({top: 100})
     // [End Drawer_tab_side_bar_container]
     .sideBarWidth('85%')
     .minSideBarWidth('85%')

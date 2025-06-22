@@ -18,7 +18,7 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct BottomTab {
+struct TabsBottomTab {
   @State currentIndex: number = 0;
   private  msgNum: number = 9999;
   private tabsController: TabsController = new TabsController();

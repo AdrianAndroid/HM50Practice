@@ -22,7 +22,7 @@ import Logger from '../../common/Logger';
 
 @Entry
 @Component
-struct SlideAndMoreTab {
+struct TabsSlideAndMoreTab {
   @State tabArray: Array<TabItem> = initTabData();
   @State focusIndex: number = 0;
   @State pre: number = 0;

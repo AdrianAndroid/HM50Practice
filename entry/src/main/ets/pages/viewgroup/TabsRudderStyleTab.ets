@@ -19,7 +19,7 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct RudderStyleTab {
+struct TabsRudderStyleTab {
   @State tabArray: Array<BottomTabModel> = initTabTuData();
   @State currentIndex: number = 0;
   @State iconOffset: number = 0;
@@ -38,7 +38,8 @@ struct RudderStyleTab {
         Image(this.currentIndex === index ? selectImage : defaultImage)
           .size({ width: 22, height: 22 })
           .offset({
-            y: (this.currentIndex === index && this.currentIndex !== Constants.TAB_INDEX_TWO) ? this.iconOffset : this.initNumber
+            y: (this.currentIndex === index && this.currentIndex !== Constants.TAB_INDEX_TWO) ? this.iconOffset :
+            this.initNumber
           })
           .objectFit(ImageFit.Contain)
           .animation({
@@ -68,6 +69,7 @@ struct RudderStyleTab {
       }
     })
   }
+
   // [End Builder_tab]
 
   build() {
@@ -78,7 +80,7 @@ struct RudderStyleTab {
           ForEach(this.tabArray, (item: BottomTabModel, index: number) => {
             if (index === Constants.TAB_INDEX_TWO) {
               TabContent()
-              .backgroundColor(Color.White)
+                .backgroundColor(Color.Black)
             } else {
               TabContent() {
                 Row() {
@@ -97,12 +99,14 @@ struct RudderStyleTab {
         .scrollable(false)
         .barHeight(this.initNumber)
         .animationDuration(Constants.ANIMATION_DURATION)
+
         // [Start Rudder_style_tab_flex]
         Flex() {
           ForEach(this.tabArray, (item: BottomTabModel, index: number) => {
             this.Tab(item.selectImage, item.defaultImage, item.title, item.middleMode, index)
           }, (item: BottomTabModel, index: number) => JSON.stringify(item) + index)
         }
+
         // [End Rudder_style_tab_flex]
       }
     }

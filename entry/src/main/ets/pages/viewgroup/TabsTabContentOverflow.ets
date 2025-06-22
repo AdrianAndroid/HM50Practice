@@ -13,12 +13,13 @@
  * limitations under the License.
  */
 
+import Constants from '../../common/Constants';
 import { TabContentConstants } from '../../common/TabContentConstants';
 import { VideoTabContent } from '../../view/VideoTabContent';
 
 @Entry
 @Component
-struct TabContentOverFlow {
+struct TabsTabContentOverFlow {
   @State tabArray: string[] = TabContentConstants.TAB_ARRAY;
   @State imageArray: string[] = TabContentConstants.IMAGE_ARRAY;
   @State imageClickArray: string[] = TabContentConstants.IMAGE_CLICK_ARRAY;
@@ -56,6 +57,7 @@ struct TabContentOverFlow {
         .height($r('app.string.tab_video_height'))
         .width($r('app.string.tab_full_size'))
       }
+      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
       .zIndex(TabContentConstants.TAB_Z_INDEX)
       .scrollable(false)
       .barHeight($r('app.integer.tabs_bar_height'))
@@ -101,5 +103,9 @@ struct TabContentOverFlow {
         left: { anchor: TabContentConstants.TAB_CONTAINER, align: HorizontalAlign.Start }
       })
     }
+    .margin({top: 100})
+    .width(Constants.FULL_PERCENT)
+    .height('60%')
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 }

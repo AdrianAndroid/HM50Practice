@@ -18,7 +18,7 @@ import { DiscoverPage } from '../../view/DiscoverPage';
 
 @Entry
 @Component
-struct DoubleNestingTabOne {
+struct TabsDoubleNestingTabOne {
   @State topTabData: Array<string | Resource> = Constants.TOP_TAB_DATA;
   @State currentIndex: number = 0;
   private controller: TabsController = new TabsController();

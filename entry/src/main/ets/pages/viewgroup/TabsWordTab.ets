@@ -20,12 +20,12 @@ import Constants from '../../common/Constants';
 
 @Entry
 @Component
-struct WordTab {
+struct TabsWordTab {
   @State tabArray: Array<TabItem> = initTabData();
   @State currentIndex: number = 0;
   // [Start Word_tab_tab_builder]
   @Builder
-  tabBuilder(index: number, name: string | Resource) {
+  private tabBuilder(index: number, name: string | Resource) {
     Text(name)
       .fontColor(Color.Black)
       .fontSize(this.currentIndex === index ? 20 : 16)

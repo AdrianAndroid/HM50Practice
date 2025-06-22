@@ -17,7 +17,7 @@ import { router } from '@kit.ArkUI';
 import Constants, { Route, ChildRoute  } from '../../common/Constants';
 @Entry
 @Component
-struct MultiTabNavigationPage {
+struct TabsMultiTabNavigationPage {
   private routes: Route[] = Constants.ROUTES;
 
   build() {
@@ -62,7 +62,7 @@ struct MultiTabNavigationPage {
                 }
                 .onClick(() => {
                   this.getUIContext().getRouter().pushUrl({
-                    url: 'pages/' + itemChild.to
+                    url: 'pages/viewgroup/' + itemChild.to
                   })
                 })
                 .width(Constants.INDEX_CONTENT_WIDTH)
