@@ -123,6 +123,7 @@
     "pages/viewgroup/ListExamplePage",
     "pages/viewgroup/GridGridItemPage",
     "pages/viewgroup/SwiperExamplePage",
-    "pages/viewgroup/SwiperShortVideoPage"
+    "pages/viewgroup/SwiperShortVideoPage",
+    "pages/viewgroup/TabsExamplePage"
   ]
 }
