@@ -16,8 +16,10 @@
 import { router } from '@kit.ArkUI';
 import { CommonConstants, ScrollPosition } from '../../common/CommonConstants';
 import { ListDataConstants } from '../../common/ListDataConstants';
-import GridComponent from '../../view/GridComponent';
+import GridComponent from './GridComponent';
 import { featureGridData, GridData, otherGridDataList } from '../../model/GridListDataSources';
+import Logger from '../../common/Logger';
+import Constants from '../../common/Constants';
 
 @Entry
 @Component
@@ -53,7 +55,7 @@ struct GridNestListIndex {
         Scroll(this.scrollerForScroll) {
           Column() {
             GridComponent({ gridData: featureGridData })
-            this.myBuilder();
+            this.tabHeaderBuilder();
             List({ scroller: this.scrollerForList }) {
               ForEach(otherGridDataList, (item: GridData, index: number) => {
                 GridComponent({ gridData: item, isLastItem: index === otherGridDataList.length - 1 })
@@ -64,63 +66,75 @@ struct GridNestListIndex {
             .edgeEffect(EdgeEffect.None)
             .scrollBar(BarState.Off)
             // Triggers when the start position is reached.
-            .onReachStart(() => {
+            .onReachStart(() => { // 到顶
+              Logger.debug('GridNestListIndex', `onReachStart`)
               this.listPosition = ScrollPosition.start;
             })
             // Triggers when the end position is reached.
-            .onReachEnd(() => {
+            .onReachEnd(() => { // 到底
+              Logger.debug('GridNestListIndex', `onReachEnd`)
               this.listPosition = ScrollPosition.end;
             })
             // Obtains the index value of the first subcomponent in the display area of the List component.
-            .onScrollIndex((start: number) => {
+            .onScrollIndex((start: number) => { // 滑动到当前index
+              Logger.debug('GridNestListIndex', `onScrollIndex start=>${start}`)
               this.currentIndex = start
               this.scrollerForTitle.scrollToIndex(this.currentIndex);
             })
-            .onScrollFrameBegin((offset: number) => {
+            .onScrollFrameBegin((offset: number) => { // 从点击开始滑动的距离offset
+              Logger.debug('GridNestListIndex', `onScrollFrameBegin offset=>${offset}`)
               if (this.currentIndex === ListDataConstants.TITLE_LIST.length - 1 && offset > 0) {
                 return { offsetRemain: 0 }
               }
-              // When sliding to the middle of the list
-              if (!((this.listPosition === ScrollPosition.start && offset < 0) ||
-                (this.listPosition === ScrollPosition.end && offset > 0))) {
+              // When sliding to the middle of the list. offset>0上滑, offset<0下滑.
+              // 在中间部分滑动
+              if (!((this.listPosition === ScrollPosition.start && offset < 0) || (this.listPosition === ScrollPosition.end && offset > 0))) {
                 this.listPosition = ScrollPosition.center;
               }
               // If the page has scrolled to the bottom, the list is not at the top or the list has a positive offset
-              if (this.scrollPosition === ScrollPosition.end &&
-                (this.listPosition != ScrollPosition.start || offset > 0)) {
+              //
+              if (this.scrollPosition === ScrollPosition.end && (this.listPosition != ScrollPosition.start || offset > 0)) {
                 return { offsetRemain: offset };
               } else {
-                this.scrollerForScroll.scrollBy(0, offset)
+                this.scrollerForScroll.scrollBy(0, offset) // Scroll也跟着滑动
                 return { offsetRemain: offset };
               }
             })
             .width(CommonConstants.FULL_PERCENT)
-            .height("calc(100% - 56vp)")
+            .height("calc(100% - 56vp)") // 56vp是ListTitle的高度
           }
         }
         .scrollBar(BarState.Off)
         .width(CommonConstants.FULL_PERCENT)
         .height(CommonConstants.FULL_PERCENT)
         .onWillScroll((yOffset: number) => {
+          // Logger.debug('GridNestListIndex', `onWillScroll=>${yOffset}`)
           // If the page is not at the top or bottom, it is in the middle.
           if (!((this.scrollPosition === ScrollPosition.start && yOffset < 0)
             || (this.scrollPosition === ScrollPosition.end && yOffset > 0))) {
             this.scrollPosition = ScrollPosition.center;
+            // Logger.debug('GridNestListIndex', `onWillScroll(this.scrollPosition = ScrollPosition.center;)=>${yOffset}`)
           }
         })
         .onScrollEdge((side: Edge) => {
+          // Logger.debug('GridNestListIndex', `onScrollEdge=>${JSON.stringify(side)}`)
           if (side === Edge.Top) {
             // Page is at the top
+            Logger.debug('GridNestListIndex', `onScrollEdge(side === Edge.Top)=>${JSON.stringify(side)}`)
             this.scrollPosition = ScrollPosition.start;
           } else if (side === Edge.Bottom) {
+            Logger.debug('GridNestListIndex', `onScrollEdge(side === Edge.Bottom)=>${JSON.stringify(side)}`)
             // Page is at the bottom
             this.scrollPosition = ScrollPosition.end;
           }
         })
         .onScrollFrameBegin(offset => {
+          Logger.debug('GridNestListIndex', `onScrollFrameBegin=>${JSON.stringify(offset)}`)
           if (this.scrollPosition === ScrollPosition.end) {
+            Logger.debug('GridNestListIndex', `onScrollFrameBegin(this.scrollPosition === ScrollPosition.end)=>${JSON.stringify(offset)}`)
             return { offsetRemain: 0 };
           } else {
+            Logger.debug('GridNestListIndex', `onScrollFrameBegin!!!!!!(this.scrollPosition === ScrollPosition.end)=>${JSON.stringify(offset)}`)
             return { offsetRemain: offset };
           }
         })
@@ -132,7 +146,7 @@ struct GridNestListIndex {
   }
 
   @Builder
-  myBuilder() {
+  tabHeaderBuilder() {
     Row() {
       List({ space: CommonConstants.LIST_SPACE_SIZE, scroller: this.scrollerForTitle }) {
         ForEach(ListDataConstants.TITLE_LIST, (item: string, index) => {
@@ -156,9 +170,10 @@ struct GridNestListIndex {
             .justifyContent(FlexAlign.Center)
             .onClick(() => {
               this.scrollerForList.scrollToIndex(index);
-              this.scrollerForScroll.scrollEdge(Edge.Bottom);
-              this.scrollerForTitle.scrollToIndex(index);
-              this.currentIndex = index;
+              // 以下似乎可以不用设置，因为Scroll有关联
+              // this.scrollerForScroll.scrollEdge(Edge.Bottom);
+              // this.scrollerForTitle.scrollToIndex(index);
+              // this.currentIndex = index;
             })
           }
         }, (item: string, index: number) => index + JSON.stringify(item))

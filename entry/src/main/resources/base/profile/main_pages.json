@@ -28,11 +28,11 @@
     "pages/normal/TwoDimensionList",
     "pages/normal/NestedListPage",
     "pages/normal/SwiperCustomAnimationExample",
-    "pages/normal/GridNestListIndex",
-    "pages/normal/GridNestSwiperIndex",
-    "pages/normal/GrideNestDemos",
-    "pages/normal/GridCalculator",
-    "pages/normal/GridCalc2",
+    "pages/viewgroup/GridNestListIndex",
+    "pages/viewgroup/GridNestSwiperIndex",
+    "pages/viewgroup/GridNestDemos",
+    "pages/viewgroup/GridCalculator",
+    "pages/viewgroup/GridCalc2",
     "pages/normal/HandleTabsPage",
     "pages/normal/MultiTabNavigationPage",
     "pages/normal/BackgroundLightTab",
@@ -120,6 +120,7 @@
     "pages/viewgroup/SysSymbolPage",
     "pages/viewgroup/SysFloatPage",
     "pages/viewgroup/MediaQueryPage",
-    "pages/viewgroup/ListExamplePage"
+    "pages/viewgroup/ListExamplePage",
+    "pages/viewgroup/GridGridItemPage"
   ]
 }

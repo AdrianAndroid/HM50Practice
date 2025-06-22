@@ -41,8 +41,6 @@ export default class Constants {
   static readonly PAGES_GrideNestDemos = 'pages/GrideNestDemos'
   static readonly PAGES_GridNestListIndex = 'pages/GridNestListIndex'
   static readonly PAGES_GridNestSwiperIndex = 'pages/GridNestSwiperIndex'
-  static readonly PAGES_GridCalculator = 'pages/GridCalculator'
-  static readonly PAGES_GridCalc2 = 'pages/GridCalc2'
   static readonly PAGES_HandleTabsPage = 'pages/HandleTabsPage'
   static readonly PAGES_MultiTabNavigationPage = 'pages/MultiTabNavigationPage'
   static readonly PAGES_NavigationExample = 'pages/NavigationExample'
@@ -109,11 +107,18 @@ export default class Constants {
   static readonly SysFloatPage = 'pages/viewgroup/SysFloatPage'
   static readonly MediaQueryPage = 'pages/viewgroup/MediaQueryPage'
   static readonly ListExamplePage = 'pages/viewgroup/ListExamplePage'
+  static readonly GridGridItemPage = 'pages/viewgroup/GridGridItemPage'
+  static readonly GridNestDemos = 'pages/viewgroup/GridNestDemos'
+  static readonly GridNestListIndex = 'pages/viewgroup/GridNestListIndex'
+  static readonly GridNextSwiperIndex = 'pages/viewgroup/GridNextSwiperIndex'
+  static readonly GridCalculator = 'pages/viewgroup/GridCalculator'
+  static readonly GridCalc2 = 'pages/viewgroup/GridCalc2'
+  static readonly GridNestSwiperIndex = 'pages/viewgroup/GridNestSwiperIndex'
 
   static readonly ToDoListPage = 'pages/todo/ToDoListPage'
   static readonly ToDoList = 'pages/todo/ToDoList'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.ToDoList
+  static readonly LOAD_ENTRY_PAGE = Constants.GridNestDemos
 
   static readonly ANCHOR_PARENT = '__container__'
 

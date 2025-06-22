@@ -27,8 +27,6 @@ export class CommonConstants {
   static readonly FONT_WEIGHT_700: number = 700;
   static readonly ITEM_COUNT: number = 4;
 
-  static readonly TABLE_GRID_NEST_LIST_URI: string = 'pages/GridNestListIndex';
-  static readonly TABLE_GRID_NEST_SWIPER_URI: string = 'pages/GridNestSwiperIndex';
   static readonly WATER_FLOW_LAYOUT_WEIGHT: number = 1;
   static readonly DIVIDER_STROKE_WIDTH: number = 2;
   static readonly LIST_SPACE_SIZE: number = 16;

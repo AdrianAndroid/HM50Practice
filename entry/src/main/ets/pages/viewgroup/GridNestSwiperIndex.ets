@@ -17,13 +17,13 @@ import { CommonConstants } from '../../common/CommonConstants';
 import { ListDataConstants } from '../../common/ListDataConstants';
 import { WaterFlowDataSource } from '../../model/WaterFlowDataSource';
 import MenuItemComponent from '../../view/MenuItemComponent';
+import { JSON } from '@kit.ArkTS';
+import Logger from '../../common/Logger';
 
 @Entry
 @Component
 struct GridNextSwiperIndex {
-  private swiperController: SwiperController = new SwiperController()
-  @State swiperDistance: number = CommonConstants.SWIPER_HEIGHT_SIZE1
-  private waterFlowDataSource: WaterFlowDataSource = new WaterFlowDataSource();
+  @State swiperDistance: number = CommonConstants.SWIPER_HEIGHT_SIZE1 // swiper控件的高度
   @State sections: WaterFlowSections = new WaterFlowSections()
   oneColumnSection: SectionOptions = {
     itemsCount: 1,
@@ -40,6 +40,8 @@ struct GridNextSwiperIndex {
       return CommonConstants.WATER_FLOW_ITEM_HEIGHT;
     }
   }
+  private swiperController: SwiperController = new SwiperController()
+  private waterFlowDataSource: WaterFlowDataSource = new WaterFlowDataSource();
 
   aboutToAppear(): void {
     this.waterFlowDataSource.setDataArray(ListDataConstants.WATER_FLOW_DATA);
@@ -48,7 +50,6 @@ struct GridNextSwiperIndex {
   }
 
   build() {
-
     Column() {
       Row() {
         Search({ placeholder: $r('app.string.default_search_content') })
@@ -63,35 +64,43 @@ struct GridNextSwiperIndex {
           MenuItemComponent({ nameList: item, imageList: ListDataConstants.SWIPER_IMAGE_LIST[index] })
         }, (item: string[], index: number) => index + JSON.stringify(item))
       }
-      .onGestureSwipe((index: number, extraInfo: SwiperAnimationEvent) => {
-        this.getUIContext().animateTo({
-          duration: CommonConstants.SWIPER_DURATION,
-          curve: Curve.Smooth,
-          playMode: PlayMode.Normal,
-          onFinish: () => {
-          }
-        }, () => {
-          if (index == 0) {
-            this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE2;
-          } else {
-            this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE1;
-          }
-        })
+      .onGestureSwipe((index: number, extraInfo: SwiperAnimationEvent) => { // 手指拖动就会调用
+        // Logger.debug('GridNextSwiperIndex', `onGestureSwipe index=>${index} extraInfo=>${JSON.stringify(extraInfo)}`)
+        this.getUIContext().animateTo(
+          {
+            duration: CommonConstants.SWIPER_DURATION,
+            curve: Curve.Smooth,
+            playMode: PlayMode.Normal,
+            onFinish: () => {
+              // Logger.debug('GridNextSwiperIndex', `onGestureSwipe animateTo onFinish`)
+            }
+          },
+          () => {
+            if (index == 0) {
+              this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE2; // 100
+            } else {
+              this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE1; // 175
+            }
+          })
       })
-      .onAnimationStart((_: number, targetIndex: number,) => {
-        this.getUIContext().animateTo({
-          duration: CommonConstants.SWIPER_DURATION,
-          curve: Curve.Smooth,
-          playMode: PlayMode.Normal,
-          onFinish: () => {
-          }
-        }, () => {
-          if (targetIndex === 0) {
-            this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE1;
-          } else if (targetIndex === 1) {
-            this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE2;
-          }
-        })
+      .onAnimationStart((index: number, targetIndex: number,) => {
+        Logger.debug('GridNextSwiperIndex', `onAnimationStart index=>${index} targetIndex=${targetIndex}`)
+        this.getUIContext().animateTo(
+          {
+            duration: CommonConstants.SWIPER_DURATION,
+            curve: Curve.Smooth,
+            playMode: PlayMode.Normal,
+            onFinish: () => {
+              Logger.debug('GridNextSwiperIndex', `onAnimationStart animateTo onFinish`)
+            }
+          },
+          () => {
+            if (targetIndex === 0) {
+              this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE1;
+            } else if (targetIndex === 1) {
+              this.swiperDistance = CommonConstants.SWIPER_HEIGHT_SIZE2;
+            }
+          })
       })
       .height(this.swiperDistance)
 

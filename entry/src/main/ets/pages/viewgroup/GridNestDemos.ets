@@ -25,26 +25,26 @@ class DirectoryItem {
 
 @Entry
 @Component
-struct Index {
+struct GridNestDemos {
   private directory: DirectoryItem[] = [
     {
       title: $r('app.string.grid_calculator'),
-      uri: Constants.PAGES_GridCalc2,
+      uri: Constants.GridCalc2,
       id: 'GridCalc2'
     },
     {
       title: $r('app.string.grid_calculator'),
-      uri: Constants.PAGES_GridCalculator,
+      uri: Constants.GridCalculator,
       id: 'GridCalculator'
     },
     {
       title: $r('app.string.grid_nest_list'),
-      uri: CommonConstants.TABLE_GRID_NEST_LIST_URI,
+      uri: Constants.GridNestListIndex,
       id: 'GridNestListIndex'
     },
     {
       title: $r('app.string.grid_nest_swiper'),
-      uri: CommonConstants.TABLE_GRID_NEST_SWIPER_URI,
+      uri: Constants.GridNestSwiperIndex,
       id: 'GridNestSwiperIndex'
     }
   ];

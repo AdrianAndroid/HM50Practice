@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import { GridData } from '../model/GridListDataSources';
-import { CommonConstants } from '../common/CommonConstants';
-import GridItemComponent from './GridItemComponent';
+import { GridData } from '../../model/GridListDataSources';
+import { CommonConstants } from '../../common/CommonConstants';
+import GridItemComponent from '../../view/GridItemComponent';
 
 @Component
 export default struct GridComponent {
