@@ -118,6 +118,7 @@
     "pages/viewgroup/SysStringPage",
     "pages/viewgroup/SysMediaPage",
     "pages/viewgroup/SysSymbolPage",
-    "pages/viewgroup/SysFloatPage"
+    "pages/viewgroup/SysFloatPage",
+    "pages/viewgroup/MediaQueryPage"
   ]
 }

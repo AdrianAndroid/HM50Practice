@@ -108,8 +108,9 @@ export default class Constants {
   static readonly SysMediaPage = 'pages/viewgroup/SysMediaPage'
   static readonly SysSymbolPage = 'pages/viewgroup/SysSymbolPage'
   static readonly SysFloatPage = 'pages/viewgroup/SysFloatPage'
+  static readonly MediaQueryPage = 'pages/viewgroup/MediaQueryPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.SysFloatPage
+  static readonly LOAD_ENTRY_PAGE = Constants.MediaQueryPage
 
   static readonly ANCHOR_PARENT = '__container__'
 
