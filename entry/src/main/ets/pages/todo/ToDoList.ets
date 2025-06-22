@@ -14,8 +14,8 @@
  */
 
 import { promptAction } from '@kit.ArkUI';
-import { ToDo } from '../../model/ToDo';
-import { ToDoListItem } from '../../view/TodoListItem';
+import { ToDo } from './ToDo';
+import { ToDoListItem } from './TodoListItem';
 import { STYLE_CONFIG, Constant } from '../../common/Constants';
 
 @Extend(Image)

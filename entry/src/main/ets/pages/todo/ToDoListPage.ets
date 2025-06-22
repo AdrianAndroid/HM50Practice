@@ -14,7 +14,7 @@
  */
 
 import DataModel from '../../viewmodel/DataModel';
-import ToDoItem from '../../view/ToDoItem';
+import ToDoItem from './ToDoItem';
 import Constants from '../../common/Constants';
 
 @Entry

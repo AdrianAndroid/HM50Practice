@@ -19,12 +19,12 @@
     "pages/normal/ButtonCase1",
     "pages/normal/ButtonCase2",
     "pages/normal/HoverButtonExample",
-    "pages/normal/ToDoListPage",
+    "pages/todo/ToDoListPage",
     "pages/normal/LoginPage",
     "pages/normal/CityList",
     "pages/normal/SimpleContacts",
     "pages/normal/ContactsList",
-    "pages/normal/ToDoList",
+    "pages/todo/ToDoList",
     "pages/normal/TwoDimensionList",
     "pages/normal/NestedListPage",
     "pages/normal/SwiperCustomAnimationExample",
@@ -119,6 +119,7 @@
     "pages/viewgroup/SysMediaPage",
     "pages/viewgroup/SysSymbolPage",
     "pages/viewgroup/SysFloatPage",
-    "pages/viewgroup/MediaQueryPage"
+    "pages/viewgroup/MediaQueryPage",
+    "pages/viewgroup/ListExamplePage"
   ]
 }

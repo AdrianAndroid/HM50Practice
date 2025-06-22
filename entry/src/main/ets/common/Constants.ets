@@ -30,7 +30,6 @@ export default class Constants {
   static readonly PAGES_ButtonCase1 = 'pages/ButtonCase1'
   static readonly PAGES_ButtonCase2 = 'pages/ButtonCase2'
   static readonly PAGES_HoverButtonExample = 'pages/HoverButtonExample'
-  static readonly PAGES_ToDoListPage = 'pages/ToDoListPage'
   static readonly PAGES_LoginPage = 'pages/LoginPage'
   static readonly PAGES_CityList = 'pages/CityList'
   static readonly PAGES_SimpleContacts = 'pages/SimpleContacts'
@@ -109,8 +108,12 @@ export default class Constants {
   static readonly SysSymbolPage = 'pages/viewgroup/SysSymbolPage'
   static readonly SysFloatPage = 'pages/viewgroup/SysFloatPage'
   static readonly MediaQueryPage = 'pages/viewgroup/MediaQueryPage'
+  static readonly ListExamplePage = 'pages/viewgroup/ListExamplePage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.MediaQueryPage
+  static readonly ToDoListPage = 'pages/todo/ToDoListPage'
+  static readonly ToDoList = 'pages/todo/ToDoList'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.ToDoList
 
   static readonly ANCHOR_PARENT = '__container__'
 

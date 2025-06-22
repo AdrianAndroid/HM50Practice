@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import { STYLE_CONFIG, Constant } from '../common/Constants';
-import { ToDo } from '../model/ToDo';
+import { STYLE_CONFIG, Constant } from '../../common/Constants';
+import { ToDo } from './ToDo';
 
 @Component
 export struct ToDoListItem {
@@ -60,8 +60,7 @@ export struct ToDoListItem {
           .justifyContent(FlexAlign.Center)
           .aspectRatio(1)
           .borderRadius(STYLE_CONFIG.CUSTOM_CHECKBOX_SIZE)
-          .backgroundColor(this.toDoItem.isCompleted ? $r('sys.color.ohos_id_color_floating_button_bg_normal') :
-            Color.Transparent)
+          .backgroundColor(this.toDoItem.isCompleted ? $r('sys.color.ohos_id_color_floating_button_bg_normal') : Color.Transparent)
           .borderWidth(1)
           .borderColor($r('sys.color.ohos_id_color_focused_content_tertiary'))
           .onClick(() => {
