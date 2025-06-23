@@ -130,6 +130,12 @@
     "pages/Immersive/Immersive3Page",
     "pages/Immersive/Immersive4Page",
     "pages/Immersive/Immersive5Page",
-    "pages/Immersive/Immersive6Page"
+    "pages/Immersive/Immersive6Page",
+    "pages/component/ButtonExamplePage",
+    "pages/component/RatioExamplePage",
+    "pages/component/ToggleExamplePage",
+    "pages/component/ProgressExamplePage",
+    "pages/component/ImageExamplePage",
+    "pages/component/VideoExample1Page"
   ]
 }

@@ -129,7 +129,14 @@ export default class Constants {
   static readonly Immersive5Page = 'pages/Immersive/Immersive5Page'
   static readonly Immersive6Page = 'pages/Immersive/Immersive6Page'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.Immersive6Page
+  static readonly ButtonExamplePage = 'pages/component/ButtonExamplePage'
+  static readonly RatioExamplePage = 'pages/component/RatioExamplePage'
+  static readonly ToggleExamplePage = 'pages/component/ToggleExamplePage'
+  static readonly ProgressExamplePage = 'pages/component/ProgressExamplePage'
+  static readonly ImageExamplePage = 'pages/component/ImageExamplePage'
+  static readonly VideoExample1Page = 'pages/component/VideoExample1Page'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.VideoExample1Page
 
   static readonly ANCHOR_PARENT = '__container__'
 
