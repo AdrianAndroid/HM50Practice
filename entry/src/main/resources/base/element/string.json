@@ -1678,6 +1678,10 @@
       "value": "location_permission_datasync"
     },
     {
+      "name": "system_float_permission_reason",
+      "value": "system_float_permission_reason"
+    },
+    {
       "name": "network_info_permission_reason",
       "value": "network_info_permission_reason"
     },

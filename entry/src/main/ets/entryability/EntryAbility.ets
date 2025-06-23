@@ -74,8 +74,7 @@ export default class EntryAbility extends UIAbility {
     eventhub.on(Constants.EVENT_HUB_1, this.eventFunc)
     eventhub.on(Constants.EVENT_HUB_1, (data: Object, data2: Object) => {
       // 触发事件，完成相应的业务操作
-      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s',
-        `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
     })
 
     systemLanguage = this.context.config.language; // UIAbility实例首次加载时，获取系统当前语言
@@ -130,8 +129,7 @@ export default class EntryAbility extends UIAbility {
       },
       // 当窗口创建时被调用
       onWindowStageCreate(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG,
-          `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageCreate windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当窗口处于活动状态时被调用
@@ -193,14 +191,12 @@ export default class EntryAbility extends UIAbility {
         Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest startupManager run then, startParams = ');
       }).catch((error: BusinessError) => {
         Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, error = ' + JSON.stringify(error));
-        Logger.debug(Constants.TAG_STARTUP_TASK,
-          'StartupTest promise catch error, startParams = ' + JSON.stringify(startParams));
+        Logger.debug(Constants.TAG_STARTUP_TASK, 'StartupTest promise catch error, startParams = ' + JSON.stringify(startParams));
       })
     } catch (error) {
       let errMsg = JSON.stringify(error);
       let errCode: number = error.code;
       Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error , errCode= ' + errCode);
-      Logger.debug(Constants.TAG_STARTUP_TASK, 'Startup catch error ,error= ' + errMsg);
     }
   }
 
@@ -208,7 +204,6 @@ export default class EntryAbility extends UIAbility {
   onContinue(wantParam: Record<string, Object>): AbilityConstant.OnContinueResult | Promise<AbilityConstant.OnContinueResult> {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onContinue');
-
 
     // 1.1 调用create接口创建并得到一个分布式数据对象实例
     let attachment = this.createAttachment();
@@ -256,10 +251,6 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-    windowStage.getMainWindow().then((data: window.Window) => {
-      // Window immersive.
-      data.setWindowLayoutFullScreen(true);
-    })
     RDBStoreUtil.createObjectiveRDB(this.context);
 
     windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
@@ -273,6 +264,99 @@ export default class EntryAbility extends UIAbility {
       hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
       PersistentStorage.persistProp('aProp', 47)
+
+      // this.initFullWindow1(windowStage)
+      // this.initFullWindow2(windowStage)
+      // this.initFullWindow3(windowStage)
+      this.initFullWindow4(windowStage)
+    });
+  }
+
+  private initFullWindow4(windowStage: window.WindowStage) {
+    // windowStage.getMainWindow().then((data: window.Window) => {
+    //   // Window immersive.
+    //   data.setWindowLayoutFullScreen(true);
+    // })
+    windowStage.getMainWindowSync().setWindowBackgroundColor('#DCDCDC');
+  }
+  private initFullWindow3(windowStage: window.WindowStage) {
+    // windowStage.getMainWindow().then((data: window.Window) => {
+    //   // Window immersive.
+    //   data.setWindowLayoutFullScreen(true);
+    // })
+    // 设置全窗颜色和应用元素颜色一致
+    // windowStage.getMainWindowSync().setWindowBackgroundColor('#008000');
+  }
+
+  private initFullWindow2(windowStage: window.WindowStage) {
+    // windowStage.getMainWindow().then((data: window.Window) => {
+    //   // Window immersive.
+    //   data.setWindowLayoutFullScreen(true);
+    // })
+    let windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
+    // 1. 设置窗口全屏
+    let isLayoutFullScreen = true
+    windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
+      console.info('Succeeded in setting the window layout to full-screen mode.');
+    }).catch((err: BusinessError) => {
+      console.error('Failed to set the window layout to full-screen mode. Cause:' + JSON.stringify(err));
+    });
+    // 2. 设置状态栏隐藏
+    if (canIUse('SystemCapability.WindowManager.WindowManager.Core')) {
+      windowClass.setSpecificSystemBarEnabled('status', false).then(() => {
+        console.info('Succeeded in setting the status bar to be invisible.');
+      }).catch((err: BusinessError) => {
+        console.error(`Failed to set the status bar to be invisible. Code is ${err.code}, message is ${err.message}`);
+      });
+    } else {
+      console.warn('当前设备不支持系统栏状态修改');
+    }
+    // 2. 设置导航条隐藏
+    if (canIUse('SystemCapability.WindowManager.WindowManager.Core')) {
+      windowClass.setSpecificSystemBarEnabled('navigationIndicator', false).then(() => {
+        console.info('Succeeded in setting the navigation indicator to be invisible.');
+      }).catch((err: BusinessError) => {
+        console.error(`Failed to set the navigation indicator to be invisible. Code is ${err.code}, message is ${err.message}`);
+      });
+    } else {
+      console.warn('当前设备不支持系统栏状态修改');
+    }
+  }
+
+  private initFullWindow1(windowStage: window.WindowStage) {
+    // windowStage.getMainWindow().then((data: window.Window) => {
+    //   // Window immersive.
+    //   data.setWindowLayoutFullScreen(true);
+    // })
+    let windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
+    // 1. 设置窗口全屏
+    let isLayoutFullScreen = true
+    windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
+      console.info('Succeeded in setting the window layout to full-screen mode.');
+    }).catch((err: BusinessError) => {
+      console.error('Failed to set the window layout to full-screen mode. Cause:' + JSON.stringify(err));
+    });
+    // 进行后续步骤2-3中的操作
+    // 2. 获取布局避让遮挡的区域
+    let type = window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR; // 以导航条避让为例
+    let avoidArea = windowClass.getWindowAvoidArea(type);
+    let bottomRectHeight = avoidArea.bottomRect.height; // 获取到导航条区域的高度
+    AppStorage.setOrCreate('bottomRectHeight', bottomRectHeight);
+
+    type = window.AvoidAreaType.TYPE_SYSTEM; // 以状态栏避让为例
+    avoidArea = windowClass.getWindowAvoidArea(type);
+    let topRectHeight = avoidArea.topRect.height; // 获取状态栏区域高度
+    AppStorage.setOrCreate('topRectHeight', topRectHeight);
+
+    // 3. 注册监听函数，动态获取避让区域数据
+    windowClass.on('avoidAreaChange', (data) => {
+      if (data.type === window.AvoidAreaType.TYPE_SYSTEM) {
+        let topRectHeight = data.area.topRect.height;
+        AppStorage.setOrCreate('topRectHeight', topRectHeight);
+      } else if (data.type == window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+        let bottomRectHeight = data.area.bottomRect.height;
+        AppStorage.setOrCreate('bottomRectHeight', bottomRectHeight);
+      }
     });
   }
 

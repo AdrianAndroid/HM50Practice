@@ -122,7 +122,14 @@ export default class Constants {
   static readonly ToDoListPage = 'pages/todo/ToDoListPage'
   static readonly ToDoList = 'pages/todo/ToDoList'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.TabsMultiTabNavigationPage
+  static readonly Immersive1Page = 'pages/Immersive/Immersive1Page'
+  static readonly Immersive2Page = 'pages/Immersive/Immersive2Page'
+  static readonly Immersive3Page = 'pages/Immersive/Immersive3Page'
+  static readonly Immersive4Page = 'pages/Immersive/Immersive4Page'
+  static readonly Immersive5Page = 'pages/Immersive/Immersive5Page'
+  static readonly Immersive6Page = 'pages/Immersive/Immersive6Page'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.Immersive6Page
 
   static readonly ANCHOR_PARENT = '__container__'
 

@@ -124,6 +124,12 @@
     "pages/viewgroup/GridGridItemPage",
     "pages/viewgroup/SwiperExamplePage",
     "pages/viewgroup/SwiperShortVideoPage",
-    "pages/viewgroup/TabsExamplePage"
+    "pages/viewgroup/TabsExamplePage",
+    "pages/Immersive/Immersive1Page",
+    "pages/Immersive/Immersive2Page",
+    "pages/Immersive/Immersive3Page",
+    "pages/Immersive/Immersive4Page",
+    "pages/Immersive/Immersive5Page",
+    "pages/Immersive/Immersive6Page"
   ]
 }
