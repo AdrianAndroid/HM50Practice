@@ -13,8 +13,23 @@
  * limitations under the License.
  */
 
-export { LivePage } from './src/main/ets/components/pages/LivePage'
+import { ILiveInfoDataModel } from '../model/LiveDataModel';
 
-export { MainPage } from './src/main/ets/components/pages/MainPage'
+export const LiveData: Array<ILiveInfoDataModel> = [
+  {
+    uri: $rawfile('video1.mp4'),
+    name: $r('app.string.first_author'),
+    peopleNum: '520'
+  },
 
-export { FullPage } from './src/main/ets/components/pages/FullPage'
+  {
+    uri: $rawfile('video2.mp4'),
+    name: $r('app.string.two_author'),
+    peopleNum: '360'
+  },
+  {
+    uri: $rawfile('video3.mp4'),
+    name: $r('app.string.three_author'),
+    peopleNum: '777'
+  }
+];

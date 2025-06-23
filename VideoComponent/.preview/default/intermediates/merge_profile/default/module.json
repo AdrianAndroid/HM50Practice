@@ -1,0 +1,26 @@
+{
+	"app": {
+		"bundleName": "com.example.myapplication",
+		"debug": true,
+		"versionCode": 1000000,
+		"versionName": "1.0.0",
+		"minAPIVersion": 50001013,
+		"targetAPIVersion": 50005017,
+		"apiReleaseType": "Release",
+		"compileSdkVersion": "5.0.5.165",
+		"compileSdkType": "HarmonyOS",
+		"appEnvironments": [],
+		"bundleType": "app",
+		"buildMode": "debug"
+	},
+	"module": {
+		"name": "VideoComponent",
+		"type": "har",
+		"deviceTypes": [
+			"phone",
+			"tablet"
+		],
+		"packageName": "@ohos/video-component",
+		"installationFree": false
+	}
+}

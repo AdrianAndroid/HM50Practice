@@ -13,8 +13,18 @@
  * limitations under the License.
  */
 
-export { LivePage } from './src/main/ets/components/pages/LivePage'
+import { http } from '@kit.NetworkKit';
 
-export { MainPage } from './src/main/ets/components/pages/MainPage'
+let httpRequest = http.createHttp();
 
-export { FullPage } from './src/main/ets/components/pages/FullPage'
+export function Live() {
+  return httpRequest.request(
+    'http://123.60.114.86:8090/goods/liveInfo?id=2',
+    {
+      header: {
+        'Content-Type': 'application/json'
+      },
+      readTimeout: 60000,
+      connectTimeout: 60000
+    });
+}

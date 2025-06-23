@@ -82,6 +82,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "VideoComponent",
+      "srcPath": "./VideoComponent"
     }
   ]
 }

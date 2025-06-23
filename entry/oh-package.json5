@@ -10,6 +10,7 @@
     "hara": "file:../harA",
     "harb": "file:../harB",
     "hspa": "file:../hspA",
-    "hspb": "file:../hspB"
+    "hspb": "file:../hspB",
+    "@ohos/video-component": "file:../VideoComponent"
   }
 }

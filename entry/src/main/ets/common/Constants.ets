@@ -135,8 +135,9 @@ export default class Constants {
   static readonly ProgressExamplePage = 'pages/component/ProgressExamplePage'
   static readonly ImageExamplePage = 'pages/component/ImageExamplePage'
   static readonly VideoExample1Page = 'pages/component/VideoExample1Page'
+  static readonly VideoShowIndex = 'pages/component/VideoShowIndex'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.VideoExample1Page
+  static readonly LOAD_ENTRY_PAGE = Constants.VideoShowIndex
 
   static readonly ANCHOR_PARENT = '__container__'
 

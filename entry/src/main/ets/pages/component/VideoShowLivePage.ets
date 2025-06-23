@@ -13,8 +13,14 @@
  * limitations under the License.
  */
 
-export { LivePage } from './src/main/ets/components/pages/LivePage'
+import { LivePage } from '@ohos/video-component';
 
-export { MainPage } from './src/main/ets/components/pages/MainPage'
-
-export { FullPage } from './src/main/ets/components/pages/FullPage'
+@Entry
+@Component
+struct Live {
+  build() {
+    Column() {
+      LivePage()
+    }
+  }
+}

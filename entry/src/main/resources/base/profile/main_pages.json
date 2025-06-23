@@ -136,6 +136,9 @@
     "pages/component/ToggleExamplePage",
     "pages/component/ProgressExamplePage",
     "pages/component/ImageExamplePage",
-    "pages/component/VideoExample1Page"
+    "pages/component/VideoExample1Page",
+    "pages/component/VideoShowIndex",
+    "pages/component/VideoShowLivePage",
+    "pages/component/VideoShowFullPage"
   ]
 }
