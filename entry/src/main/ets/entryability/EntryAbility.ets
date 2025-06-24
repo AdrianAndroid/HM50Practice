@@ -7,7 +7,7 @@ import {
   Want
 } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { display, window } from '@kit.ArkUI';
+import { display, promptAction, uiObserver, window } from '@kit.ArkUI';
 import Constants from '../common/Constants';
 import ConnectionUtils from '../common/network/ConnectionUtils';
 import RDBStoreUtil from '../common/database/RDBStoreUtil';
@@ -17,6 +17,7 @@ import Logger from '../common/Logger';
 import { relationalStore } from '@kit.ArkData';
 import { commonType, distributedDataObject } from '@kit.ArkData';
 import { fileIo, fileUri } from '@kit.CoreFileKit';
+import { JSON } from '@kit.ArkTS';
 
 // 业务数据定义
 class Data {
@@ -75,6 +76,11 @@ export default class EntryAbility extends UIAbility {
     eventhub.on(Constants.EVENT_HUB_1, (data: Object, data2: Object) => {
       // 触发事件，完成相应的业务操作
       hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} data=${data} ${typeof data} data2=${data2} ${typeof data2}`)
+    })
+
+    uiObserver.on('navDestinationSwitch', this.context, (info: uiObserver.NavDestinationSwitchInfo) => {
+      console.log(JSON.stringify(info));
+      // promptAction.showToast({message: JSON.stringify(info)})
     })
 
     systemLanguage = this.context.config.language; // UIAbility实例首次加载时，获取系统当前语言
@@ -262,7 +268,6 @@ export default class EntryAbility extends UIAbility {
       AppStorage.setOrCreate('uiContext', windowStage.getMainWindowSync().getUIContext());
       ConnectionUtils.registerNetworkAvailableStatus();
       hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
       PersistentStorage.persistProp('aProp', 47)
 
       // this.initFullWindow1(windowStage)

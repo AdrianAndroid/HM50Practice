@@ -49,7 +49,7 @@
     "pages/viewgroup/TabsLeftTab",
     "pages/normal/NavigationExample",
     "pages/normal/NavigationDialogExample",
-    "pages/normal/SystemRouterMapPage",
+    "pages/navigation/SystemRouterMapPage",
     "pages/normal/Page",
     "pages/normal/MVVMPage",
     "pages/normal/PreferencesPage",
@@ -139,6 +139,8 @@
     "pages/component/VideoExample1Page",
     "pages/component/VideoShowIndex",
     "pages/component/VideoShowLivePage",
-    "pages/component/VideoShowFullPage"
+    "pages/component/VideoShowFullPage",
+    "pages/navigation/NavigationExamplePage1",
+    "pages/navigation/NavigationTransitionOnePage"
   ]
 }

@@ -2,7 +2,7 @@
   "routerMap": [
     {
       "name": "pageOne",
-      "pageSourceFile": "src/main/ets/pages/normal/EntryPageOne.ets",
+      "pageSourceFile": "src/main/ets/pages/navigation/EntryPageOne.ets",
       "buildFunction": "PageOneBuilder",
       "data": {
         "description": "this is pageOne"
@@ -10,7 +10,7 @@
     },
     {
       "name": "pageTwo",
-      "pageSourceFile": "src/main/ets/pages/normal/EntryPageTwo.ets",
+      "pageSourceFile": "src/main/ets/pages/navigation/EntryPageTwo.ets",
       "buildFunction": "PageTwoBuilder",
       "data": {
         "description": "this is pageTwo"
@@ -31,6 +31,51 @@
       "data": {
         "description" : "AppStorageV2 example"
       }
+    },
+    {
+      "name" : "WLAN",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "Bluetooth",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "Personal Hotpot",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "Connect & Share",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionTwoPage.ets",
+      "buildFunction" : "MySharePageBuilder"
+    },
+    {
+      "name" : "Projection",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "Print",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "VPN",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "Private DNS",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
+    },
+    {
+      "name" : "NFC",
+      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction" : "MyCommonPageBuilder"
     }
   ]
 }
