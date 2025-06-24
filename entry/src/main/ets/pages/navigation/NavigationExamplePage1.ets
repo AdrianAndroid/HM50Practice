@@ -399,7 +399,7 @@ struct DialogPage {
 @Component
 struct pageTwoTmp {
   @Consume('pageStack') pageStack: NavPathStack;
-  navDesInfo: uiObserver.NavDestinationInfo | undefined
+  navDesInfo: uiObserver.NavDestinationInfo | undefined = undefined
 
   aboutToAppear(): void {
     this.navDesInfo = this.queryNavDestinationInfo()

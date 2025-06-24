@@ -1,8 +1,8 @@
 import Constants from '../../common/Constants';
-import TextMarqueeView from '../../view/TextMarqueeView';
-import TextGradientView from '../../view/TextMarqueeView';
-import TextReflectionView from '../../view/TextReflectionView';
-import TextScrollingView from '../../view/TextScrollingView';
+import TextMarqueeView from './TextMarqueeView';
+import TextGradientView from './TextMarqueeView';
+import TextReflectionView from './TextReflectionView';
+import TextScrollingView from './TextScrollingView';
 
 // xxx.ets
 @Entry
@@ -45,7 +45,7 @@ struct TextExample {
       Column() {
         this.textBuilder($r('app.string.text_gradient'))
         Row() {
-          TextGradientView({ message: this.message })
+          TextGradientView({ message: this.message }) // 两边阴影
         }
         .fancy()
         .justifyContent(FlexAlign.Center)

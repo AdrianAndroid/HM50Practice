@@ -12,39 +12,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Constants from "../common/Constants";
+import Constants from "../../common/Constants";
+
 
 @Component
-export default struct TextRefectionView {
+export default struct TextScrollingView {
   @State message: ResourceStr = '';
+  @State value: number = 0;
 
   build() {
-    Stack() {
+    Row() {
       Text(this.message)
         .fontSize($r('app.float.content_font_size'))
-        .fontColor(Color.Red)
+        .fontColor(Color.Black)
         .fontWeight(FontWeight.Bold)
-      Text(this.message)
-        .fontSize($r('app.float.content_font_size'))
-        .fontColor(Color.Red)
-        .fontWeight(FontWeight.Bold)
-        .rotate({
-          x: 1,
-          y: 0,
-          z: 0,
-          angle: Constants.ANGLE_DEGREE,
-          centerX: Constants.FIFTY_PERCENT,
-          centerY: Constants.FULL_PERCENT
-        })
         .blendMode(BlendMode.DST_IN, BlendApplyType.OFFSCREEN)
     }
     .linearGradient({
-      direction: GradientDirection.Bottom,
-      colors: [[Color.Transparent, 0], [Color.Transparent, 0.50],
-        [Color.Red, 0.50], [$r('app.color.text_reflection_color'), 1]]
+      direction: GradientDirection.Right,
+      colors: [[Color.Red, 0.0], [Color.Red, this.value], [Color.Black, this.value], [Color.Black, 1.0]]
     })
-    .height($r('app.float.text_refection_height'))
-    .alignContent(Alignment.Top)
     .blendMode(BlendMode.SRC_OVER, BlendApplyType.OFFSCREEN)
+    .backgroundImageSize({
+      width: 0,
+      height: 0
+    })
+    .onAppear(() => {
+      this.getUIContext().animateTo({
+        duration: Constants.TEXT_SCROLL_DURATION,
+        finishCallbackType: FinishCallbackType.LOGICALLY,
+        curve: Curve.Linear,
+        iterations: -1,
+        onFinish: () => {
+          this.value = 0
+        }
+      }, () => {
+        this.value = 1
+      });
+    })
   }
 }

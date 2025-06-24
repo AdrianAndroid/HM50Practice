@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Constants from "../common/Constants";
+import Constants from "../../common/Constants";
 
 @Component
 export default struct TextGradientView {
@@ -35,8 +35,7 @@ export default struct TextGradientView {
     .width(Constants.FULL_PERCENT)
     .linearGradient({
       angle: Constants.ANGLE_DEGREE_HORIZONTAL,
-      colors: [[Color.Transparent, 0], [Color.Black, 0.2],
-        [Color.Black, 0.8], [Color.Transparent, 1]]
+      colors: [[Color.Transparent, 0], [Color.Black, 0.2], [Color.Black, 0.8], [Color.Transparent, 1]]
     })
     .blendMode(BlendMode.SRC_OVER, BlendApplyType.OFFSCREEN)
   }

@@ -140,7 +140,15 @@ export default class Constants {
   static readonly NavigationExamplePage1 = 'pages/navigation/NavigationExamplePage1'
   static readonly NavigationTransitionOnePage = 'pages/navigation/NavigationTransitionOnePage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.NavigationTransitionOnePage
+  static readonly TextSpanPage = 'pages/text/TextSpanPage'
+  static readonly TextExample = 'pages/text/TextExample'
+  static readonly TextInputTextAreaExamplePage = 'pages/text/TextInputTextAreaExamplePage'
+  static readonly RichEditorExamplePage = 'pages/text/RichEditorExamplePage'
+  static readonly RichEditorContentPublisherHome = 'pages/text/RichEditorContentPublisherHome'
+  static readonly SymbolGlyphSymbolSpanPage = 'pages/text/SymbolGlyphSymbolSpanPage'
+  static readonly StyleStringMutableStyleStringPage = 'pages/text/StyleStringMutableStyleStringPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.StyleStringMutableStyleStringPage
 
   static readonly ANCHOR_PARENT = '__container__'
 

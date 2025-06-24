@@ -13,7 +13,7 @@
     "pages/normal/ArticleList",
     "pages/normal/ForEachSort",
     "pages/normal/MyComponent",
-    "pages/normal/TextExample",
+    "pages/text/TextExample",
     "pages/normal/TextInputAreaExample",
     "pages/normal/ButtonExample",
     "pages/normal/ButtonCase1",
@@ -141,6 +141,13 @@
     "pages/component/VideoShowLivePage",
     "pages/component/VideoShowFullPage",
     "pages/navigation/NavigationExamplePage1",
-    "pages/navigation/NavigationTransitionOnePage"
+    "pages/navigation/NavigationTransitionOnePage",
+    "pages/text/TextSpanPage",
+    "pages/text/TextInputTextAreaExamplePage",
+    "pages/text/RichEditorExamplePage",
+    "pages/text/RichEditorContentPublisherHome",
+    "pages/text/RichEditorContentPublisherContactsPage",
+    "pages/text/SymbolGlyphSymbolSpanPage",
+    "pages/text/StyleStringMutableStyleStringPage"
   ]
 }

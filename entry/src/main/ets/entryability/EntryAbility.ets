@@ -18,6 +18,7 @@ import { relationalStore } from '@kit.ArkData';
 import { commonType, distributedDataObject } from '@kit.ArkData';
 import { fileIo, fileUri } from '@kit.CoreFileKit';
 import { JSON } from '@kit.ArkTS';
+import { KeyboardAvoidMode } from '@kit.ArkUI';
 
 // 业务数据定义
 class Data {
@@ -260,6 +261,9 @@ export default class EntryAbility extends UIAbility {
     RDBStoreUtil.createObjectiveRDB(this.context);
 
     windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
+      // windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
+      // windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
+      windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
       if (err.code) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.ERROR);
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
