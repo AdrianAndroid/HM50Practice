@@ -148,6 +148,16 @@
     "pages/text/RichEditorContentPublisherHome",
     "pages/text/RichEditorContentPublisherContactsPage",
     "pages/text/SymbolGlyphSymbolSpanPage",
-    "pages/text/StyleStringMutableStyleStringPage"
+    "pages/text/StyleStringMutableStyleStringPage",
+    "pages/dialog/DialogExamplePage",
+    "pages/dialog/CustomDialogExamplePage",
+    "pages/dialog/CustomDialogExample2Page",
+    "pages/dialog/FixedStyleDialogPage",
+    "pages/dialog/MenuExamplePage",
+    "pages/dialog/PopupExamplePage",
+    "pages/dialog/ModalHalfExamplePage",
+    "pages/dialog/ModalFullExamplePage",
+    "pages/dialog/ToastExamplePage",
+    "pages/dialog/OverlayManagerExamplePage"
   ]
 }

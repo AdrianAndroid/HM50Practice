@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { PersonalInformation } from './PersonalInformation';
+import { PersonalInformation } from '../dialog/PersonalInformation';
 
 @Entry
 @Component

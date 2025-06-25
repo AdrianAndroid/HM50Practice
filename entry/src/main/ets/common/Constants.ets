@@ -148,7 +148,17 @@ export default class Constants {
   static readonly SymbolGlyphSymbolSpanPage = 'pages/text/SymbolGlyphSymbolSpanPage'
   static readonly StyleStringMutableStyleStringPage = 'pages/text/StyleStringMutableStyleStringPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.StyleStringMutableStyleStringPage
+  static readonly DialogExamplePage = 'pages/dialog/DialogExamplePage'
+  static readonly CustomDialogExamplePage = 'pages/dialog/CustomDialogExamplePage'
+  static readonly FixedStyleDialogPage = 'pages/dialog/FixedStyleDialogPage'
+  static readonly MenuExamplePage = 'pages/dialog/MenuExamplePage'
+  static readonly PopupExamplePage = 'pages/dialog/PopupExamplePage'
+  static readonly ModalHalfExamplePage = 'pages/dialog/ModalHalfExamplePage'
+  static readonly ModalFullExamplePage = 'pages/dialog/ModalFullExamplePage'
+  static readonly ToastExamplePage = 'pages/dialog/ToastExamplePage'
+  static readonly OverlayManagerExamplePage = 'pages/dialog/OverlayManagerExamplePage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.OverlayManagerExamplePage
 
   static readonly ANCHOR_PARENT = '__container__'
 

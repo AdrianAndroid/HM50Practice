@@ -18,7 +18,7 @@ import { promptAction, ComponentContent } from '@kit.ArkUI';
 import TextInputComponent from '../../view/TextInputComponent';
 import TextCommonComponent from '../../view/TextCommonComponent';
 import CommonUtils from '../../utils/CommonUtils';
-import PromptActionClass from '../../view/Dialog';
+import { PromptActionClass } from './DialogPromptActionClass';
 
 class HobbyItem {
   label?: string;
