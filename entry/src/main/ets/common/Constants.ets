@@ -157,8 +157,11 @@ export default class Constants {
   static readonly ModalFullExamplePage = 'pages/dialog/ModalFullExamplePage'
   static readonly ToastExamplePage = 'pages/dialog/ToastExamplePage'
   static readonly OverlayManagerExamplePage = 'pages/dialog/OverlayManagerExamplePage'
+  static readonly ShapeExamplePage = 'pages/canvas/ShapeExamplePage'
+  static readonly CanvasExamplePage = 'pages/canvas/CanvasExamplePage'
+  static readonly CustomCanvasPage = 'pages/canvas/CustomCanvasPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.OverlayManagerExamplePage
+  static readonly LOAD_ENTRY_PAGE = Constants.CustomCanvasPage
 
   static readonly ANCHOR_PARENT = '__container__'
 

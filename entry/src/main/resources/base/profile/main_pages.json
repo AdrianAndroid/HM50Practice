@@ -158,6 +158,9 @@
     "pages/dialog/ModalHalfExamplePage",
     "pages/dialog/ModalFullExamplePage",
     "pages/dialog/ToastExamplePage",
-    "pages/dialog/OverlayManagerExamplePage"
+    "pages/dialog/OverlayManagerExamplePage",
+    "pages/canvas/ShapeExamplePage",
+    "pages/canvas/CanvasExamplePage",
+    "pages/canvas/CustomCanvasPage"
   ]
 }
