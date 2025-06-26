@@ -19,6 +19,9 @@ import { commonType, distributedDataObject } from '@kit.ArkData';
 import { fileIo, fileUri } from '@kit.CoreFileKit';
 import { JSON } from '@kit.ArkTS';
 import { KeyboardAvoidMode } from '@kit.ArkUI';
+import { WindowUtils } from '../utils/WindowUtils';
+import { TCConstantsWindowUtility } from '../utils/windowutils/TCConstantsWindowUtility';
+import { TCConstantsWindowUtils } from '../utils/windowutils/TCConstantsWindowUtils';
 
 // 业务数据定义
 class Data {
@@ -68,7 +71,6 @@ export default class EntryAbility extends UIAbility {
     preferenceUtilsObject.getFontPreferences(this.context);
     ConnectionUtils.openRegister();
 
-    this.switchArea()
     this.registerLifecycle()
     this.startupInit()
 
@@ -230,7 +232,7 @@ export default class EntryAbility extends UIAbility {
     return AbilityConstant.OnContinueResult.AGREE;
   }
 
-  switchArea() {
+  // switchArea() {
     // // 存储普通信息前，切换到EL1设备级加密
     // this.context.area = contextConstant.AreaMode.EL1; // 切换area
     // // 存储普通信息
@@ -246,7 +248,7 @@ export default class EntryAbility extends UIAbility {
     // // 存储敏感信息前，切换到EL5应用级加密
     // this.context.area = contextConstant.AreaMode.EL5; // 切换area
     // // 存储敏感信息
-  }
+  // }
 
   onDestroy(): void | Promise<void> {
     this.context.eventHub.off(Constants.EVENT_HUB_1)
@@ -260,6 +262,10 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
     RDBStoreUtil.createObjectiveRDB(this.context);
 
+    this.initTCWindowUtil(windowStage)
+    this.initRotation(windowStage)
+    this.initWindowUtil(windowStage)
+
     windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
       // windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
       // windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
@@ -269,6 +275,8 @@ export default class EntryAbility extends UIAbility {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
+      const windowClass = windowStage.getMainWindowSync();
+      AppStorage.setOrCreate("context", windowClass.getUIContext());
       AppStorage.setOrCreate('uiContext', windowStage.getMainWindowSync().getUIContext());
       ConnectionUtils.registerNetworkAvailableStatus();
       hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
@@ -279,6 +287,139 @@ export default class EntryAbility extends UIAbility {
       // this.initFullWindow3(windowStage)
       this.initFullWindow4(windowStage)
     });
+
+  }
+
+  private initTCWindowUtil(windowStage: window.WindowStage) {
+    TCConstantsWindowUtility.setWindow(windowStage)
+    // Gets the window width and height.
+    TCConstantsWindowUtils.window = windowStage.getMainWindowSync();
+    TCConstantsWindowUtils.windowWidth_px = TCConstantsWindowUtils.window.getWindowProperties().windowRect.width;
+    TCConstantsWindowUtils.windowHeight_px = TCConstantsWindowUtils.window.getWindowProperties().windowRect.height;
+
+    this.updateBreakpoint(TCConstantsWindowUtils.windowWidth_px);
+
+    // Gets the height of the upper escape zone (status bar, etc.).
+    let avoidArea = TCConstantsWindowUtils.window.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
+    TCConstantsWindowUtils.topAvoidAreaHeight_px = avoidArea.topRect.height;
+
+    // Obtain the navigation bar height.
+    let navigationArea = TCConstantsWindowUtils.window.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);
+    TCConstantsWindowUtils.navigationIndicatorHeight_px = navigationArea.bottomRect.height;
+
+    hilog.info(0x0000, TAG, 'the width is ' + TCConstantsWindowUtils.windowWidth_px + '  ' + TCConstantsWindowUtils.windowHeight_px + '  ' +
+    TCConstantsWindowUtils.topAvoidAreaHeight_px + '  ' + TCConstantsWindowUtils.navigationIndicatorHeight_px);
+    // Monitor and update changes in window size, status bar height and navigation bar height.
+    try {
+      TCConstantsWindowUtils.window.on('windowSizeChange', (data) => {
+        hilog.info(0x0000, TAG, 'on windowSizeChange, the width is ' + data.width + ', the height is ' + data.height);
+        TCConstantsWindowUtils.windowWidth_px = data.width;
+        TCConstantsWindowUtils.windowHeight_px = data.height;
+        this.updateBreakpoint(data.width);
+        AppStorage.setOrCreate('windowSizeChanged', Date.now());
+      })
+
+      TCConstantsWindowUtils.window.on('avoidAreaChange', (data) => {
+        if (data.type === window.AvoidAreaType.TYPE_SYSTEM) {
+          let topRectHeight = data.area.topRect.height;
+          hilog.info(0x0000, TAG, 'on avoidAreaChange, the top avoid area height is ' + topRectHeight);
+          TCConstantsWindowUtils.topAvoidAreaHeight_px = topRectHeight;
+        } else if (data.type === window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+          let bottomRectHeight = data.area.bottomRect.height;
+          hilog.info(0x0000, TAG, 'on avoidAreaChange, the navigation indicator height is ' + bottomRectHeight);
+          TCConstantsWindowUtils.navigationIndicatorHeight_px = bottomRectHeight;
+        }
+      })
+    } catch (exception) {
+      hilog.info(0x0000, TAG, 'register failed ' + JSON.stringify(exception));
+    }
+
+  }
+
+  private initRotation(windowStage: window.WindowStage) {
+    let mainWindow: window.Window;
+    try {
+      mainWindow = windowStage.getMainWindowSync();
+      let displayClass: display.Display = display.getDefaultDisplaySync();
+      AppStorage.setOrCreate('orientation', displayClass.orientation);
+      // 监听窗口的windowsSizeChange事件，旋转屏时会触发该事件
+      mainWindow.on('windowSizeChange', (data) => {
+        console.info('Succeeded in enabling the listener for window size changes. Data: ' + JSON.stringify(data));
+        let displayClass: display.Display | null = null;
+        try {
+          displayClass = display.getDefaultDisplaySync();
+          console.info('display orientation is ' + JSON.stringify(displayClass.orientation));
+          // 获取屏幕的显示方向
+          AppStorage.set('orientation', displayClass.orientation);
+        } catch {
+          return;
+        }
+      })
+    } catch {
+      hilog.info(0x0000, 'testTag', '%{public}s', 'error');
+      return;
+    }
+  }
+
+  private initWindowUtil(windowStage: window.WindowStage) {
+    WindowUtils.window = windowStage.getMainWindowSync()
+    WindowUtils.windowWidth_px = WindowUtils.window.getWindowProperties().windowRect.width
+    WindowUtils.windowHeight_px = WindowUtils.window.getWindowProperties().windowRect.height
+
+    this.updateBreakpoint(WindowUtils.windowWidth_px)
+
+    // 获取上方避让区（状态栏）高度
+    let avoidArea = WindowUtils.window.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
+    WindowUtils.topAvoidAreaHeight_px = avoidArea.topRect.height
+
+    // 获取导航条高度
+    let navigationArea = WindowUtils.window.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR)
+    WindowUtils.navigationIndicatorHeight_px = navigationArea.bottomRect.height
+
+    console.log(TAG, 'the width is ' + WindowUtils.windowWidth_px + '  ' + WindowUtils.windowHeight_px + '  ' + WindowUtils.topAvoidAreaHeight_px + '  ' + WindowUtils.navigationIndicatorHeight_px);
+
+    // 监听窗口尺寸、状态栏高度以及导航栏高度的变化并更新
+    try {
+      WindowUtils.window.on('windowSizeChange', (data) => {
+        console.log(TAG, 'on windowSizeChange, the width is ' + data.width + ', the height is ' + data.height);
+        WindowUtils.windowWidth_px = data.width
+        WindowUtils.windowHeight_px = data.height
+        this.updateBreakpoint(data.width)
+        AppStorage.setOrCreate('windowSizeChanged', Date.now())
+      })
+      WindowUtils.window.on('avoidAreaChange', (data) => {
+        if (data.type == window.AvoidAreaType.TYPE_SYSTEM) {
+          let topRectHeight = data.area.topRect.height;
+          console.log(TAG, 'on avoidAreaChange, the top avoid area height is ' + topRectHeight);
+          WindowUtils.topAvoidAreaHeight_px = topRectHeight;
+        } else if (data.type == window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR) {
+          let bottomRectHeight = data.area.bottomRect.height;
+          console.log(TAG, 'on avoidAreaChange, the navigation indicator height is ' + bottomRectHeight);
+          WindowUtils.navigationIndicatorHeight_px = bottomRectHeight;
+        }
+      })
+    } catch (e) {
+      console.log('register failed ' + JSON.stringify(e));
+    }
+  }
+  private currentBreakPoint: string = '';
+  private updateBreakpoint(width: number) {
+    let windowWidthVp = width / (display.getDefaultDisplaySync().densityDPI / 160)
+    let newBreakPoint: string = ''
+    if (windowWidthVp < 400) {
+      newBreakPoint = 'xs';
+    } else if (windowWidthVp < 600) {
+      newBreakPoint = 'sm'
+    } else if(windowWidthVp < 800) {
+      newBreakPoint = 'md'
+    } else {
+      newBreakPoint = 'lg'
+    }
+    if (this.currentBreakPoint !== newBreakPoint) {
+      this.currentBreakPoint = newBreakPoint
+      // 使用状态变量记录当前断电值
+      AppStorage.setOrCreate('currentBreakpoint', this.currentBreakPoint)
+    }
   }
 
   private initFullWindow4(windowStage: window.WindowStage) {

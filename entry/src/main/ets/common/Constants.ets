@@ -99,11 +99,6 @@ export default class Constants {
   static readonly FlexExamplePage = 'pages/viewgroup/FlexExamplePage'
   static readonly RelativeContainerPage = 'pages/viewgroup/RelativeContainerPage'
   // static readonly RelativeContainerPage = 'pages/viewgroup/RelativeContainerPage'
-  static readonly SysColorPage = 'pages/viewgroup/SysColorPage'
-  static readonly SysStringPage = 'pages/viewgroup/SysStringPage'
-  static readonly SysMediaPage = 'pages/viewgroup/SysMediaPage'
-  static readonly SysSymbolPage = 'pages/viewgroup/SysSymbolPage'
-  static readonly SysFloatPage = 'pages/viewgroup/SysFloatPage'
   static readonly MediaQueryPage = 'pages/viewgroup/MediaQueryPage'
   static readonly ListExamplePage = 'pages/viewgroup/ListExamplePage'
   static readonly GridGridItemPage = 'pages/viewgroup/GridGridItemPage'
@@ -161,7 +156,29 @@ export default class Constants {
   static readonly CanvasExamplePage = 'pages/canvas/CanvasExamplePage'
   static readonly CustomCanvasPage = 'pages/canvas/CustomCanvasPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.CustomCanvasPage
+  static readonly ShuXingAnimatePage = 'pages/animate/ShuXingAnimatePage'
+  static readonly ZhuanChangAnimatePage = 'pages/animate/ZhuanChangAnimatePage'
+  static readonly MoTaiAnimatePage = 'pages/animate/MoTaiAnimatePage'
+  static readonly ShareAnimate1Page = 'pages/animate/ShareAnimate1Page'
+  static readonly ShareAnimateStackPage = 'pages/animate/ShareAnimateStackPage'
+  static readonly ShareAnimateNavigationPage = 'pages/animate/ShareAnimateNavigationPage'
+  static readonly ShareAnimateBindSheetPage = 'pages/animate/ShareAnimateBindSheetPage'
+  static readonly GeometryTransitionTwoPage = 'pages/animate/GeometryTransitionTwoPage'
+  static readonly GeometryTransitionOnePage = 'pages/animate/GeometryTransitionOnePage'
+  static readonly XuanZhuanPingAnimatePage = 'pages/animate/XuanZhuanPingAnimatePage'
+  // src/main/ets/pages/TransitionCollectionPage.ets
+  static readonly TransitionCollectionPage = 'pages/animate/TransitionCollectionPage'
+  static readonly ParticleExamplePage = 'pages/animate/ParticleExamplePage'
+  static readonly ComponentAnimatePage = 'pages/animate/ComponentAnimatePage'
+  static readonly AnimationCollectionPage = 'pages/animate/AnimationCollectionPage'
+
+  static readonly SysColorPage = 'pages/system/SysColorPage'
+  static readonly SysStringPage = 'pages/system/SysStringPage'
+  static readonly SysMediaPage = 'pages/system/SysMediaPage'
+  static readonly SysSymbolPage = 'pages/system/SysSymbolPage'
+  static readonly SysFloatPage = 'pages/system/SysFloatPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.AnimationCollectionPage
 
   static readonly ANCHOR_PARENT = '__container__'
 

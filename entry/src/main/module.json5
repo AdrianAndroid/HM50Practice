@@ -26,6 +26,7 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        "orientation": "auto_rotation",
         "skills": [
           {
             "entities": [
@@ -87,6 +88,26 @@
       }
     ],
     "requestPermissions": [
+      {
+        "name": "ohos.permission.VIBRATE",
+        "reason": "$string:reason",
+        "usedScene": {
+          "abilities": [
+            "FormAbility"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.MICROPHONE",
+        "reason": "$string:voice_record_dynamic_effect_app_name",
+        "usedScene": {
+          "abilities": [
+            "FormAbility"
+          ],
+          "when": "always"
+        }
+      },
       {
         "name": "ohos.permission.GET_NETWORK_INFO",
         "reason": "$string:network_info_permission_reason",

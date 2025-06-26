@@ -21,7 +21,7 @@
       "pageSourceFile": "src/main/ets/pages/normal/MainPage.ets",
       "buildFunction": "MainPageBuilder",
       "data": {
-        "description" : "this is mainPage"
+        "description": "this is mainPage"
       }
     },
     {
@@ -29,53 +29,143 @@
       "pageSourceFile": "src/main/ets/pages/statev2/StateV2Page2.ets",
       "buildFunction": "Page2Builder",
       "data": {
-        "description" : "AppStorageV2 example"
+        "description": "AppStorageV2 example"
       }
     },
     {
-      "name" : "WLAN",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "WLAN",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "Bluetooth",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "Bluetooth",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "Personal Hotpot",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "Personal Hotpot",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "Connect & Share",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionTwoPage.ets",
-      "buildFunction" : "MySharePageBuilder"
+      "name": "Connect & Share",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionTwoPage.ets",
+      "buildFunction": "MySharePageBuilder"
     },
     {
-      "name" : "Projection",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "Projection",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "Print",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "Print",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "VPN",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "VPN",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "Private DNS",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "Private DNS",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
     },
     {
-      "name" : "NFC",
-      "pageSourceFile"  : "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
-      "buildFunction" : "MyCommonPageBuilder"
+      "name": "NFC",
+      "pageSourceFile": "src/main/ets/pages/navigation/NavigationTransitionOnePage.ets",
+      "buildFunction": "MyCommonPageBuilder"
+    },
+    {
+      "name": "PageOne",
+      "pageSourceFile": "src/main/ets/pages/animate/ShareAnimateNavigationPageOne.ets",
+      "buildFunction": "PageOneBuilder"
+    },
+    {
+      "name": "PageTwo",
+      "pageSourceFile": "src/main/ets/pages/animate/ShareAnimateNavigationPageTwo.ets",
+      "buildFunction": "PageTwoBuilder"
+    },
+    {
+      "name": "MultiModalPage",
+      "pageSourceFile": "src/main/ets/feature/MultiModalTransition/HalfModalWindow.ets",
+      "buildFunction": "MultiModalPageBuilder"
+    },
+    {
+      "name": "SearchLongTakeTransitionPageOne",
+      "pageSourceFile": "src/main/ets/feature/SearchLongTakeTransition/SearchLongTakeTransitionPageOne.ets",
+      "buildFunction": "SearchLongTakeTransitionPageOneBuilder"
+    },
+    {
+      "name": "SearchLongTakeTransitionPageTwo",
+      "pageSourceFile": "src/main/ets/feature/SearchLongTakeTransition/SearchLongTakeTransitionPageTwo.ets",
+      "buildFunction": "SearchLongTakeTransitionPageTwoBuilder"
+    },
+    {
+      "name": "CardLongTakeTransitionPageOne",
+      "pageSourceFile": "src/main/ets/feature/CardLongTakeTransition/CardLongTakeTransitionPageOne.ets",
+      "buildFunction": "CardLongTakeTransitionPageOneBuilder"
+    },
+    {
+      "name": "CardLongTakeTransitionPageTwo",
+      "pageSourceFile": "src/main/ets/feature/CardLongTakeTransition/CardLongTakeTransitionPageTwo.ets",
+      "buildFunction": "CardLongTakeTransitionPageTwoBuilder"
+    },
+    {
+      "name": "PinchToShareImagePageOne",
+      "pageSourceFile": "src/main/ets/feature/ImageLongTakeTransition/PinchToShareImage/PinchToShareImagePageOne.ets",
+      "buildFunction": "PinchToShareImagePageOneBuilder"
+    },
+    {
+      "name": "PinchToShareImagePageTwo",
+      "pageSourceFile": "src/main/ets/feature/ImageLongTakeTransition/PinchToShareImage/PinchToShareImagePageTwo.ets",
+      "buildFunction": "PinchToShareImagePageTwoBuilder"
+    },
+    {
+      "name": "ShowLargeImageWithGesturePageOne",
+      "pageSourceFile": "src/main/ets/feature/ImageLongTakeTransition/ShowLargeImageWithGesture/ShowLargeImageWithGesturePageOne.ets",
+      "buildFunction": "ShowLargeImageWithGesturePageOneBuilder"
+    },
+    {
+      "name": "ShowLargeImageWithGesturePageTwo",
+      "pageSourceFile": "src/main/ets/feature/ImageLongTakeTransition/ShowLargeImageWithGesture/ShowLargeImageWithGesturePageTwo.ets",
+      "buildFunction": "ShowLargeImageWithGesturePageTwoBuilder"
+    },
+    {
+      "name": "SemiModalImage",
+      "pageSourceFile": "src/main/ets/feature/ImageLongTakeTransition/SemiModalImage/Index.ets",
+      "buildFunction": "SemiModalImageBuilder"
+    },
+    {
+      "name": "VideoLongTakeTransitionWithCustomNavigationPageOne",
+      "pageSourceFile": "src/main/ets/feature/VideoLongTakeTransition/CustomNavigation/CustomNavigationPageOne.ets",
+      "buildFunction": "CustomNavigationPageOneBuilder"
+    },
+    {
+      "name": "VideoLongTakeTransitionWithCustomNavigationPageTwo",
+      "pageSourceFile": "src/main/ets/feature/VideoLongTakeTransition/CustomNavigation/CustomNavigationPageTwo.ets",
+      "buildFunction": "CustomNavigationPageTwoBuilder"
+    },
+    {
+      "name": "ListLongTakeTransitionPageOne",
+      "pageSourceFile": "src/main/ets/feature/ListLongTakeTransition/ListLongTakeTransitionPageOne.ets",
+      "buildFunction": "ListLongTakeTransitionPageOneBuilder"
+    },
+    {
+      "name": "ListLongTakeTransitionPageTwo",
+      "pageSourceFile": "src/main/ets/feature/ListLongTakeTransition/ListLongTakeTransitionPageTwo.ets",
+      "buildFunction": "ListLongTakeTransitionPageTwoBuilder"
+    },
+    {
+      "name": "BookFlipLongTakeTransitionPageOne",
+      "pageSourceFile": "src/main/ets/feature/BookFlipLongTakeTransition/BookFlipLongTakeTransitionPageOne.ets",
+      "buildFunction": "BookFlipLongTakeTransitionPageOneBuilder"
+    },
+    {
+      "name": "BookFlipLongTakeTransitionPageTwo",
+      "pageSourceFile": "src/main/ets/feature/BookFlipLongTakeTransition/BookFlipLongTakeTransitionPageTwo.ets",
+      "buildFunction": "BookFlipLongTakeTransitionPageTwoBuilder"
     }
   ]
 }
