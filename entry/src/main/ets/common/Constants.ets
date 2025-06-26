@@ -171,6 +171,13 @@ export default class Constants {
   static readonly ParticleExamplePage = 'pages/animate/ParticleExamplePage'
   static readonly ComponentAnimatePage = 'pages/animate/ComponentAnimatePage'
   static readonly AnimationCollectionPage = 'pages/animate/AnimationCollectionPage'
+  static readonly TranditionCurvePage = 'pages/animate/TranditionCurvePage'
+  static readonly SpringCurvePage = 'pages/animate/SpringCurvePage'
+  static readonly AnimationToAnimationPage = 'pages/animate/AnimationToAnimationPage'
+  static readonly FrameAnimationPage = 'pages/animate/FrameAnimationPage'
+  static readonly AnimateColorPage = 'pages/animate/AnimateColorPage'
+  static readonly AnimateBlurPage = 'pages/animate/AnimateBlurPage'
+  static readonly AnimateShadowPage = 'pages/animate/AnimateShadowPage'
 
   static readonly SysColorPage = 'pages/system/SysColorPage'
   static readonly SysStringPage = 'pages/system/SysStringPage'
@@ -178,9 +185,10 @@ export default class Constants {
   static readonly SysSymbolPage = 'pages/system/SysSymbolPage'
   static readonly SysFloatPage = 'pages/system/SysFloatPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.AnimationCollectionPage
+  static readonly LOAD_ENTRY_PAGE = Constants.AnimateColorPage
 
   static readonly ANCHOR_PARENT = '__container__'
+  static readonly __CONTAINER__ = '__container__'
 
   static TEXT_HEIGHT: number = 50;
   static DEFAULT_MARGIN: number = 30;

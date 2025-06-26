@@ -175,6 +175,13 @@
     "pages/animate/TransitionCollectionPage",
     "pages/animate/ParticleExamplePage",
     "pages/animate/ComponentAnimatePage",
-    "pages/animate/AnimationCollectionPage"
+    "pages/animate/AnimationCollectionPage",
+    "pages/animate/TranditionCurvePage",
+    "pages/animate/SpringCurvePage",
+    "pages/animate/AnimationToAnimationPage",
+    "pages/animate/FrameAnimationPage",
+    "pages/animate/AnimateBlurPage",
+    "pages/animate/AnimateShadowPage",
+    "pages/animate/AnimateColorPage"
   ]
 }
