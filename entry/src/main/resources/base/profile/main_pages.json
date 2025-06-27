@@ -182,6 +182,22 @@
     "pages/animate/FrameAnimationPage",
     "pages/animate/AnimateBlurPage",
     "pages/animate/AnimateShadowPage",
-    "pages/animate/AnimateColorPage"
+    "pages/animate/AnimateColorPage",
+    "pages/touch/TouchEventExamplePage",
+    "pages/touch/BottomDrawerSlideCase",
+    "pages/touch/MouseEventPage",
+    "pages/touch/FocusEventPage",
+    "pages/touch/DragFrameworkPage",
+    "pages/touch/drag/image/Image",
+    "pages/touch/drag/hyperlink/HyperLink",
+    "pages/touch/drag/richEditor/RichEditor",
+    "pages/touch/drag/textInput/TextInput",
+    "pages/touch/drag/textarea/TextArea",
+    "pages/touch/drag/list/List",
+    "pages/touch/drag/background/Background",
+    "pages/touch/drag/aiRecognition/AIRecognition",
+    "pages/touch/drag/watermark/Watermark",
+    "pages/touch/DragEvent1Page",
+    "pages/touch/DragEvent2Page"
   ]
 }

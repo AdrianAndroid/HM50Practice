@@ -7,6 +7,14 @@ export default class Constants {
   static readonly TAG: string = '[EntryAbility]';
   static readonly TAG_STARTUP_TASK: string = 'TAG_STARTUP_TASK';
 
+  public static readonly BREAK_POINT_SM: string = 'sm';
+  public static readonly BREAK_POINT_MD: string = 'md';
+  public static readonly BREAK_POINT_LG: string = 'lg';
+  public static readonly FULL_WIDTH: string = '100%';
+  public static readonly FULL_HEIGHT: string = '100%';
+  public static readonly BORDER_WIDTH: number = 0.5;
+  public static readonly FOLD_IMAGE_RATE: number = 1.2;
+
   static readonly PAGES_INDEX = "pages/Index"
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
@@ -185,7 +193,14 @@ export default class Constants {
   static readonly SysSymbolPage = 'pages/system/SysSymbolPage'
   static readonly SysFloatPage = 'pages/system/SysFloatPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.AnimateColorPage
+  static readonly TouchEventExamplePage = 'pages/touch/TouchEventExamplePage'
+  static readonly BottomDrawerSlideCase = 'pages/touch/BottomDrawerSlideCase'
+  static readonly FocusEventPage = 'pages/touch/FocusEventPage'
+  static readonly DragFrameworkPage = 'pages/touch/DragFrameworkPage'
+  static readonly DragEvent1Page = 'pages/touch/DragEvent1Page'
+  static readonly DragEvent2Page = 'pages/touch/DragEvent2Page'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.DragFrameworkPage
 
   static readonly ANCHOR_PARENT = '__container__'
   static readonly __CONTAINER__ = '__container__'
@@ -248,14 +263,6 @@ export default class Constants {
    * MultiTabNavigationPage title height.
    */
   static readonly INDEX_TITLE_HEIGHT: number = 112;
-  /**
-   * Full screen width.
-   */
-  static readonly FULL_WIDTH: string = '100%';
-  /**
-   * Full screen height.
-   */
-  static readonly FULL_HEIGHT: string = '100%';
   /**
    * Font size of unchecked title.
    */

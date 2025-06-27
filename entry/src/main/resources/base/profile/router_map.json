@@ -166,6 +166,81 @@
       "name": "BookFlipLongTakeTransitionPageTwo",
       "pageSourceFile": "src/main/ets/feature/BookFlipLongTakeTransition/BookFlipLongTakeTransitionPageTwo.ets",
       "buildFunction": "BookFlipLongTakeTransitionPageTwoBuilder"
+    },
+    {
+      "name": "ImageDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/image/Image.ets",
+      "buildFunction": "PageImageBuilder"
+    },
+    {
+      "name": "HyperLinkDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/hyperlink/HyperLink.ets",
+      "buildFunction": "PageHyperLinkBuilder"
+    },
+    {
+      "name": "RichEditorDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/richEditor/RichEditor.ets",
+      "buildFunction": "PageRichEditorBuilder"
+    },
+    {
+      "name": "TextInputDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textInput/TextInput.ets",
+      "buildFunction": "PageTextInputBuilder"
+    },
+    {
+      "name": "TextAreaDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textarea/TextArea.ets",
+      "buildFunction": "PageTextAreaBuilder"
+    },
+    {
+      "name": "ListDrag",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/list/List.ets",
+      "buildFunction": "PageListBuilder"
+    },
+    {
+      "name": "BackgroundCustomization",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/background/Background.ets",
+      "buildFunction": "PageBackgroundBuilder"
+    },
+    {
+      "name": "WatermarkAdded",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/watermark/Watermark.ets",
+      "buildFunction": "PageWatermarkBuilder"
+    },
+    {
+      "name": "AIRecognition",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/aiRecognition/AIRecognition.ets",
+      "buildFunction": "PageAIRecognitionBuilder"
+    },
+    {
+      "name": "OnlineImage",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/onlineimage/OnlineImage.ets",
+      "buildFunction": "PageOnlineImageBuilder"
+    },
+    {
+      "name": "LocalVideo",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/localvideo/LocalVideo.ets",
+      "buildFunction": "PageLocalVideoBuilder"
+    },
+    {
+      "name": "TextAndImageIndex",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textandimage/TextAndImageIndex.ets",
+      "buildFunction": "PageTextAndImageIndexBuilder"
+    },
+    {
+      "name": "Text",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textandimage/Text.ets",
+      "buildFunction": "PageTextDragBuilder"
+    },
+    {
+      "name": "RichEditor",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textandimage/RichEditor.ets",
+      "buildFunction": "PageRichEditorDragBuilder"
+    },
+    {
+      "name": "MultiEntry",
+      "pageSourceFile": "src/main/ets/pages/touch/drag/textandimage/MultiEntry.ets",
+      "buildFunction": "PageMultiEntryDragBuilder"
     }
   ]
 }

@@ -64,6 +64,17 @@
         "label": "$string:SpecifiedAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background"
+      },
+      {
+        "name": "SingletonAbility",
+        "srcEntry": "./ets/singletonability/DFSingletonAbility.ets",
+        "description": "$string:singletonAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:singletonAbility_label",
+        "startWindowIcon": "$media:layered_image",
+        "startWindowBackground": "$color:white",
+        "exported": false,
+        "launchType": "singleton"
       }
     ],
     "extensionAbilities": [

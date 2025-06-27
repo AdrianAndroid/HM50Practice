@@ -2,6 +2,7 @@ import {
   AbilityConstant,
   AbilityLifecycleCallback,
   Configuration,
+  ConfigurationConstant,
   startupManager,
   UIAbility,
   Want
@@ -22,6 +23,8 @@ import { KeyboardAvoidMode } from '@kit.ArkUI';
 import { WindowUtils } from '../utils/WindowUtils';
 import { TCConstantsWindowUtility } from '../utils/windowutils/TCConstantsWindowUtility';
 import { TCConstantsWindowUtils } from '../utils/windowutils/TCConstantsWindowUtils';
+import { GlobalContext } from '../utils/BDSGlobalContext';
+import { resourceManager } from '@kit.LocalizationKit';
 
 // 业务数据定义
 class Data {
@@ -29,6 +32,8 @@ class Data {
   text: string | undefined;
   attachment: commonType.Asset; // 可以使用资产类型记录分布式目录下的文件，迁移资产数据时，对应的文件会一起迁移到接收端。（不迁移文件时不需要此字段，下方代码中的createAttachment、createEmptyAttachment方法也都不需要。）
   // attachment2: commonType.Asset; // 暂不支持资产类型数组，如果要迁移多个文件，在业务数据中定义多条资产数据来记录
+  context: Context | undefined;
+  launchWant: Want | undefined;
 
   constructor(title: string | undefined, text: string | undefined, attachment: commonType.Asset) {
     this.title = title;
@@ -47,11 +52,11 @@ export default class EntryAbility extends UIAbility {
   para: Record<string, number> = { 'PropA': 47 }
   storage: LocalStorage = new LocalStorage(this.para)
   // 定义生命周期ID
-  lifecycleId: number = -1;
+  private lifecycleId: number = -1;
+  private curBp: string = '';
 
   eventFunc(argOne: Context, argTwo: Context): void {
-    hilog.info(DOMAIN_NUMBER, TAG, '%{public}s',
-      `eventeventevent ${Constants.EVENT_HUB_1} eventFunc argOne=${argOne} ${typeof argOne} argTwo=${argTwo} ${typeof argTwo}`)
+    hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', `eventeventevent ${Constants.EVENT_HUB_1} eventFunc argOne=${argOne} ${typeof argOne} argTwo=${argTwo} ${typeof argTwo}`)
     return
   }
 
@@ -61,7 +66,12 @@ export default class EntryAbility extends UIAbility {
         this.restoreDistributedDataObject(want);
       }
     }
-
+    this.context.eventHub.on('getAbilityData', (data: Data): void => {
+      hilog.info(0x0000, TAG, `%{public}s`, `getAbilityData`);
+      data.context = this.context;
+      data.launchWant = want;
+    });
+    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
 
     // 获取UIAbilityContext
     let context = this.context
@@ -262,10 +272,12 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
     RDBStoreUtil.createObjectiveRDB(this.context);
 
+    this.initDragInfo(windowStage)
     this.initTCWindowUtil(windowStage)
     this.initRotation(windowStage)
     this.initWindowUtil(windowStage)
 
+    GlobalContext.getContext().setObject('windowStage', windowStage);
     windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
       // windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
       // windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
@@ -288,6 +300,39 @@ export default class EntryAbility extends UIAbility {
       this.initFullWindow4(windowStage)
     });
 
+  }
+
+  private initDragInfo(windowStage: window.WindowStage) {
+    windowStage.getMainWindow().then((windowObj: window.Window) => {
+      try {
+        let type: window.AvoidAreaType = window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR;
+        let avoidArea: window.AvoidArea = windowObj.getWindowAvoidArea(type);
+        let bottomRectHeight: number = avoidArea.bottomRect.height;
+        AppStorage.setOrCreate('bottomRectHeight', bottomRectHeight);
+        type = window.AvoidAreaType.TYPE_SYSTEM;
+        avoidArea = windowObj.getWindowAvoidArea(type);
+        let topRectHeight: number = avoidArea.topRect.height;
+        AppStorage.setOrCreate('topRectHeight', topRectHeight);
+        this.updateBreakpoint(windowObj.getWindowProperties().windowRect.width);
+        windowObj.on('windowSizeChange', (windowSize) => {
+          this.updateBreakpoint(windowSize.width);
+        });
+
+        windowObj.setWindowLayoutFullScreen(true).then(() => {
+          hilog.info(0x0000, TAG, `%{public}s`, `Succeeded in setting the window layout to full-screen mode`);
+        }).catch((err: BusinessError) => {
+          hilog.error(0x0000, TAG, `Failed to set the window layout to full-screen mode. Cause:`, err.message);
+        });
+      } catch (err) {
+        hilog.error(0x0000, TAG, `Set window properties err. Cause: ${err.code}`);
+      }
+    }).catch((err: BusinessError) => {
+      hilog.error(0x0000, TAG, `Failed to get main window. Cause:`, err.message);
+    });
+    // Main window is created, set main page for this ability
+    hilog.info(0x0000, TAG, `%{public}s`, `Ability onWindowStageCreate`);
+    let resourceManager: resourceManager.ResourceManager = this.context.resourceManager;
+    AppStorage.setOrCreate('resourceManager', resourceManager);
   }
 
   private initTCWindowUtil(windowStage: window.WindowStage) {
@@ -403,24 +448,46 @@ export default class EntryAbility extends UIAbility {
     }
   }
   private currentBreakPoint: string = '';
-  private updateBreakpoint(width: number) {
-    let windowWidthVp = width / (display.getDefaultDisplaySync().densityDPI / 160)
-    let newBreakPoint: string = ''
-    if (windowWidthVp < 400) {
-      newBreakPoint = 'xs';
-    } else if (windowWidthVp < 600) {
-      newBreakPoint = 'sm'
-    } else if(windowWidthVp < 800) {
-      newBreakPoint = 'md'
+  private updateBreakpoint(windowWidth: number) {
+    let windowWidthVp: number = windowWidth / display.getDefaultDisplaySync().densityPixels;
+    let newBp: string = '';
+    if (windowWidthVp < 600) {
+      newBp = Constants.BREAK_POINT_SM;
+    } else if (windowWidthVp < 840) {
+      newBp = Constants.BREAK_POINT_MD;
     } else {
-      newBreakPoint = 'lg'
+      newBp = Constants.BREAK_POINT_LG;
     }
-    if (this.currentBreakPoint !== newBreakPoint) {
-      this.currentBreakPoint = newBreakPoint
+    if (this.currentBreakPoint !== newBp) {
+      this.currentBreakPoint = newBp
       // 使用状态变量记录当前断电值
       AppStorage.setOrCreate('currentBreakpoint', this.currentBreakPoint)
     }
+    if (this.curBp !== newBp) {
+      this.curBp = newBp;
+      AppStorage.setOrCreate('currentBreakpoint', this.curBp);
+    }
   }
+
+  // private updateBreakpoint2(windowWidth: number): void {
+  //   try {
+  //     let windowWidthVp: number = windowWidth / display.getDefaultDisplaySync().densityPixels;
+  //     let newBp: string = '';
+  //     if (windowWidthVp < 600) {
+  //       newBp = Constants.BREAK_POINT_SM;
+  //     } else if (windowWidthVp < 840) {
+  //       newBp = Constants.BREAK_POINT_MD;
+  //     } else {
+  //       newBp = Constants.BREAK_POINT_LG;
+  //     }
+  //     if (this.curBp !== newBp) {
+  //       this.curBp = newBp;
+  //       AppStorage.setOrCreate('currentBreakpoint', this.curBp);
+  //     }
+  //   } catch (error) {
+  //     hilog.error(0x0000, TAG, `updateBreakpoint catch err:`, (error as BusinessError).message);
+  //   }
+  // }
 
   private initFullWindow4(windowStage: window.WindowStage) {
     // windowStage.getMainWindow().then((data: window.Window) => {
