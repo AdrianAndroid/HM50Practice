@@ -8,7 +8,7 @@ import {
   Want
 } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { display, promptAction, uiObserver, window } from '@kit.ArkUI';
+import { Colors, CustomColors, display, promptAction, ThemeControl, uiObserver, window } from '@kit.ArkUI';
 import Constants from '../common/Constants';
 import ConnectionUtils from '../common/network/ConnectionUtils';
 import RDBStoreUtil from '../common/database/RDBStoreUtil';
@@ -42,11 +42,26 @@ class Data {
   }
 }
 
+class AppColors implements CustomColors {
+  fontPrimary = 0xFFD53032
+  iconOnPrimary = 0xFFD53032
+  iconFourth = 0xFFD53032
+}
+
+export class AppTheme implements CustomTheme {
+  public colors?: Partial<Colors> | undefined = new AppColors()
+}
+
+const abilityThemeColors = new AppColors();
+export let gAppTheme: CustomTheme = new AppTheme()
+
 let dataObject: distributedDataObject.DataObject;
 const TAG: string = '[EntryAbility]';
 const DOMAIN_NUMBER: number = 0xFF00;
 
 let systemLanguage: string | undefined; // 系统当前语言
+let windowStage_: window.WindowStage | null = null;
+let sub_windowClass: window.Window | null = null;
 
 export default class EntryAbility extends UIAbility {
   para: Record<string, number> = { 'PropA': 47 }
@@ -66,12 +81,14 @@ export default class EntryAbility extends UIAbility {
         this.restoreDistributedDataObject(want);
       }
     }
+    AppStorage.SetOrCreate('currentColorMode', this.context.config.colorMode)
     this.context.eventHub.on('getAbilityData', (data: Data): void => {
       hilog.info(0x0000, TAG, `%{public}s`, `getAbilityData`);
       data.context = this.context;
       data.launchWant = want;
     });
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+    // this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
 
     // 获取UIAbilityContext
     let context = this.context
@@ -165,8 +182,7 @@ export default class EntryAbility extends UIAbility {
       },
       // 当窗口被销毁时被调用
       onWindowStageDestroy(uiAbility, windowStage: window.WindowStage) {
-        hilog.info(DOMAIN_NUMBER, TAG,
-          `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
         hilog.info(DOMAIN_NUMBER, TAG, `onWindowStageDestroy windowStage: ${JSON.stringify(windowStage)}`);
       },
       // 当UIAbility被销毁时被调用
@@ -294,13 +310,20 @@ export default class EntryAbility extends UIAbility {
       hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
       PersistentStorage.persistProp('aProp', 47)
 
+      ThemeControl.setDefaultTheme({colors: abilityThemeColors})
+
       // this.initFullWindow1(windowStage)
       // this.initFullWindow2(windowStage)
       // this.initFullWindow3(windowStage)
       this.initFullWindow4(windowStage)
     });
-
+    // window.createWindow({
+    //   name: Constants.LOAD_ENTRY_PAGE,
+    //   windowType: window.WindowType.TYPE_FLOAT
+    // })
+    this.showSubWindow()
   }
+
 
   private initDragInfo(windowStage: window.WindowStage) {
     windowStage.getMainWindow().then((windowObj: window.Window) => {
@@ -333,6 +356,75 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, TAG, `%{public}s`, `Ability onWindowStageCreate`);
     let resourceManager: resourceManager.ResourceManager = this.context.resourceManager;
     AppStorage.setOrCreate('resourceManager', resourceManager);
+  }
+
+  showSubWindow() {
+    // 1.创建应用子窗口。
+    if (windowStage_ == null) {
+      console.error('Failed to create the subwindow. Cause: windowStage_ is null');
+    }
+    else {
+      windowStage_.createSubWindow("mySubWindow", (err: BusinessError, data) => {
+        let errCode: number = err.code;
+        if (errCode) {
+          console.error('Failed to create the subwindow. Cause: ' + JSON.stringify(err));
+          return;
+        }
+        sub_windowClass = data;
+        console.info('Succeeded in creating the subwindow. Data: ' + JSON.stringify(data));
+        // 2.子窗口创建成功后，设置子窗口的位置、大小及相关属性等。
+        sub_windowClass.moveWindowTo(300, 300, (err: BusinessError) => {
+          let errCode: number = err.code;
+          if (errCode) {
+            console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+            return;
+          }
+          console.info('Succeeded in moving the window.');
+        });
+        sub_windowClass.resize(500, 500, (err: BusinessError) => {
+          let errCode: number = err.code;
+          if (errCode) {
+            console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+            return;
+          }
+          console.info('Succeeded in changing the window size.');
+        });
+        // 3.为子窗口加载对应的目标页面。
+        sub_windowClass.setUIContent(Constants.LOAD_ENTRY_PAGE, (err: BusinessError) => {
+          let errCode: number = err.code;
+          if (errCode) {
+            console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+            return;
+          }
+          console.info('Succeeded in loading the content.');
+          // 3.显示子窗口。
+          (sub_windowClass as window.Window).showWindow((err: BusinessError) => {
+            let errCode: number = err.code;
+            if (errCode) {
+              console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+              return;
+            }
+            console.info('Succeeded in showing the window.');
+          });
+        });
+      })
+    }
+  }
+
+  test() {
+    canIUse('SystemCapability.ArkUI.ArkUI.Full')
+  }
+
+  destroySubWindow() {
+    // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
+    (sub_windowClass as window.Window).destroyWindow((err: BusinessError) => {
+      let errCode: number = err.code;
+      if (errCode) {
+        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        return;
+      }
+      console.info('Succeeded in destroying the window.');
+    });
   }
 
   private initTCWindowUtil(windowStage: window.WindowStage) {
@@ -627,6 +719,7 @@ export default class EntryAbility extends UIAbility {
     // Main window is destroyed, release UI related resources
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    this.destroySubWindow()
     ConnectionUtils.closeRegister();
   }
 
@@ -693,6 +786,7 @@ export default class EntryAbility extends UIAbility {
       hilog.info(DOMAIN_NUMBER, TAG, `systemLanguage from ${systemLanguage} changed to ${newConfig.language}`);
       systemLanguage = newConfig.language; // 将变化之后的系统语言保存，作为下一次变化前的系统语言
     }
+    AppStorage.setOrCreate('currentColorMode', newConfig.colorMode)
   }
 
 

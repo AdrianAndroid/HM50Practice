@@ -5,6 +5,10 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "common_bg",
+      "value": "#F1F3F5"
+    },
+    {
       "name": "list_first_color",
       "value": "#F1F2F6"
     },

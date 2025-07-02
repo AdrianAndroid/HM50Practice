@@ -8,7 +8,7 @@ struct Immersive4Page {
 
   build() {
     Stack() {
-      this.example2()
+      this.example1()
     }
     .height('100%').width('100%')
   }

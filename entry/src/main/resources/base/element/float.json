@@ -1,6 +1,10 @@
 {
   "float": [
     {
+      "name": "padding",
+      "value": "12vp"
+    },
+    {
       "name": "common_font_size",
       "value": "80fp"
     },

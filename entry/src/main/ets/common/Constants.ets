@@ -222,8 +222,18 @@ export default class Constants {
   static readonly BuilderNode2Page = 'pages/customnode/BuilderNode2Page'
   static readonly BuilderNode3Page = 'pages/customnode/BuilderNode3Page'
   static readonly AttributeModifierPage = 'pages/customnode/AttributeModifierPage'
+  static readonly SideBarContainerExample = 'pages/old/SideBarContainerExample'
+  static readonly TextPickerExample = 'pages/old/TextPickerExample'
+  static readonly DisplayAllPage = 'pages/theme/DisplayAllPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.AttributeModifierPage
+  static readonly SysCapListPage = 'pages/syscap/SysCapListPage'
+
+  static readonly WebUserAgentPage = 'pages/web/WebUserAgentPage'
+  static readonly WebComponent = 'pages/web/WebComponent'
+  static readonly WebHeightPage = 'pages/web/WebHeightPage'
+  static readonly WebNestedScroll = 'pages/web/WebNestedScroll'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.WebNestedScroll
 
   static readonly ANCHOR_PARENT = '__container__'
   static readonly __CONTAINER__ = '__container__'

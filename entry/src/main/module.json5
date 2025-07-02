@@ -99,12 +99,22 @@
       }
     ],
     "requestPermissions": [
+//      {
+//        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
+//        "reason": "$string:permission_float_reason",
+//        "usedScene": {
+//          "abilities": [
+//            "EntryAbility"
+//          ],
+//          "when": "always"
+//        }
+//      },
       {
         "name": "ohos.permission.VIBRATE",
         "reason": "$string:reason",
         "usedScene": {
           "abilities": [
-            "FormAbility"
+            "EntryAbility"
           ],
           "when": "always"
         }
@@ -114,7 +124,7 @@
         "reason": "$string:voice_record_dynamic_effect_app_name",
         "usedScene": {
           "abilities": [
-            "FormAbility"
+            "EntryAbility"
           ],
           "when": "always"
         }

@@ -25,3 +25,12 @@ export function getResourceString(resource: Resource, context: Context): string 
   }
   return result;
 }
+// const isHarmonyOS = () => /OpenHarmony/i.test(navigator.userAgent);
+// const matches = navigator.userAgent.match(/OpenHarmony (\d+\.?\d*)/);
+// matches?.length && Number(matches[1]) >= 5;
+// 检测是否为手机设备
+// const isPhone = () => /Phone/i.test(navigator.userAgent);
+// // 检测是否为平板设备
+// const isTablet = () => /Tablet/i.test(navigator.userAgent);
+// // 检测是否为2in1设备
+// const is2in1 = () => /PC/i.test(navigator.userAgent);

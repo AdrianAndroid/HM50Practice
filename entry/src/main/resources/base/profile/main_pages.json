@@ -225,6 +225,15 @@
     "pages/customnode/BuilderNode4Page",
     "pages/customnode/BuilderNode4PageTwo",
     "pages/customnode/AttributeModifierPage",
-    "pages/customnode/AttributeUpdaterPage"
+    "pages/customnode/AttributeUpdaterPage",
+    "pages/old/SideBarContainerExample",
+    "pages/old/TextPickerExample",
+    "pages/theme/ThemePage",
+    "pages/theme/DisplayPage",
+    "pages/syscap/SysCapListPage",
+    "pages/web/WebUserAgentPage",
+    "pages/web/WebComponent",
+    "pages/web/WebHeightPage",
+    "pages/web/WebNestedScroll"
   ]
 }
