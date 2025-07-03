@@ -12,6 +12,12 @@
       "tablet",
       "2in1"
     ],
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "xxxxx"
+      }
+    ],
     "routerMap": "$profile:router_map",
     "deliveryWithInstall": true,
     "installationFree": false,
@@ -27,6 +33,9 @@
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "orientation": "auto_rotation",
+        "backgroundModes": [
+          "audioRecording"
+        ],
         "skills": [
           {
             "entities": [
@@ -96,19 +105,35 @@
         "description": "$string:EmbeddedUIExtAbility_desc",
         "label": "$string:EmbeddedUIExtAbility_label",
         "type": "embeddedUI"
+      },
+      {
+        "name": "EntryWorkSchedulerExtAbility",
+        "srcEntry": "./ets/entryworkschedulerextability/EntryWorkSchedulerExtAbility.ets",
+        "type": "workScheduler"
       }
     ],
     "requestPermissions": [
 //      {
-//        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
-//        "reason": "$string:permission_float_reason",
+//        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+//        "reason": "$string:write_imagevideo_reason",
 //        "usedScene": {
-//          "abilities": [
-//            "EntryAbility"
-//          ],
-//          "when": "always"
+//          "abilities": [ "EntryAbility" ],
+//          "when": "inuse"
 //        }
 //      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+      },
+      //      {
+      //        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
+      //        "reason": "$string:permission_float_reason",
+      //        "usedScene": {
+      //          "abilities": [
+      //            "EntryAbility"
+      //          ],
+      //          "when": "always"
+      //        }
+      //      },
       {
         "name": "ohos.permission.VIBRATE",
         "reason": "$string:reason",

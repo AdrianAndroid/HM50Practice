@@ -573,6 +573,10 @@
       "value": "Allow the application to prompt scene control motor vibration on the login page."
     },
     {
+      "name": "write_imagevideo_reason",
+      "value": "需要保存图片到相册以分享内容"
+    },
+    {
       "name": "reason",
       "value": "Allow the application to prompt scene control motor vibration on the login page."
     },

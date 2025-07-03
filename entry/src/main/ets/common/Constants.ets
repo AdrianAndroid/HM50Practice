@@ -1,5 +1,6 @@
 export default class Constants {
   static readonly bundleName = 'com.example.myapplication'
+  static readonly EntryAbility = 'EntryAbility'
 
   static readonly EVENT_HUB_1 = 'event1'
   static readonly EVENT_HUB_2 = 'event2'
@@ -233,7 +234,19 @@ export default class Constants {
   static readonly WebHeightPage = 'pages/web/WebHeightPage'
   static readonly WebNestedScroll = 'pages/web/WebNestedScroll'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.WebNestedScroll
+  static readonly LongTaskPage = 'pages/task/LongTaskPage'
+  static readonly DelayTaskPage = 'pages/task/DelayTaskPage'
+
+  static readonly PasteBoardPage = 'pages/permission/PasteBoardPage'
+  static readonly PhotoAccessHelperPage = 'pages/permission/PhotoAccessHelperPage'
+  static readonly GeoLocationManagerPage = 'pages/permission/GeoLocationManagerPage'
+
+  static readonly HandWritingComponent = 'pages/hand/HandWritingComponent'
+  static readonly PointPredictorDemo = 'pages/hand/PointPredictorDemo'
+
+  static readonly SensorListPage = 'pages/sensor/SensorListPage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.SensorListPage
 
   static readonly ANCHOR_PARENT = '__container__'
   static readonly __CONTAINER__ = '__container__'

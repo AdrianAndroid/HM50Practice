@@ -234,6 +234,14 @@
     "pages/web/WebUserAgentPage",
     "pages/web/WebComponent",
     "pages/web/WebHeightPage",
-    "pages/web/WebNestedScroll"
+    "pages/web/WebNestedScroll",
+    "pages/task/LongTaskPage",
+    "pages/task/DelayTaskPage",
+    "pages/permission/PasteBoardPage",
+    "pages/permission/PhotoAccessHelperPage",
+    "pages/permission/GeoLocationManagerPage",
+    "pages/hand/HandWritingComponent",
+    "pages/hand/PointPredictorDemo",
+    "pages/sensor/SensorListPage"
   ]
 }
