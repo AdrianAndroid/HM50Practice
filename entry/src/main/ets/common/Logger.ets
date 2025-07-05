@@ -45,14 +45,15 @@ class Logger {
   }
 
   log(...args: string[]): void {
-    const processedArgs = args.map(arg => {
-      if (typeof arg === 'string') {
-        return this.wrapStringAtNumChars(arg);
-      }
-      return arg;
-    });
-    const combinedMessage = processedArgs;
-    hilog.info(this.domain, this.prefix, this.formatStr(...args), [combinedMessage]);
+    hilog.info(this.domain, this.prefix, this.formatStr(...args), args);
+    // const processedArgs = args.map(arg => {
+    //   if (typeof arg === 'string') {
+    //     return this.wrapStringAtNumChars(arg);
+    //   }
+    //   return arg;
+    // });
+    // const combinedMessage = processedArgs;
+    // hilog.info(this.domain, this.prefix, this.formatStr(...args), [combinedMessage]);
   }
 
   warn(...args: string[]): void {

@@ -15,7 +15,7 @@
 
 import { CustomNavigationTransition } from './CustomNavigationTransition';
 import { ComponentTransition } from './ComponentTransition';
-import { NavigationTransition } from './NavigationTransition';
+import { NavigationTransition } from '../navigation/NavigationTransition';
 import { LongTakeTransition } from '../longtaketransition/LongTakeTransition';
 import { GeometryTransition } from '../geometrytransition/GeometryTransition';
 import { GeometryTransitionDetail } from '../geometrytransition/GeometryTransitionDetail';

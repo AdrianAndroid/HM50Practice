@@ -16,7 +16,20 @@ export default class Constants {
   public static readonly BORDER_WIDTH: number = 0.5;
   public static readonly FOLD_IMAGE_RATE: number = 1.2;
 
+  /* 首页 */
   static readonly PAGES_INDEX = "pages/Index"
+
+  static readonly PATH_navigation = 'pages/navigation/'
+  static readonly NavigationListExamplePage = 'NavigationListExamplePage'
+  static readonly SystemRouterMapPage = 'SystemRouterMapPage'
+  static readonly NavigationSimplePage = 'NavigationSimplePage'
+  static readonly MainPage = 'MainPage'
+  static readonly NavigationDialogExample = 'NavigationDialogExample'
+
+
+  static readonly NavigationExamplePage1 = 'NavigationExamplePage1'
+  static readonly NavigationTransitionOnePage = 'NavigationTransitionOnePage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"
@@ -51,8 +64,10 @@ export default class Constants {
   static readonly PAGES_GridNestListIndex = 'pages/GridNestListIndex'
   static readonly PAGES_GridNestSwiperIndex = 'pages/GridNestSwiperIndex'
   static readonly PAGES_HandleTabsPage = 'pages/HandleTabsPage'
+
   static readonly PAGES_NavigationExample = 'pages/NavigationExample'
   static readonly PAGES_NavigationDialogExample = 'pages/NavigationDialogExample'
+
   static readonly PAGES_SystemRouterMapPage = 'pages/SystemRouterMapPage'
   static readonly PAGES_MVVMPage = 'pages/MVVMPage'
   static readonly PAGES_Page_StartModel = 'pages/Page_StartModel'
@@ -120,7 +135,6 @@ export default class Constants {
   static readonly SwiperExamplePage = 'pages/viewgroup/SwiperExamplePage'
   // entry/src/main/ets/pages/viewgroup/SwiperShortVideoPage.ets
   static readonly SwiperShortVideoPage = 'pages/viewgroup/SwiperShortVideoPage'
-  static readonly TabsExamplePage = 'pages/viewgroup/TabsExamplePage'
   static readonly TabsMultiTabNavigationPage = 'pages/viewgroup/TabsMultiTabNavigationPage'
 
   static readonly ToDoListPage = 'pages/todo/ToDoListPage'
@@ -140,9 +154,6 @@ export default class Constants {
   static readonly ImageExamplePage = 'pages/component/ImageExamplePage'
   static readonly VideoExample1Page = 'pages/component/VideoExample1Page'
   static readonly VideoShowIndex = 'pages/component/VideoShowIndex'
-
-  static readonly NavigationExamplePage1 = 'pages/navigation/NavigationExamplePage1'
-  static readonly NavigationTransitionOnePage = 'pages/navigation/NavigationTransitionOnePage'
 
   static readonly TextSpanPage = 'pages/text/TextSpanPage'
   static readonly TextExample = 'pages/text/TextExample'
@@ -246,7 +257,11 @@ export default class Constants {
 
   static readonly SensorListPage = 'pages/sensor/SensorListPage'
 
-  static readonly LOAD_ENTRY_PAGE = Constants.SensorListPage
+  static readonly TSExamplePage = 'pages/ts/TSExamplePage'
+
+  static readonly TabsExamplePage = 'pages/tab/TabsExamplePage'
+
+  static readonly LOAD_ENTRY_PAGE = Constants.PAGES_INDEX
 
   static readonly ANCHOR_PARENT = '__container__'
   static readonly __CONTAINER__ = '__container__'

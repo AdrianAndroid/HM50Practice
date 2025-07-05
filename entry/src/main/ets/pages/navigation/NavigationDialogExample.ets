@@ -1,54 +1,11 @@
-import { uiObserver } from "@kit.ArkUI"
-
-// Dialog NavDestination
-@Entry
-@Component
-struct NavigationDialogExample {
-  @Provide('NavPathStack') pageStack: NavPathStack = new NavPathStack()
-  // navDesInfo: uiObserver.NavDestinationInfo | undefined
-
-  aboutToAppear(): void {
-    // this.navDesInfo = this.queryNavDestinationInfo()
-    uiObserver.on('navDestinationUpdate', (info) => {
-      console.info('NavDestination state update', JSON.stringify(info));
-    })
-  }
-
-  aboutToDisappear(): void {
-    uiObserver.off('navDestinationUpdate')
-  }
-
-  @Builder
-  PagesMap(name: string) {
-    if (name == 'DialogPage') {
-      DialogPage()
-    }
-  }
-
-  build() {
-    Column() {
-      // Text("所属页面Name: " + this.navDesInfo?.name)
-      Navigation(this.pageStack) {
-        Button('Push DialogPage')
-          .margin(20)
-          .width('80%')
-          .onClick(() => {
-            this.pageStack.pushPathByName('DialogPage', '');
-          })
-      }
-      .mode(NavigationMode.Stack)
-      .title('Main')
-      .navDestination(this.PagesMap)
-    }
-  }
+@Builder
+export function PageBuilder(name: string, param: Object) {
+  NavigationDialogExample()
 }
 
-
 @Component
-export struct DialogPage {
-  @Consume('NavPathStack') pageStack: NavPathStack;
-
-
+export struct NavigationDialogExample {
+  pageStack: NavPathStack = new NavPathStack();
   build() {
     NavDestination() {
       Stack({ alignContent: Alignment.Center }) {
@@ -70,6 +27,9 @@ export struct DialogPage {
     .backgroundColor('rgba(0,0,0,0.5)')
     .hideTitleBar(true)
     .mode(NavDestinationMode.DIALOG)
+    .onReady((callback) => {
+      this.pageStack = callback.pathStack
+    })
   }
 
   // 组件挂载前执行

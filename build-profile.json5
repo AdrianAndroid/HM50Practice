@@ -2,23 +2,23 @@
   "app": {
     "signingConfigs": [
       {
-        "name": "default",
+        "name": "appkey",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/zhaojian/.ohos/config/default_MyApplication_2b3iREL03IRhUDwjgF6UEHGyvHc07ucV5vVj-S1pPXs=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BA6169B6A72D4C7A847026B25E90325E51EBA9E0C506015AA47DE6CBF8883AD4E27F3D91AD6A379",
-          "profile": "/Users/zhaojian/.ohos/config/default_MyApplication_2b3iREL03IRhUDwjgF6UEHGyvHc07ucV5vVj-S1pPXs=.p7b",
+          "storeFile": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/a.p12",
+          "storePassword": "0000001F905F693572F83C1D7414287563824CE3655D49825BD27F90B3141459F0482F513AE73FDA19F39BCDCB1857",
+          "keyAlias": "a",
+          "keyPassword": "0000001F50194D195DFF25A3B75CB38F3E75741EAF5C84EEF56FACB7D3AFB03D4E1941DA711B47F5D986F0DBA02A93",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/zhaojian/.ohos/config/default_MyApplication_2b3iREL03IRhUDwjgF6UEHGyvHc07ucV5vVj-S1pPXs=.p12",
-          "storePassword": "0000001BF15324803F8026B58F5F9E35AD206777CBD7A99442EE29B5363184E8A54525F904E7643BB0A779"
+          "profile": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/aDebug.p7b",
+          "certpath": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/a.cer"
         }
       }
     ],
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
+        "signingConfig": "appkey",
         "compatibleSdkVersion": "5.0.1(13)",
         "runtimeOS": "HarmonyOS",
         "buildOption": {

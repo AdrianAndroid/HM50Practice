@@ -121,8 +121,8 @@ let medias: BeanMedia[] = [
   new BeanMedia('ohos_ic_window_menu_screen_b', $r('sys.media.ohos_ic_window_menu_screen_b')),
   new BeanMedia('ohos_ic_window_menu_waterfall', $r('sys.media.ohos_ic_window_menu_waterfall')),
   new BeanMedia('ic_public_camera_beauty', $r('sys.media.ic_public_camera_beauty')),
-  new BeanMedia('ohos_ic_window_menu_moveto_t', $r('sys.media.ohos_ic_window_menu_moveto_t')),
   new BeanMedia('ohos_ic_window_menu_moveto_b', $r('sys.media.ohos_ic_window_menu_moveto_b')),
+  new BeanMedia('ohos_ic_window_menu_moveto_t', $r('sys.media.ohos_ic_window_menu_moveto_t')),
   new BeanMedia('ohos_ic_window_menu_back', $r('sys.media.ohos_ic_window_menu_back')),
 ]
 

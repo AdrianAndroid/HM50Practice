@@ -292,6 +292,7 @@ export default class EntryAbility extends UIAbility {
     this.initTCWindowUtil(windowStage)
     this.initRotation(windowStage)
     this.initWindowUtil(windowStage)
+    this.initFullWindow1(windowStage)
 
     GlobalContext.getContext().setObject('windowStage', windowStage);
     windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
