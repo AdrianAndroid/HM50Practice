@@ -111,26 +111,21 @@ struct NavigationListExamplePage {
         }
 
         ListItem() {
-          Text('SystemRouterMapPage')
-        }
-
-        ListItem() {
-          Button('点击跳转' + Constants.SystemRouterMapPage)
-            .onClick(() => {
-              router.pushUrl({
-                url: Constants.PATH_navigation + Constants.SystemRouterMapPage,
-                params: {
-                  mode: this.mode.valueOf(),
-                  titleMode: this.titleMode.valueOf()
-                }
+          Column() {
+            Text('SystemRouterMapPage')
+            Button('点击跳转' + Constants.SystemRouterMapPage)
+              .onClick(() => {
+                router.pushUrl({
+                  url: Constants.PATH_navigation + Constants.SystemRouterMapPage,
+                  params: {
+                    mode: this.mode.valueOf(),
+                    titleMode: this.titleMode.valueOf()
+                  }
+                })
               })
-            })
+            Divider()
+          }
         }
-
-        ListItem() {
-          Divider()
-        }
-
         ListItem() {
           Text('复杂的页面')
         }
@@ -155,6 +150,24 @@ struct NavigationListExamplePage {
             .onClick(() => {
               this.pathStack.pushPathByName(Constants.NavigationDialogExample, '')
             })
+        }
+
+        ListItem() {
+          Column() {
+            Text('带参数的跳转List页面')
+            Button('点击跳转' + Constants.NavigationSimplePage)
+              .onClick(() => {
+                router.pushUrl({
+                  url: Constants.PATH_navigation + Constants.NavigationParamsPage,
+                  params: {
+                    mode: this.mode.valueOf(),
+                    titleMode: this.titleMode.valueOf()
+                  }
+                })
+              })
+            Divider()
+          }
+          .width('100%')
         }
 
 

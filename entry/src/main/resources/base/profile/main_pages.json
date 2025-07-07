@@ -34,7 +34,6 @@
     "pages/viewgroup/GridCalculator",
     "pages/viewgroup/GridCalc2",
     "pages/normal/HandleTabsPage",
-    "pages/tab/TabsMultiTabNavigationPage",
     "pages/tab/TabsBackgroundLightTab",
     "pages/tab/TabsBottomTab",
     "pages/tab/TabsDoubleNestingTabOne",
@@ -121,8 +120,7 @@
     "pages/viewgroup/MediaQueryPage",
     "pages/viewgroup/ListExamplePage",
     "pages/viewgroup/GridGridItemPage",
-    "pages/viewgroup/SwiperExamplePage",
-    "pages/viewgroup/SwiperShortVideoPage",
+    "pages/swiper/SwiperShortVideoPage",
     "pages/tab/TabsExamplePage",
     "pages/Immersive/Immersive1Page",
     "pages/Immersive/Immersive2Page",
@@ -243,6 +241,7 @@
     "pages/hand/PointPredictorDemo",
     "pages/sensor/SensorListPage",
     "pages/ts/TSExamplePage",
-    "pages/navigation/NavigationSimplePage"
+    "pages/navigation/NavigationSimplePage",
+    "pages/navigation/NavigationParamsPage"
   ]
 }

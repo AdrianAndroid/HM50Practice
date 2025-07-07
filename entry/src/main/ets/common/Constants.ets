@@ -23,12 +23,15 @@ export default class Constants {
   static readonly NavigationListExamplePage = 'NavigationListExamplePage'
   static readonly SystemRouterMapPage = 'SystemRouterMapPage'
   static readonly NavigationSimplePage = 'NavigationSimplePage'
+  static readonly NavigationParamsPage = 'NavigationParamsPage'
   static readonly MainPage = 'MainPage'
   static readonly NavigationDialogExample = 'NavigationDialogExample'
-
-
+  static readonly TabSimplePage = 'TabSimplePage'
   static readonly NavigationExamplePage1 = 'NavigationExamplePage1'
   static readonly NavigationTransitionOnePage = 'NavigationTransitionOnePage'
+
+  static readonly PATH_siwper = 'pages/swiper/'
+  static readonly SwiperExamplePage = 'SwiperExamplePage'
 
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
@@ -132,8 +135,6 @@ export default class Constants {
   static readonly GridCalculator = 'pages/viewgroup/GridCalculator'
   static readonly GridCalc2 = 'pages/viewgroup/GridCalc2'
   static readonly GridNestSwiperIndex = 'pages/viewgroup/GridNestSwiperIndex'
-  static readonly SwiperExamplePage = 'pages/viewgroup/SwiperExamplePage'
-  // entry/src/main/ets/pages/viewgroup/SwiperShortVideoPage.ets
   static readonly SwiperShortVideoPage = 'pages/viewgroup/SwiperShortVideoPage'
   static readonly TabsMultiTabNavigationPage = 'pages/viewgroup/TabsMultiTabNavigationPage'
 
@@ -518,75 +519,6 @@ export default class Constants {
   static readonly TOP_TAB_DATA: Array<Resource | string> =
     [$r('app.string.literature'), $r('app.string.making_friends'), $r('app.string.live_broadcast'),
       $r('app.string.video'), $r('app.string.ceremony'), $r('app.string.play')];
-
-  /**
-   * Routes.
-   */
-  static readonly ROUTES: Route[] = [
-    {
-      title: $r('app.string.bottom_nav'),
-      child: [
-        {
-          text: $r('app.string.common_bottom_nav'),
-          to: 'TabsBottomTab'
-        },
-        {
-          text: $r('app.string.rudder_bottom_nav'),
-          to: 'TabsRudderStyleTab'
-        },
-        {
-          text: $r('app.string.video_slide'),
-          to: 'TabsTabContentOverflow'
-        }
-      ]
-    },
-    {
-      title: $r('app.string.top_nav'),
-      child: [
-        {
-          text: $r('app.string.left_tab'),
-          to: 'TabsLeftTab'
-        },
-        {
-          text: $r('app.string.underline_tab'),
-          to: 'TabsUnderlineTab'
-        },
-        {
-          text: $r('app.string.background_light_tab'),
-          to: 'TabsBackgroundLightTab'
-        },
-        {
-          text: $r('app.string.word_tab'),
-          to: 'TabsWordTab'
-        },
-        {
-          text: $r('app.string.double_nesting_tab_one'),
-          to: 'TabsDoubleNestingTabOne'
-        },
-        {
-          text: $r('app.string.double_nesting_tab_two'),
-          to: 'TabsDoubleNestingTabTwo'
-        },
-        {
-          text: $r('app.string.slide_and_mor_tab'),
-          to: 'TabsSlideAndMoreTab'
-        }
-      ]
-    },
-    {
-      title: $r('app.string.side_tab'),
-      child: [
-        {
-          text: $r('app.string.common_side_tab'),
-          to: 'TabsSideTab'
-        },
-        {
-          text: $r('app.string.drawer_tab'),
-          to: 'TabsDrawerTab'
-        }
-      ]
-    }
-  ];
 }
 
 /**

@@ -1,6 +1,16 @@
 {
   "routerMap": [
     {
+      "name": "TabSimplePage",
+      "pageSourceFile": "src/main/ets/pages/tab/TabSimplePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
+      "name": "SwiperExamplePage",
+      "pageSourceFile": "src/main/ets/pages/swiper/SwiperExamplePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "NavigationDialogExample",
       "pageSourceFile": "src/main/ets/pages/navigation/NavigationDialogExample.ets",
       "buildFunction": "PageBuilder"

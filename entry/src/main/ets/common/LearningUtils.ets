@@ -10,4 +10,11 @@ export class LearningUtils {
       url: 'https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-navigation'
     }
   ]
+
+  static readonly tabs: Materials[] = [
+    {
+      title: '选项卡 (Tabs)',
+      url: 'https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-tabs'
+    }
+  ]
 }

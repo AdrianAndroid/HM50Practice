@@ -1,4 +1,5 @@
 import Constants from '../common/Constants'
+import { JSON } from '@kit.ArkTS'
 
 // xxx.ets
 interface RouterItem {
@@ -12,6 +13,16 @@ const routerList: RouterItem[] = [
     title: Constants.NavigationListExamplePage,
     thumb: $r('sys.symbol.navigation'),
     path: Constants.NavigationListExamplePage
+  },
+  {
+    title: Constants.TabSimplePage,
+    thumb: $r('sys.symbol.table_tennis_bat'),
+    path: Constants.TabSimplePage
+  },
+  {
+    title: Constants.SwiperExamplePage,
+    thumb: $r('sys.symbol.swipe'),
+    path: Constants.SwiperExamplePage
   }
 ]
 
@@ -40,6 +51,15 @@ struct Index {
     .backgroundColor(Color.Blue)
     .alignItems(HorizontalAlign.Start)
     .margin({ left: $r('sys.float.titlebar_title_margin_left'), right: $r('sys.float.titlebar_title_margin_right') })
+  }
+
+  onBackPress(): boolean | void {
+    if (this.pathStack.size() > 0) {
+      this.pathStack.pop()
+      return true
+    } else {
+      return false
+    }
   }
 
   changeNavigationTitleMode() {
@@ -93,7 +113,7 @@ struct Index {
             .onClick((event: ClickEvent) => {
               this.pathStack.pushPath({ name: item.path })
             })
-          }, (item: number) => item.toString())
+          }, (item: number, index) => JSON.stringify(item))
         }
         .height('100%')
         .width('100%')
@@ -159,6 +179,7 @@ struct Index {
         .fontWeight(500)
         .textAlign(TextAlign.Start)
     }
+    .margin({left: $r('sys.float.ohos_id_card_margin_start'), right: $r('sys.float.ohos_id_card_margin_end')})
     .backgroundColor(Color.White)
     .borderRadius(24)
     .height(72)

@@ -2,7 +2,9 @@
   "modelVersion": "5.0.1",
   "description": "Please describe the basic information.",
   "dependencies": {
-    "@ohos/lottie": "^2.0.20"
+    "@ohos/lottie": "^2.0.20",
+    "@ohos/pulltorefresh": "^2.1.2",
+    "@ohmos/json-bigint": "^1.0.0"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.19",
