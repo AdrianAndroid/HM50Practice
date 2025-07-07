@@ -1,6 +1,6 @@
 import { BusinessError } from "@kit.BasicServicesKit";
 import { JSON } from "@kit.ArkTS";
-import { promptAction } from "@kit.ArkUI";
+import { promptAction, uiObserver } from "@kit.ArkUI";
 
 const PAGE_ONE = 'PAGE_ONE'
 const PAGE_TWO = 'PAGE_TWO'
@@ -15,6 +15,19 @@ struct NavigationParamsPage {
   }
   @Provide('pageInfos') pageInfos: NavPathStack = new NavPathStack()
 
+  aboutToAppear(): void {
+    uiObserver.on('navDestinationSwitch', this.getUIContext(), (data: uiObserver.NavDestinationSwitchInfo) => {
+      console.info('navDestinationSwitch', JSON.stringify(data));
+    })
+    uiObserver.on('navDestinationUpdate', (info) => {
+      console.info('NavDestination state update', JSON.stringify(info));
+    })
+  }
+
+  aboutToDisappear(): void {
+    uiObserver.off('navDestinationUpdate')
+    // uiObserver.off('navDestinationSwitch')
+  }
 
   @Builder
   PageMap(name: string) {
@@ -74,7 +87,17 @@ export struct pageOneTmp {
         Text("PageOne")
         popColumn(this.pageInfos, PAGE_ONE)
       }.width('100%').height('100%')
-    }.title(PAGE_ONE)
+    }
+    .onAppear(() => {})
+    .onWillShow(() => {})
+    .onShown(() => {})
+    .onActive(() => {})
+    .onWillHide(() => {})
+    .onInactive(() => {})
+    .onHidden(() => {})
+    .onWillDisappear(() => {})
+    .onDisAppear(() => {})
+    .title(PAGE_ONE)
     .onBackPressed(() => {
       const popDestinationInfo = this.pageInfos.pop(); // 弹出路由栈栈顶元素
       console.log('pop' + '返回值' + JSON.stringify(popDestinationInfo));
