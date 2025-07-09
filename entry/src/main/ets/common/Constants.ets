@@ -33,6 +33,9 @@ export default class Constants {
   static readonly PATH_siwper = 'pages/swiper/'
   static readonly SwiperExamplePage = 'SwiperExamplePage'
 
+  static readonly PATH_system = 'pages/system/'
+  static readonly SysResourcePage = 'SysResourcePage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"

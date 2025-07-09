@@ -21,6 +21,11 @@
       "buildFunction": "PageBuilder"
     },
     {
+      "name": "SysResourcePage",
+      "pageSourceFile": "src/main/ets/pages/system/SysResourcePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "pageOne",
       "pageSourceFile": "src/main/ets/pages/navigation/EntryPageOne.ets",
       "buildFunction": "PageOneBuilder",

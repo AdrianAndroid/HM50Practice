@@ -143,9 +143,8 @@ class BasicDataSourceMedia implements IDataSource {
 }
 
 
-@Entry
 @Component
-struct SysMediaPage {
+export struct SysMediaPage {
   @State message: string = 'Hello World';
   private data: BasicDataSourceMedia = new BasicDataSourceMedia()
 

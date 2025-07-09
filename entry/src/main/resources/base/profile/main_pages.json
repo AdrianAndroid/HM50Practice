@@ -112,11 +112,6 @@
     "pages/viewgroup/FlexExamplePage",
     "pages/viewgroup/RelativeContainerPage",
     "pages/viewgroup/GridRowGridColPage",
-    "pages/system/SysColorPage",
-    "pages/system/SysStringPage",
-    "pages/system/SysMediaPage",
-    "pages/system/SysSymbolPage",
-    "pages/system/SysFloatPage",
     "pages/viewgroup/MediaQueryPage",
     "pages/viewgroup/ListExamplePage",
     "pages/viewgroup/GridGridItemPage",
@@ -242,6 +237,7 @@
     "pages/sensor/SensorListPage",
     "pages/ts/TSExamplePage",
     "pages/navigation/NavigationSimplePage",
-    "pages/navigation/NavigationParamsPage"
+    "pages/navigation/NavigationParamsPage",
+    "pages/system/SysResourcePage"
   ]
 }

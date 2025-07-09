@@ -23,6 +23,11 @@ const routerList: RouterItem[] = [
     title: Constants.SwiperExamplePage,
     thumb: $r('sys.symbol.swipe'),
     path: Constants.SwiperExamplePage
+  },
+  {
+    title: Constants.SysResourcePage,
+    thumb: $r('sys.symbol.input_source'),
+    path: Constants.SysResourcePage
   }
 ]
 

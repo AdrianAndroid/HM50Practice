@@ -2778,7 +2778,7 @@ let symbols: BeanSymbol[] = [
   new BeanSymbol('earphone_16661_fill', $r('sys.symbol.earphone_16661_fill')),
   new BeanSymbol('earphone_case_16661', $r('sys.symbol.earphone_case_16661')),
   new BeanSymbol('lock_shield_fill', $r('sys.symbol.lock_shield_fill'))
-]
+].sort((a, b) => a.title.localeCompare(b.title))
 
 class BasicDataSourceSymbol implements IDataSource {
   totalCount(): number {
@@ -2797,9 +2797,8 @@ class BasicDataSourceSymbol implements IDataSource {
 }
 
 
-@Entry
 @Component
-struct SysSymbolPage {
+export struct SysSymbolPage {
   @State message: string = 'Hello World';
   private data: BasicDataSourceSymbol = new BasicDataSourceSymbol()
 

@@ -340,9 +340,8 @@ class BasicDataSource implements IDataSource {
 }
 
 
-@Entry
 @Component
-struct SysStringPage {
+export struct SysStringPage {
   @State message: string = 'Hello World';
   private data: BasicDataSource = new BasicDataSource()
 

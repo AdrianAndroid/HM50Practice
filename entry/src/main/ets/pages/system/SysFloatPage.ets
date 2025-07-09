@@ -1032,9 +1032,8 @@ class BasicDataSourceFloat implements IDataSource {
   }
 }
 
-@Entry
 @Component
-struct SysFloatPage {
+export struct SysFloatPage {
   @State message: string = 'Hello World';
   private data: BasicDataSourceFloat = new BasicDataSourceFloat()
 

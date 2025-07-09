@@ -811,9 +811,8 @@ class BasicDataSourceStr implements IDataSource {
 }
 
 
-@Entry
 @Component
-struct SysColorPage {
+export struct SysColorPage {
   @State message: string = 'Hello World';
   private data: BasicDataSourceStr = new BasicDataSourceStr()
 
