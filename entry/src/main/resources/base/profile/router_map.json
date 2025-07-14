@@ -1,6 +1,11 @@
 {
   "routerMap": [
     {
+      "name": "FastWebExamplePage",
+      "pageSourceFile": "src/main/ets/pages/fastweb/FastWebExamplePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "StateExamplePage",
       "pageSourceFile": "src/main/ets/pages/state/StateExamplePage.ets",
       "buildFunction": "PageBuilder"

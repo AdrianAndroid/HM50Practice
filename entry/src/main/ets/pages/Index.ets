@@ -10,6 +10,11 @@ interface RouterItem {
 
 const routerList: RouterItem[] = [
   {
+    title: Constants.FastWebExamplePage,
+    thumb: $r('sys.symbol.whatsapp'),
+    path: Constants.FastWebExamplePage
+  },
+  {
     title: Constants.DayJsExamplePage,
     thumb: $r('sys.symbol.star_calendar'),
     path: Constants.DayJsExamplePage

@@ -6,7 +6,8 @@
     "@ohos/pulltorefresh": "^2.1.2",
     "@ohmos/json-bigint": "^1.0.0",
     "tyme4oh": "1.3.4",
-    "dayjs": "1.11.13"
+    "dayjs": "1.11.13",
+    "@hw-agconnect/fast-web": "1.0.1"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.19",

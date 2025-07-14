@@ -25,6 +25,7 @@ import { TCConstantsWindowUtility } from '../utils/windowutils/TCConstantsWindow
 import { TCConstantsWindowUtils } from '../utils/windowutils/TCConstantsWindowUtils';
 import { GlobalContext } from '../utils/BDSGlobalContext';
 import { resourceManager } from '@kit.LocalizationKit';
+import { FastWebConfig } from '../pages/fastweb/FastWebExamplePage';
 
 // 业务数据定义
 class Data {
@@ -317,6 +318,7 @@ export default class EntryAbility extends UIAbility {
       // this.initFullWindow2(windowStage)
       // this.initFullWindow3(windowStage)
       this.initFullWindow4(windowStage)
+      FastWebConfig(windowStage)
     });
     // window.createWindow({
     //   name: Constants.LOAD_ENTRY_PAGE,
