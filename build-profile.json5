@@ -90,6 +90,18 @@
     {
       "name": "feature_1",
       "srcPath": "./features/feature_1",
+    },
+    {
+      "name": "feature_2",
+      "srcPath": "./features/feature_2",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }
