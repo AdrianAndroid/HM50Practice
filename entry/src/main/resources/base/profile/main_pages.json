@@ -242,6 +242,7 @@
     "pages/state/RepeatExamplePage",
     "pages/state/StateExamplePage",
     "pages/state/AppStorageV2Page",
-    "pages/state/PersistenceV2Page"
+    "pages/state/PersistenceV2Page",
+    "pages/dayjs/DayJsExamplePage"
   ]
 }

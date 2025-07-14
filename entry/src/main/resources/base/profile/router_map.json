@@ -6,6 +6,11 @@
       "buildFunction": "PageBuilder"
     },
     {
+      "name": "DayJsExamplePage",
+      "pageSourceFile": "src/main/ets/pages/dayjs/DayJsExamplePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "Tyme4ohPage",
       "pageSourceFile": "src/main/ets/pages/tyme4oh/Tyme4ohPage.ets",
       "buildFunction": "PageBuilder"

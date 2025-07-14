@@ -42,6 +42,9 @@ export default class Constants {
   static readonly PATH_state = 'pages/state/'
   static readonly StateExamplePage = 'StateExamplePage'
 
+  static readonly PATH_dayjs = 'pages/dayjs/'
+  static readonly DayJsExamplePage = 'DayJsExamplePage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"
