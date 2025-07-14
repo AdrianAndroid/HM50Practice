@@ -36,6 +36,12 @@ export default class Constants {
   static readonly PATH_system = 'pages/system/'
   static readonly SysResourcePage = 'SysResourcePage'
 
+  static readonly PATH_tyme4oh = 'pages/tyme4oh/'
+  static readonly Tyme4ohPage = 'Tyme4ohPage'
+
+  static readonly PATH_state = 'pages/state/'
+  static readonly StateExamplePage = 'StateExamplePage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"

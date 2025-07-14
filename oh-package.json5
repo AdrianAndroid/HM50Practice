@@ -4,7 +4,8 @@
   "dependencies": {
     "@ohos/lottie": "^2.0.20",
     "@ohos/pulltorefresh": "^2.1.2",
-    "@ohmos/json-bigint": "^1.0.0"
+    "@ohmos/json-bigint": "^1.0.0",
+    "tyme4oh": "1.3.4"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.19",

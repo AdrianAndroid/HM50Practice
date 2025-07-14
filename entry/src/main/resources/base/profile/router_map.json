@@ -1,6 +1,16 @@
 {
   "routerMap": [
     {
+      "name": "StateExamplePage",
+      "pageSourceFile": "src/main/ets/pages/state/StateExamplePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
+      "name": "Tyme4ohPage",
+      "pageSourceFile": "src/main/ets/pages/tyme4oh/Tyme4ohPage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "TabSimplePage",
       "pageSourceFile": "src/main/ets/pages/tab/TabSimplePage.ets",
       "buildFunction": "PageBuilder"
@@ -51,7 +61,7 @@
     },
     {
       "name": "StateV2Page2",
-      "pageSourceFile": "src/main/ets/pages/statev2/StateV2Page2.ets",
+      "pageSourceFile": "src/main/ets/pages/state/StateV2Page2.ets",
       "buildFunction": "Page2Builder",
       "data": {
         "description": "AppStorageV2 example"

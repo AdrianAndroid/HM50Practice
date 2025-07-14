@@ -10,6 +10,11 @@ interface RouterItem {
 
 const routerList: RouterItem[] = [
   {
+    title: Constants.StateExamplePage,
+    thumb: $r('sys.symbol.radiostation_1'),
+    path: Constants.StateExamplePage
+  },
+  {
     title: Constants.NavigationListExamplePage,
     thumb: $r('sys.symbol.navigation'),
     path: Constants.NavigationListExamplePage
@@ -28,6 +33,11 @@ const routerList: RouterItem[] = [
     title: Constants.SysResourcePage,
     thumb: $r('sys.symbol.input_source'),
     path: Constants.SysResourcePage
+  },
+  {
+    title: Constants.Tyme4ohPage,
+    thumb: $r('sys.symbol.calendar'),
+    path: Constants.Tyme4ohPage
   }
 ]
 

@@ -62,10 +62,10 @@
     "pages/normal/SelectContactPage",
     "pages/normal/DownloadNotificationPage",
     "pages/normal/LifecyclePages",
-    "pages/statev1/StateV1Page",
-    "pages/statev1/StateV1Page2",
-    "pages/statev2/StateV2Page",
-    "pages/statev2/StateV2Page2",
+    "pages/state/StateV1Page",
+    "pages/state/StateV1Page2",
+    "pages/state/StateV2Page",
+    "pages/state/StateV2Page2",
     "pages/normal/PageSpecifiedAbility",
     "embeddeduiextability/pages/EmbeddedUIExtAbilityPage",
     "pages/normal/EmbeddedUIPages",
@@ -238,6 +238,10 @@
     "pages/ts/TSExamplePage",
     "pages/navigation/NavigationSimplePage",
     "pages/navigation/NavigationParamsPage",
-    "pages/system/SysResourcePage"
+    "pages/system/SysResourcePage",
+    "pages/state/RepeatExamplePage",
+    "pages/state/StateExamplePage",
+    "pages/state/AppStorageV2Page",
+    "pages/state/PersistenceV2Page"
   ]
 }
