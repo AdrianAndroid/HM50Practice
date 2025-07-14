@@ -86,6 +86,10 @@
     {
       "name": "VideoComponent",
       "srcPath": "./VideoComponent"
+    },
+    {
+      "name": "feature_1",
+      "srcPath": "./features/feature_1",
     }
   ]
 }

@@ -18,15 +18,14 @@ class Sample {
 struct AppStorageV2Page {
   // 在AppStorageV2中创建一个key为Sample的键值对（如果存在，则返回AppStorageV2中的数据），并且和prop关联
   @Local prop: Sample = AppStorageV2.connect(Sample, () => new Sample())!;
+  @Local prop222: Sample = AppStorageV2.connect(Sample, 'Sample2', () => new Sample())!;
+  @Local prop333: Sample = AppStorageV2.connect(Sample)!;
   pageStack: NavPathStack = new NavPathStack();
   @Local allKeys: string = ''
 
   @Builder
   pageMap(name: string, param: Map<string, object>) {
     Page2()
-  }
-
-  test (){
   }
 
   build() {
@@ -79,6 +78,12 @@ struct AppStorageV2Page {
   }
 }
 
+class Test {
+  static getAppStorageV2(): Sample {
+    return AppStorageV2.connect(Sample, 'Sample', () => new Sample())!
+  }
+}
+
 @ComponentV2
 struct Page2 {
   // 在AppStorageV2中创建一个key为Sample的键值对（如果存在，则返回AppStorageV2中的数据），并且和prop关联
@@ -93,7 +98,8 @@ struct Page2 {
           Button('Page2 connect the key Sample1')
             .onClick(() => {
               // 在AppStorageV2中创建一个key为Sample1的键值对（如果存在，则返回AppStorageV2中的数据），并且和prop关联
-              this.prop = AppStorageV2.connect(Sample, 'Sample1', () => new Sample())!;
+              //this.prop = AppStorageV2.connect(Sample, 'Sample1', () => new Sample())!;
+              this.prop = Test.getAppStorageV2()
             })
 
           Text(`Page2 add 1 to prop.p1: ${this.prop.p1}`)
