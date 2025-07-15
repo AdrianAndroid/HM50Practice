@@ -22,6 +22,9 @@ struct StateExamplePage {
         Text('PersistenceV2Page').fontSize(30).borderWidth(2).onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/state/PersistenceV2Page' });
         })
+        Text('ObservedV2Page').fontSize(30).borderWidth(2).onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/state/ObservedV2Page' });
+        })
       }
       .height('100%')
       .width('100%')

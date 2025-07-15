@@ -244,6 +244,7 @@
     "pages/state/AppStorageV2Page",
     "pages/state/PersistenceV2Page",
     "pages/dayjs/DayJsExamplePage",
-    "pages/fastweb/FastWebSample2"
+    "pages/fastweb/FastWebSample2",
+    "pages/state/ObservedV2Page"
   ]
 }
