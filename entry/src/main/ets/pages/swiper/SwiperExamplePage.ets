@@ -1,5 +1,5 @@
 import Constants from '../../common/Constants';
-import { LengthMetrics, LengthUnit } from '@kit.ArkUI';
+import { LengthMetrics, LengthUnit, router } from '@kit.ArkUI';
 
 @Builder
 export function PageBuilder(name: string, param: Object) {
@@ -56,6 +56,7 @@ struct SwiperExamplePage {
           this.buildTitleRadio('4', 4)
           this.buildTitleRadio('5', 5)
           this.buildTitleRadio('6', 6)
+          this.buildTitleRadio('7', 7)
         }
         Stack() {
           if (this.currentIndex === 1) {
@@ -70,6 +71,11 @@ struct SwiperExamplePage {
             this.example5()
           } else if(this.currentIndex === 6) {
             this.example6()
+          } else if(this.currentIndex == 7) {
+            Button('跳转到ShortVideo')
+              .onClick(() => {
+                router.pushUrl({ url: 'pages/swiper/SwiperShortVideoPage' });
+              })
           }
         }
         .width(Constants.FULL_WIDTH)

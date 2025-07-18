@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { BasicDataSource } from './BasicDataSource';
+import { BasicDataSource } from './SwiperShortVideoBasicDataSource';
 const uiContext: UIContext | undefined = AppStorage.get('uiContext');
 // Video data structure.
 export interface VideoData {

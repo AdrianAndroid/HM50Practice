@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import { CommonConstants as Const } from '../common/CommonConstants';
-import { Side } from './Side';
-import { VideoDes } from './Side';
-import { BasicDataSource } from '../model/BasicDataSource';
-import { VideoData } from '../model/DataModel';
+import { CommonConstants as Const } from '../../common/CommonConstants';
+import { Side } from './SwiperShortVideoSide';
+import { VideoDes } from './SwiperShortVideoSide';
+import { BasicDataSource } from './SwiperShortVideoBasicDataSource';
+import { VideoData } from './SwiperShortVideoDataModel';
 import { curves } from '@kit.ArkUI';
 
 let videoIndex: number = 0;

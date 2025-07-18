@@ -14,7 +14,7 @@
  */
 
 import { display } from '@kit.ArkUI';
-import { Side } from './Side';
+import { Side } from '../pages/swiper/SwiperShortVideoSide';
 import { VideoDes } from './VideoDes';
 import { TopView } from './TopView';
 import { TabContentConstants } from '../common/TabContentConstants';

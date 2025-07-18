@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CommonConstants as Const } from '../common/CommonConstants';
+import { CommonConstants as Const } from '../../common/CommonConstants';
 
 @Component
 export struct Side {

@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { TopTabContent } from "../../model/DataModel";
-import { VideoSwiper } from "../../view/VideoSwiper";
+import { TopTabContent } from "./SwiperShortVideoDataModel";
+import { VideoSwiper } from "./SwiperShortVideoVideoSwiper";
 import { CommonConstants as Const } from '../../common/CommonConstants';
 
 @Entry
