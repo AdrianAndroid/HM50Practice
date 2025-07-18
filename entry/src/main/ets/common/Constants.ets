@@ -35,6 +35,7 @@ export default class Constants {
 
   static readonly PATH_system = 'pages/system/'
   static readonly SysResourcePage = 'SysResourcePage'
+  static readonly SystemDateTimePage = 'SystemDateTimePage'
 
   static readonly PATH_tyme4oh = 'pages/tyme4oh/'
   static readonly Tyme4ohPage = 'Tyme4ohPage'

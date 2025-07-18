@@ -46,6 +46,11 @@
       "buildFunction": "PageBuilder"
     },
     {
+      "name": "SystemDateTimePage",
+      "pageSourceFile": "src/main/ets/pages/system/SystemDateTimePage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "pageOne",
       "pageSourceFile": "src/main/ets/pages/navigation/EntryPageOne.ets",
       "buildFunction": "PageOneBuilder",

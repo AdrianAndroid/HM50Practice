@@ -40,6 +40,11 @@ const routerList: RouterItem[] = [
     path: Constants.SwiperExamplePage
   },
   {
+    title: Constants.SystemDateTimePage,
+    thumb: $r('sys.symbol.time_lapse'),
+    path: Constants.SystemDateTimePage
+  },
+  {
     title: Constants.SysResourcePage,
     thumb: $r('sys.symbol.input_source'),
     path: Constants.SysResourcePage
