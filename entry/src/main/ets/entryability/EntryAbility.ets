@@ -64,6 +64,8 @@ let systemLanguage: string | undefined; // 系统当前语言
 let windowStage_: window.WindowStage | null = null;
 let sub_windowClass: window.Window | null = null;
 
+const  isLayoutFullScreen = false
+
 export default class EntryAbility extends UIAbility {
   para: Record<string, number> = { 'PropA': 47 }
   storage: LocalStorage = new LocalStorage(this.para)
@@ -89,12 +91,6 @@ export default class EntryAbility extends UIAbility {
       data.launchWant = want;
     });
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
-    // this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
-
-    // 获取UIAbilityContext
-    let context = this.context
-    // 获取ApplicationContext（应用级别的Context
-    let applicationContext = this.context.getApplicationContext()
 
     preferenceUtilsObject.getFontPreferences(this.context);
     ConnectionUtils.openRegister();
@@ -111,7 +107,6 @@ export default class EntryAbility extends UIAbility {
 
     uiObserver.on('navDestinationSwitch', this.context, (info: uiObserver.NavDestinationSwitchInfo) => {
       console.log(JSON.stringify(info));
-      // promptAction.showToast({message: JSON.stringify(info)})
     })
 
     systemLanguage = this.context.config.language; // UIAbility实例首次加载时，获取系统当前语言
@@ -120,40 +115,33 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
     hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+  }
 
-    // let windowClass: window.Window | undefined = undefined;
-    // window.getLastWindow(this.context, (err: BusinessError, data) => {
-    //   if (err.code) {
-    //     hilog.error(0x0000, 'testTag', 'Failed to obtain top window. Cause:' + JSON.stringify(err));
-    //     return;
-    //   }
-    //   windowClass = data;
-    //   // Top status bar height for window content avoidance.
-    //   let statusHeight = 0;
-    //   // Height of the bottom security zone that is avoided by the window content.
-    //   let bottomHeight = 0;
-    //   // Gets the region that the window content avoids.
-    //   let type = window.AvoidAreaType.TYPE_SYSTEM;
-    //   try {
-    //     let avoidArea: window.AvoidArea = windowClass.getWindowAvoidArea(type);
-    //     statusHeight = avoidArea.topRect.height;
-    //     bottomHeight = avoidArea.bottomRect.height
-    //   } catch (exception) {
-    //     hilog.error(0x0000, 'testTag', 'Failed to obtain the area. Cause:' + JSON.stringify(exception));
-    //   }
-    //   AppStorage.setOrCreate('statusHeight', statusHeight);
-    //   AppStorage.setOrCreate('bottomHeight', bottomHeight);
-    //   let screenHeight: number = 0;
-    //   let displayClass: display.Display | null = null;
-    //   try {
-    //     displayClass = display.getDefaultDisplaySync();
-    //     screenHeight = displayClass.height;
-    //   } catch (exception) {
-    //     hilog.error(0x0000, 'testTag', 'Failed to obtain the default display object. Code: ' + JSON.stringify(exception));
-    //   }
-    //   hilog.info(0x0000, 'testTag', 'Succeeded to obtain the default display object. Code: ' + JSON.stringify(displayClass));
-    //   AppStorage.setOrCreate('screenHeight', screenHeight);
-    // });
+  registerWindowStageEvent(windowStage: window.WindowStage) {
+    // 设置WindowStage的事件订阅（获焦/失焦、切到前台/切到后台、前台可交互/前台不可交互）
+    try {
+      windowStage.on('windowStageEvent', (data) => {
+        let stageEventType: window.WindowStageEventType = data;
+        switch (stageEventType) {
+          case window.WindowStageEventType.SHOWN: // 切到前台
+            break;
+          case window.WindowStageEventType.ACTIVE: // 获焦点状态
+            break;
+          case window.WindowStageEventType.INACTIVE: // 失焦状态
+            break;
+          case window.WindowStageEventType.HIDDEN: // 切到后台
+            break;
+          case window.WindowStageEventType.RESUMED: // 前台可交互状态
+            break;
+          case window.WindowStageEventType.PAUSED: // 前台不可交互状态
+            break;
+          default:
+            break;
+        }
+      })
+    } catch (exception) {
+      hilog.error(DOMAIN_NUMBER, 'testTag', `Failed to enable the listener for window stage event changes. Cause: ${JSON.stringify(exception)}`);
+    }
   }
 
   registerLifecycle() {
@@ -259,24 +247,6 @@ export default class EntryAbility extends UIAbility {
     return AbilityConstant.OnContinueResult.AGREE;
   }
 
-  // switchArea() {
-    // // 存储普通信息前，切换到EL1设备级加密
-    // this.context.area = contextConstant.AreaMode.EL1; // 切换area
-    // // 存储普通信息
-    // // 存储敏感信息前，切换到EL2用户级加密
-    // this.context.area = contextConstant.AreaMode.EL2; // 切换area
-    // // 存储敏感信息
-    // // 存储敏感信息前，切换到EL3用户级加密
-    // this.context.area = contextConstant.AreaMode.EL3; // 切换area
-    // // 存储敏感信息
-    // // 存储敏感信息前，切换到EL4用户级加密
-    // this.context.area = contextConstant.AreaMode.EL4; // 切换area
-    // // 存储敏感信息
-    // // 存储敏感信息前，切换到EL5应用级加密
-    // this.context.area = contextConstant.AreaMode.EL5; // 切换area
-    // // 存储敏感信息
-  // }
-
   onDestroy(): void | Promise<void> {
     this.context.eventHub.off(Constants.EVENT_HUB_1)
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
@@ -288,6 +258,7 @@ export default class EntryAbility extends UIAbility {
     hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
     RDBStoreUtil.createObjectiveRDB(this.context);
+    this.registerWindowStageEvent(windowStage)
 
     this.initDragInfo(windowStage)
     this.initTCWindowUtil(windowStage)
@@ -344,7 +315,7 @@ export default class EntryAbility extends UIAbility {
           this.updateBreakpoint(windowSize.width);
         });
 
-        windowObj.setWindowLayoutFullScreen(true).then(() => {
+        windowObj.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
           hilog.info(0x0000, TAG, `%{public}s`, `Succeeded in setting the window layout to full-screen mode`);
         }).catch((err: BusinessError) => {
           hilog.error(0x0000, TAG, `Failed to set the window layout to full-screen mode. Cause:`, err.message);
@@ -585,29 +556,12 @@ export default class EntryAbility extends UIAbility {
   // }
 
   private initFullWindow4(windowStage: window.WindowStage) {
-    // windowStage.getMainWindow().then((data: window.Window) => {
-    //   // Window immersive.
-    //   data.setWindowLayoutFullScreen(true);
-    // })
     windowStage.getMainWindowSync().setWindowBackgroundColor('#DCDCDC');
-  }
-  private initFullWindow3(windowStage: window.WindowStage) {
-    // windowStage.getMainWindow().then((data: window.Window) => {
-    //   // Window immersive.
-    //   data.setWindowLayoutFullScreen(true);
-    // })
-    // 设置全窗颜色和应用元素颜色一致
-    // windowStage.getMainWindowSync().setWindowBackgroundColor('#008000');
   }
 
   private initFullWindow2(windowStage: window.WindowStage) {
-    // windowStage.getMainWindow().then((data: window.Window) => {
-    //   // Window immersive.
-    //   data.setWindowLayoutFullScreen(true);
-    // })
     let windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
     // 1. 设置窗口全屏
-    let isLayoutFullScreen = true
     windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
       console.info('Succeeded in setting the window layout to full-screen mode.');
     }).catch((err: BusinessError) => {
@@ -636,13 +590,8 @@ export default class EntryAbility extends UIAbility {
   }
 
   private initFullWindow1(windowStage: window.WindowStage) {
-    // windowStage.getMainWindow().then((data: window.Window) => {
-    //   // Window immersive.
-    //   data.setWindowLayoutFullScreen(true);
-    // })
     let windowClass: window.Window = windowStage.getMainWindowSync(); // 获取应用主窗口
     // 1. 设置窗口全屏
-    let isLayoutFullScreen = true
     windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
       console.info('Succeeded in setting the window layout to full-screen mode.');
     }).catch((err: BusinessError) => {

@@ -46,6 +46,13 @@ export class HttpUtils {
     this.httpRequest = http.createHttp();
   }
 
+  async testGetHttp() {
+    let httpRequest = http.createHttp();
+    await this.httpRequest.request(IMAGE_URL, { method: http.RequestMethod.GET }).then((data: http.HttpResponse) => {
+    });
+    httpRequest.destroy();
+  }
+
   /**
    * The method of initiating a GET request through HTTP.
    */

@@ -10,6 +10,21 @@ interface RouterItem {
 
 const routerList: RouterItem[] = [
   {
+    title: Constants.WebMainPage,
+    thumb: $r('sys.symbol.private_browsing_mode'),
+    path: Constants.WebMainPage
+  },
+  {
+    title: Constants.DialogMainPage,
+    thumb: $r('sys.symbol.dial'),
+    path: Constants.DialogMainPage
+  },
+  {
+    title: Constants.AnimateMainPage,
+    thumb: $r('sys.symbol.shock_load_rate_fill'),
+    path: Constants.AnimateMainPage
+  },
+  {
     title: Constants.FastWebExamplePage,
     thumb: $r('sys.symbol.whatsapp'),
     path: Constants.FastWebExamplePage

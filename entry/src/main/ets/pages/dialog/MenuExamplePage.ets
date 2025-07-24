@@ -50,6 +50,21 @@ struct MenuExamplePage {
     }
   }
 
+  @Builder
+  arrowMenu2() {
+    Menu() {
+      // 菜单项
+      MenuItem({ content: "选项1" })
+      // 自定义箭头（向上三角形）
+      // Polygon()
+      // Polygon()
+      //   .width(20)
+      //   .height(10)
+      //   .points([[0, 0], [10, 10], [20, 0]])
+      //   .fill(Color.Green)
+    }
+  }
+
   build() {
     Column() {
       Button('创建默认样式的菜单')
@@ -62,11 +77,24 @@ struct MenuExamplePage {
               console.info('handle Menu1 select')
             }
           }
-        ])
+        ],
+          {placement: Placement.Top})
+      Button('创建默认样式的菜单22')
+        .id('MenuExamplePageHelloWorld')
+        .fontWeight(FontWeight.Bold)
+        .bindMenu([
+          {
+            value: 'Menu1',
+            action: () => {
+              console.info('handle Menu1 select')
+            }
+          }
+        ],
+          {placement: Placement.Top})
       Button('创建自定义样式的菜单')
         .id('MenuExamplePageHelloWorld')
         .fontWeight(FontWeight.Bold)
-        .bindMenu(this.MyMenu())
+        .bindMenu(this.MyMenu(), {placement: Placement.Top})
       Button('创建支持右键或长按的菜单')
         .id('MenuExamplePageHelloWorld')
         .fontWeight(FontWeight.Bold)

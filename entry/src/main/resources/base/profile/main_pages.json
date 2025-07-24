@@ -245,6 +245,16 @@
     "pages/state/PersistenceV2Page",
     "pages/dayjs/DayJsExamplePage",
     "pages/fastweb/FastWebSample2",
-    "pages/state/ObservedV2Page"
+    "pages/state/ObservedV2Page",
+    "pages/animate/AnimateToExample",
+    "pages/animate/AttrAnimationExample",
+    "pages/dialog/PopupExample",
+    "pages/web/Web111Page",
+    "pages/web/Web222Page",
+    "pages/web/Web333Page",
+    "pages/web/Web444Page",
+    "pages/web/Web555Page",
+    "pages/web/Web666Page",
+    "pages/web/Web777Page"
   ]
 }

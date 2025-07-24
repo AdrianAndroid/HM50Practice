@@ -49,6 +49,15 @@ export default class Constants {
   static readonly PATH_fastweb = 'pages/fastweb/'
   static readonly FastWebExamplePage = 'FastWebExamplePage'
 
+  static readonly PATH_animate = 'pages/animate/'
+  static readonly AnimateMainPage = 'AnimateMainPage'
+
+  static readonly PATH_dialog = 'pages/dialog/'
+  static readonly DialogMainPage = 'DialogMainPage'
+
+  static readonly PATH_web = 'pages/web/'
+  static readonly WebMainPage = 'WebMainPage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"
