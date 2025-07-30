@@ -1,8 +1,9 @@
-import { taskpool } from '@kit.ArkTS';
+import { taskpool, util } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 
 @Concurrent
 async function test1(arg: TestA) {
+  console.log('objA => ' + arg.id);
   console.info("TestA name is: " + arg);
 }
 
@@ -25,6 +26,7 @@ struct ComNormalPage {
           // 1. 创建Test实例objA
           let objA = new TestA("TestA");
           // 2. 创建任务task，将objA传递给该任务，objA非sendable对象，通过序列化传递给子线程
+          console.log('objA => ' + objA);
           let task = new taskpool.Task(test1, objA);
           // 3. 执行任务
           taskpool.execute(task).then(() => {
@@ -40,8 +42,10 @@ struct ComNormalPage {
 }
 
 class TestA {
+  id: string = util.generateRandomUUID()
   constructor(name: string) {
     this.name = name;
+    console.log('TestA constructor')
   }
 
   name: string = 'ClassA';

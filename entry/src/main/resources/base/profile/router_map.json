@@ -1,6 +1,11 @@
 {
   "routerMap": [
     {
+      "name": "ArkTSMainPage",
+      "pageSourceFile": "src/main/ets/pages/arkts/ArkTSMainPage.ets",
+      "buildFunction": "PageBuilder"
+    },
+    {
       "name": "WebMainPage",
       "pageSourceFile": "src/main/ets/pages/web/WebMainPage.ets",
       "buildFunction": "PageBuilder"

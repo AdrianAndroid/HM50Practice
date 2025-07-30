@@ -255,6 +255,14 @@
     "pages/web/Web444Page",
     "pages/web/Web555Page",
     "pages/web/Web666Page",
-    "pages/web/Web777Page"
+    "pages/web/Web777Page",
+    "pages/arkts/XMLPage",
+    "pages/arkts/ContainerPage",
+    "pages/arkts/JSONPage",
+    "pages/arkts/RecordPage",
+    "pages/arkts/ShareModelAndActorPage",
+    "pages/arkts/EventBusPage",
+    "pages/arkts/sendable/SendableWaitForPage",
+    "pages/arkts/CJDBUtilPage"
   ]
 }

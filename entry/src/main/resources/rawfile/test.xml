@@ -1,0 +1,17 @@
+<!-- 声明 -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 处理指令 -->
+<?xml-stylesheet type="text/css" href="style.css"?>
+<!-- 元素、属性及属性值 -->
+<note importance="high">
+    <title>Happy</title>
+    <!-- 实体引用 -->
+    <todo>&amp;</todo>
+    <!-- 命名空间的声明及统一资源标识符 -->
+    <h:table xmlns:h="http://www.w3.org/TR/html4/">
+        <h:tr>
+            <h:td>Apples</h:td>
+            <h:td>Bananas</h:td>
+        </h:tr>
+    </h:table>
+</note>

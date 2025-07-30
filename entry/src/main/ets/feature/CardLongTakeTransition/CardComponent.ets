@@ -19,7 +19,7 @@ import { CardAttr } from '../../utils/commonutils/TCWaterFlowDataSource';
 export struct CardComponent {
   @ObjectLink cardAttr: CardAttr;
   @Prop indexValue: string = '';
-  private onColumnClicked?: (index: string) => void = (_index: string) => {
+  onColumnClicked?: (index: string) => void = (_index: string) => {
   };
 
   build() {

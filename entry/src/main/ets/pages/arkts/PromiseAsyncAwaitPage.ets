@@ -1,5 +1,8 @@
 import { BusinessError } from '@kit.BasicServicesKit';
 
+/**
+ * https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/async-concurrency-overview
+ */
 @Entry
 @Component
 struct PromiseAsyncAwaitPage {
@@ -21,6 +24,25 @@ struct PromiseAsyncAwaitPage {
     }).catch((err: BusinessError) => {
       console.error(err.message)
     })
+
+    // 使用 then 方法定义成功和失败的回调
+    promise.then((result: number) => {
+      console.info(`The number for success is ${result}`); // 成功时执行
+    }, (error: BusinessError) => {
+      console.error(error.message); // 失败时执行
+    }
+    );
+
+    // 使用 then 方法定义成功的回调，catch 方法定义失败的回调
+    promise.then((result: number) => {
+      console.info(`Random number is ${result}`); // 成功时执行
+    }).catch((error: BusinessError) => {
+      console.error(error.message); // 失败时执行
+    });
+
+    promise.catch((error: BusinessError) => {
+      console.error('--> '+error.message); // 失败时执行
+    })
   }
 
   async testAsyncAwait(): Promise<string> {
@@ -39,22 +61,12 @@ struct PromiseAsyncAwaitPage {
   }
 
   build() {
-    Column() {
-      Blank().height(100)
-      Text(this.message)
-        .id('PromisAsyncAwaitPageHelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+    Column({space: 20}) {
+      Button('testPromise')
+        .onClick(async () => {
+          this.testPromise();
         })
-        .onClick(() => {
-          this.testPromise()
-        })
-      Text(this.message)
-        .fontSize(50)
-        .fontWeight(FontWeight.Bold)
+      Button('testAsyncAwait')
         .onClick(async () => {
           let res = await this.testAsyncAwait();
           console.info("res is: " + res);

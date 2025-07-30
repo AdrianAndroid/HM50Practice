@@ -58,6 +58,9 @@ export default class Constants {
   static readonly PATH_web = 'pages/web/'
   static readonly WebMainPage = 'WebMainPage'
 
+  static readonly PATH_arkts = 'pages/arkts/'
+  static readonly ArkTSMainPage = 'ArkTSMainPage'
+
   static readonly PAGES_SECOND = "pages/Second"
   static readonly PAGES_PageStartup = "pages/PageStartup"
   static readonly PAGES_OpenLinkPage = "pages/OpenLinkPage"

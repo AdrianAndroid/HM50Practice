@@ -10,6 +10,11 @@ interface RouterItem {
 
 const routerList: RouterItem[] = [
   {
+    title: Constants.ArkTSMainPage,
+    thumb: $r('sys.symbol.xmark_video'),
+    path: Constants.ArkTSMainPage
+  },
+  {
     title: Constants.WebMainPage,
     thumb: $r('sys.symbol.private_browsing_mode'),
     path: Constants.WebMainPage
@@ -71,6 +76,7 @@ const routerList: RouterItem[] = [
   }
 ]
 
+@Preview
 @Entry
 @Component
 struct Index {
@@ -228,5 +234,9 @@ struct Index {
     .backgroundColor(Color.White)
     .borderRadius(24)
     .height(72)
+  }
+
+  aboutToReuse(params: Record<string, object>): void {
+
   }
 }
