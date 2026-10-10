@@ -1,14 +1,16 @@
 import { convertxml, util, xml } from '@kit.ArkTS';
 
 @Entry
-@Component
+@ComponentV2
 struct XMLPage {
+  @Local test: null | undefined
   build() {
     Column({space: 20}) {
       Button('生成XML')
         .onClick(() => {
           this.createXML();
         })
+
 
       Button('解析XML标签和标签值')
         .onClick(() => {

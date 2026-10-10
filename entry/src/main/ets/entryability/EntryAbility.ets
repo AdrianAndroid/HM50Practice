@@ -294,7 +294,8 @@ export default class EntryAbility extends UIAbility {
     this.initFullWindow1(windowStage)
 
     GlobalContext.getContext().setObject('windowStage', windowStage);
-    windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
+    // windowStage.loadContent(Constants.LOAD_ENTRY_PAGE, this.storage, (err, data) => {
+    windowStage.loadContent('pages/EnhancedGestureInterception', this.storage, (err, data) => {
       // windowStage.getMainWindowSync().getUIContext().getKeyboardAvoidMode();
       // windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);
       windowStage.getMainWindowSync().getUIContext().setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE);

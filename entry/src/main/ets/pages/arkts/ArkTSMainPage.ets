@@ -1,5 +1,6 @@
 import { router } from '@kit.ArkUI'
 import { FULL_PERCENT } from '../../model/ConstantsData';
+import map from '@hms.core.map.map';
 
 function addTen(x: number) : number {
   let ten = 10;
@@ -9,6 +10,11 @@ function addTen(x: number) : number {
 @Builder
 function PageBuilder() {
   ArkTSMainPage()
+}
+
+function test() {
+  const set = new Set<number>();
+  Object.values(set)
 }
 
 @ComponentV2
@@ -30,10 +36,14 @@ struct ArkTSMainPage {
           Button('EventBusPage').onClick(() => { router.pushUrl({ url: 'pages/arkts/EventBusPage' }); })
           Button('SendableClassPage').onClick(() => { router.pushUrl({ url: 'pages/arkts/sendable/SendableClassPage' }); })
           Button('ASONPage').onClick(() => { router.pushUrl({ url: 'pages/arkts/sendable/ASONPage' }); })
+          Button('Test111Page.ets').onClick(() => { router.pushUrl({ url: 'pages/arkts/Test111Page' }); })
         }
       }
       .width(FULL_PERCENT)
       .height(FULL_PERCENT)
     }
+    .onReady((info) => {
+      info.pathStack.getParamByName('name')
+    })
   }
 }

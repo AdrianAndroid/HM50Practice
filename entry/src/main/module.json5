@@ -114,7 +114,7 @@
     ],
     "requestPermissions": [
       {
-        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING"
       },
       {
         "name": "ohos.permission.VIBRATE",

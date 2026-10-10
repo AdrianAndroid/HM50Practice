@@ -25,6 +25,7 @@ const COLUMN_SPACE: number = 12;
 @Component
 export struct PageOne {
   pageInfos: NavPathStack = new NavPathStack();
+  test: boolean = false
 
   build() {
     NavDestination() {
@@ -36,20 +37,25 @@ export struct PageOne {
             //Clear all pages in the stack.
             this.pageInfos.clear();
           })
-        Button($r('app.string.entry_pageTwo'), { stateEffect: true, type: ButtonType.Capsule })
-          .width($r('app.string.button_width'))
-          .height($r('app.string.button_height'))
-          .onClick(() => {
-            //Push the NavDestination page information specified by name onto the stack, and pass the data as param.
-            this.pageInfos.pushPathByName('pageTwo', null);
-          })
-        Button($r('app.string.harA_pageOne'), { stateEffect: true, type: ButtonType.Capsule })
-          .width($r('app.string.button_width'))
-          .height($r('app.string.button_height'))
-          .onClick(() => {
-            //Push the NavDestination page information specified by name onto the stack, and pass the data as param.
-            this.pageInfos.pushPathByName('HarAPageOne', null);
-          })
+        if (this.test) {
+
+        }
+        if (this.test) {
+          Button($r('app.string.entry_pageTwo'), { stateEffect: true, type: ButtonType.Capsule })
+            .width($r('app.string.button_width'))
+            .height($r('app.string.button_height'))
+            .onClick(() => {
+              //Push the NavDestination page information specified by name onto the stack, and pass the data as param.
+              this.pageInfos.pushPathByName('pageTwo', null);
+            })
+          Button($r('app.string.harA_pageOne'), { stateEffect: true, type: ButtonType.Capsule })
+            .width($r('app.string.button_width'))
+            .height($r('app.string.button_height'))
+            .onClick(() => {
+              //Push the NavDestination page information specified by name onto the stack, and pass the data as param.
+              this.pageInfos.pushPathByName('HarAPageOne', null);
+            })
+        }
         Button($r('app.string.harA_pageTwo'), { stateEffect: true, type: ButtonType.Capsule })
           .width($r('app.string.button_width'))
           .height($r('app.string.button_height'))

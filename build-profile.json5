@@ -5,13 +5,13 @@
         "name": "appkey",
         "type": "HarmonyOS",
         "material": {
-          "storeFile": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/a.p12",
-          "storePassword": "0000001F905F693572F83C1D7414287563824CE3655D49825BD27F90B3141459F0482F513AE73FDA19F39BCDCB1857",
-          "keyAlias": "a",
-          "keyPassword": "0000001F50194D195DFF25A3B75CB38F3E75741EAF5C84EEF56FACB7D3AFB03D4E1941DA711B47F5D986F0DBA02A93",
+          "certpath": "/Users/zhaojian/.ohos/config/appkey_HM5.0Practice_Ev4znyZgmWCVNUvJw6PN6Bgbp-BtNbAm0o8B-BtSivg=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A97837918246498E66E8AC79EB9A17DD7066CC21B00DFF75C4D79631E930C188D49027C8510F9",
+          "profile": "/Users/zhaojian/.ohos/config/appkey_HM5.0Practice_Ev4znyZgmWCVNUvJw6PN6Bgbp-BtNbAm0o8B-BtSivg=.p7b",
           "signAlg": "SHA256withECDSA",
-          "profile": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/aDebug.p7b",
-          "certpath": "/Users/zhaojian/code/DevEcoStudioProjects/certificate/a.cer"
+          "storeFile": "/Users/zhaojian/.ohos/config/appkey_HM5.0Practice_Ev4znyZgmWCVNUvJw6PN6Bgbp-BtNbAm0o8B-BtSivg=.p12",
+          "storePassword": "0000001A0F7471DAD139FFADE547BFDB9B07A51F171DBD35BCE6A019647BBD7AD968B65F3EDF58DFBA26"
         }
       }
     ],

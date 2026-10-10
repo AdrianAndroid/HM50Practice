@@ -263,6 +263,8 @@
     "pages/arkts/ShareModelAndActorPage",
     "pages/arkts/EventBusPage",
     "pages/arkts/sendable/SendableWaitForPage",
-    "pages/arkts/CJDBUtilPage"
+    "pages/arkts/CJDBUtilPage",
+    "pages/arkts/Test111Page",
+    "pages/EnhancedGestureInterception"
   ]
 }
